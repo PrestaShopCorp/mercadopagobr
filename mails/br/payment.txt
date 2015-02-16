@@ -1,0 +1,13 @@
+Olá {firstname} {lastname},
+
+Muito obrigado por ter comprado na {shop_name}!
+
+O seu pagamento do seu pedido {order_name} foi processado com sucesso.
+
+Você pode revisar o seu pedido e fazer o download de sua fatura na seção "Histórico de Pedidos" de sua conta clicando em "Minha conta" pelo nosso shop.
+
+Se você possui conta de convidado, você pode seguir sua ordem através do link: {guest_tracking_url}
+
+{shop_name} - {shop_url}
+
+{shop_url} powered by PrestaShop&trade;

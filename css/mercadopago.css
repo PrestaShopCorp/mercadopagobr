@@ -1,0 +1,538 @@
+/**
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL).
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+*
+* @category     Payment Gateway
+* @package      MercadoPago
+* @author       Ricardo Brito (ricardo.brito@mercadopago.com.br)
+* @copyright    Copyright (c) MercadoPago [http://www.mercadopago.com]
+* @license      http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
+strong {
+	color: #333333;
+	font: 600 18px/22px "Open Sans", sans-serif;
+}
+input {
+	padding-left: 5px;
+	padding-top: 2px;
+}
+@media all and (min-width: 600px) {
+	.mp-form {
+		border: 1px solid #d6d4d4;
+		border-radius: 4px;
+		padding: 10px;
+		width: 570px;
+		background: white;
+		margin-bottom: 20px;
+	}
+
+	.col label {
+		width: 180px;
+		text-align: right;
+		font: 600 12px/16px "Open Sans", sans-serif;
+	}
+
+	#form-pagar-mp {
+		margin-left: 30px;
+	}
+
+	.ch-btn-big, .ch-btn-big:focus {
+		float: right;
+		margin-right: 162px;
+	}
+
+	.col-bottom {
+		width: 100%;
+		margin-right: 5px;
+		margin-top: 20px;
+		margin-left: 4px;
+		margin-bottom: -10px;
+	}
+
+	.title {
+		width: 47%;
+		margin-bottom: 20px;
+	}
+
+	.mp-creditcard-banner {
+		width: 280px;
+		margin-left: -30px;
+	}
+
+	.payment-label {
+		font: bolder 20px/24px "Open Sans", sans-serif;
+		color: #333333;
+		margin-left: 28px;
+	}
+
+	.col {
+		margin-left: 15px;
+	}
+
+	.logo {
+		width: 80px;
+		height: 20px;
+	}
+
+	.poweredby {
+		margin-left: 30px;
+		color: black;
+		font: 600 10px/14px "Open Sans", sans-serif;
+	}
+
+	.small-select {
+		width: 88px;
+		height: 30px;
+		background: white;
+		font: 600 12px/16px "Open Sans", sans-serif;
+	}
+
+	#id-card-number {
+		width: 190px;
+	}
+
+	#id-card-holder-name {
+		width: 190px;
+	}
+
+	#id-installments {
+		width: 190px;
+		height: 30px;
+		background: white;
+		font: 600 12px/16px "Open Sans", sans-serif;
+	}
+
+	#id-doc-number {
+		width: 120px;
+	}
+
+	.boleto {
+		background: url(/prestashop/modules/mercadopago/img/boleto.png) 60% no-repeat;
+		background-size: 137px 61px;
+		height: 61px;
+	}
+
+	.boleto::after {
+		display: block;
+		content: "\f054";
+		position: relative;
+		font-family: "FontAwesome";
+		font-size: 25px;
+		color: black;
+		bottom: 50%;
+		left: 545px;
+	}
+
+	.standard {
+		font: 600 13px/15px "Open Sans", sans-serif;
+		margin-left: 174px;
+		display: block;
+	}
+
+	.standard::after {
+		display: block;
+		content: "\f054";
+		position: relative;
+		font-family: "FontAwesome";
+		font-size: 25px;
+		color: black;
+		left: 356px;
+		top: -35px;
+	}
+
+	.mp-standard-banner {
+		width: 320px;
+		display: inline;
+		margin-top: 10px;
+		margin-left: 15px;
+		margin-bottom: 10px;
+	}
+
+	#id-standard-logo {
+		margin-left: 30px;
+	}
+
+}
+
+@media all and (max-width: 599px) {
+	.mp-form {
+		border: 1px solid #d6d4d4;
+		border-radius: 4px;
+		padding: 10px;
+		min-width: 300px;
+		background: white;
+		margin-bottom: 20px;
+	}
+
+	.col label {
+		min-width: 105px;
+		text-align: right;
+		font: 600 10px/14px "Open Sans", sans-serif;
+	}
+
+	.ch-btn-big, .ch-btn-big:focus {
+		font-size: 14px !important;
+		min-width: 125px;
+		text-align: right;
+		padding: 6px 17px !important;
+	}
+
+	.col-bottom {
+		margin-right: 5px;
+		margin-top: 20px;
+		margin-left: 71px;
+		margin-bottom: -10px;
+		float: left;
+	}
+
+	.title {
+		margin-bottom: 20px;
+	}
+
+	.mp-creditcard-banner {
+		width: 150px;
+		margin-left: -10px;
+	}
+
+	.payment-label {
+		float: center;
+		font: bolder 14px/18px "Open Sans", sans-serif;
+		color: #333333;
+	}
+
+	.col {
+		margin-left: 10px;
+	}
+
+	.logo {
+		width: 50px;
+		height: 14px;
+	}
+
+	.poweredby {
+		color: black;
+		font: 600 7px/11px "Open Sans", sans-serif;
+		margin-left: 1px;
+	}
+
+	#id-card-number {
+		width: 120px;
+		padding-right: 35px;
+	}
+
+	.small-select {
+		width: 55px;
+		height: 30px;
+		background: white;
+		font: 600 8px/12px "Open Sans", sans-serif;
+	}
+
+	#id-card-holder-name {
+		width: 120px;
+	}
+
+	#id-installments {
+		width: 120px;
+		height: 30px;
+		background: white;
+		font: 600 12px/16px "Open Sans", sans-serif;
+	}
+
+	#id-doc-number {
+		width: 90px;
+	}
+
+	.status {
+		font-size: 7px !important;
+	}
+
+	.boleto {
+		background: url(/prestashop/modules/mercadopago/img/boleto.png) 60% no-repeat;
+		background-size: 109px 51px;
+		height: 51px;
+	}
+
+	.standard {
+		margin-top: 10px;
+		margin-left: 4px;
+		font: 600 11px/13px "Open Sans", sans-serif;
+		display: block;
+	}
+
+	.mp-standard-banner {
+		width: 203px;
+		display: inline;
+	}
+
+	#id-standard-logo {
+		width: 70px;
+	}
+}
+
+.mp-boleto-banner {
+	height: 60px;
+	width: 270px;
+	margin-top: -10px;
+	margin-left: 110px;
+}
+
+.mp-form p {
+	color: black;
+	font-size: 15px;	
+	font-weight: normal;
+}
+
+.mp-form h4 {
+	font-weight: bold;
+	font-size: 22px;
+	color: #333333;
+	margin-bottom: 25px;
+	margin-top: 3px;
+	margin-left: 28px;
+}
+
+.mp-button {
+	width: 200px;
+	margin-left: 15px;
+}
+
+.description {
+	font-size: 14px;
+	color: black;
+	display: block;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+
+.footer-logo {
+	background: url(/prestashop/modules/mercadopago/img/payment_method_logo.png) no-repeat;
+	height: 40px;
+	display: block;
+	margin-top: 20px;
+}
+
+.cvv {
+	width: 45px;
+	height: 25px;
+}
+
+.col {
+	float: left;
+	margin-top: 10px;
+}
+.col input {
+	height: 30px;
+}
+
+.left {
+	width: 28%;
+}
+
+.mp-form-input {
+	width: ;
+}
+
+.banner-column {
+	width: 47%;
+}
+
+.hover:hover {
+	background: 60% no-repeat whitesmoke;
+}
+
+.50 {
+	width: 48%;
+}
+
+.mid {
+	width: 22%;
+}
+
+.right {
+	width: 22%;
+}
+
+.col-11 {
+	width: 15.5%;
+}
+
+#id-security-code {
+	width: 50px;
+}
+
+.status {
+	color: rgb(215, 5, 5);
+	font-style: italic;
+	font-weight: bold;
+	font-size: 10px;
+	display: inline;
+}
+
+.error {
+	outline: rgb(215, 5, 5) solid thin;
+}
+
+.boxshadow-error {
+	box-shadow: 0px 0px 0px 1px rgb(215, 5, 5);
+}
+
+.ch-btn, .ch-btn:focus, .ch-btn:visited {
+		font-family: 'Lato', sans-serif;
+		font-weight: 400;
+		background-color: #36A1F1;
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #36A1F1), color-stop(100%, #0F79C9));
+		background-image: -webkit-linear-gradient(#36A1F1, #0F79C9);
+		background-image: -moz-linear-gradient(#36A1F1, #0F79C9);
+		background-image: -o-linear-gradient(#36A1F1, #0F79C9);
+		background-image: linear-gradient(#36A1F1, #0F79C9);
+		-webkit-box-shadow: inset 0 1px #97DCFF;
+		box-shadow: 0 1px #97DCFF inset;
+		color: #FFF!important;
+		border: 0px solid #0D6FB9;
+		border-radius: 4px 4px 4px 4px;
+		cursor: pointer;
+		display: inline-block;
+}
+.ch-btn:hover {
+		background-color: #4CBFF8;
+		background-image: linear-gradient(#4CBFF8, #1699DF);
+		box-shadow: 0 1px #B6EBFF inset;
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4CBFF8), color-stop(100%, #1699DF));
+		background-image: -webkit-linear-gradient(#4CBFF8, #1699DF);
+		background-image: -moz-linear-gradient(#4CBFF8, #1699DF);
+		background-image: -o-linear-gradient(#4CBFF8, #1699DF);
+		background-image: linear-gradient(#4CBFF8, #1699DF);
+		-webkit-box-shadow: inset 0 1px #B6EBFF;
+		border: 0px solid #1890D3;
+		color: #FFF;
+		text-decoration: none;
+		outline: 0
+}
+.ch-btn:active {
+		background-color: #1473CD;
+		background-image: linear-gradient(#1473CD, #0B66BC);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1473CD), color-stop(100%, #0B66BC));
+		background-image: -webkit-linear-gradient(#1473CD, #0B66BC);
+		background-image: -moz-linear-gradient(#1473CD, #0B66BC);
+		background-image: -o-linear-gradient(#1473CD, #0B66BC);
+		background-image: linear-gradient(#1473CD, #0B66BC);
+		-webkit-box-shadow: inset 0 1px #0B5BA6;
+		box-shadow: 0 1px #0B5BA6 inset;
+		border: 0px solid #0B5BA6;
+		color: #FFF;
+		text-decoration: none;
+		outline: 0
+}
+.ch-btn-big, .ch-btn-big:focus {
+	font-size: 17px;
+	text-align: center;
+	line-height: 1.25em;
+	padding: 6px 14px;
+	outline: 0;
+	float: right;
+	margin-right: 162px;
+	margin-bottom: 5px;
+}
+.ch-btn-skin, .ch-btn-skin:focus, .ch-btn-skin:visited {
+		background-color: #DAF1FC;
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #DAF1FC), color-stop(100%, #C2E2F3));
+		background-image: -webkit-linear-gradient(#DAF1FC, #C2E2F3);
+		background-image: -moz-linear-gradient(#DAF1FC, #C2E2F3);
+		background-image: -o-linear-gradient(#DAF1FC, #C2E2F3);
+		background-image: linear-gradient(#DAF1FC, #C2E2F3);
+		border: 0px solid #79B0D9;
+		-webkit-box-shadow: inset 0 1px #EFF7FD;
+		box-shadow: inset 0 1px #EFF7FD;
+		color: #295D8F;
+		text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+		outline: 0
+}
+.ch-btn-skin:hover {
+		background-color: #EAF7FE;
+		background-image: -webkit-linear-gradient(#EAF7FE, #D9EDF8);
+		background-image: -moz-linear-gradient(#EAF7FE, #D9EDF8);
+		background-image: -o-linear-gradient(#EAF7FE, #D9EDF8);
+		background-image: linear-gradient(#EAF7FE, #D9EDF8);
+		-webkit-box-shadow: inset 0 1px #F7FAFE;
+		box-shadow: inset 0 1px #F7FAFE;
+		outline: 0
+}
+.ch-btn-skin:active {
+		background-color: #A9DBF7;
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #A9DBF7), color-stop(100%, #A3D0EE));
+		background-image: -webkit-linear-gradient(#A9DBF7, #A3D0EE);
+		background-image: -moz-linear-gradient(#A9DBF7, #A3D0EE);
+		background-image: -o-linear-gradient(#A9DBF7, #A3D0EE);
+		background-image: linear-gradient(#A9DBF7, #A3D0EE);
+		-webkit-box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+		box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+		border-color: #79A8C7;
+		outline: 0
+}
+
+.lightbox {
+	display: none;
+	position: fixed;
+	z-index: 9999;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	color:#333333;
+	margin-top: -2px;
+	}
+
+.lightbox:target {
+		display: block;
+		outline: none;
+}
+
+.lightbox .box {
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	box-shadow: 0px 1px 26px -6px #777777;
+	background: rgba(189, 189, 189, 0.8);
+	border-radius: 4px;
+}
+
+
+.lightbox .content {
+	display: block;
+	font-size: 18px;
+	line-height: 22px;
+	width: 300px;
+	height: 300px;
+	background: white url(/prestashop/modules/mercadopago/img/spinner.gif) 50% 50% no-repeat;
+	background-size: 36px 36px;
+	position: fixed;
+	top: calc(50% - 150px);
+	left: calc(50% - 150px);
+	border-radius: 10px;
+}
+
+.lightbox .processing {
+	color: black;
+	height: 40px;
+	padding-top: 8px;
+	position: relative;
+	top: 60%;
+	left: calc(50% - 40px);
+}
+
+.lightbox .logo {
+	height: 23px;
+	width: 90px;
+	position: relative;
+	top: -550%;
+	left: 3%;
+}
+
+.processing {
+	font: 600 14px/18px "Open Sans", sans-serif;
+	font-weight: 100;
+}
