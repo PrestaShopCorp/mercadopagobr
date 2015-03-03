@@ -1,12 +1,29 @@
 <?php
-
 /**
- * MercadoPago Integration Library
- * Access MercadoPago for payments integration
- * 
- * @author hcasatti
- *
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author    hcasatti
+*  @copyright Copyright (c) MercadoPago [http://www.mercadopago.com]
+*  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of MercadoPago
+*/
+
 $GLOBALS['LIB_LOCATION'] = dirname(__FILE__);
 
 class MP {
@@ -65,6 +82,20 @@ class MP {
 	}
 
 	/**
+	 * Get information for specific payment
+	 * @param int $id
+	 * @return array(json)
+	 */
+	public function getMerchantOrder($id)
+	{
+		$access_token = $this->getAccessToken();
+
+		$uri_prefix = $this->sandbox ? '/sandbox' : '';
+		$merchant_order = MPRestClient::get($uri_prefix.'/merchant_orders/'.$id.'?access_token='.$access_token);
+		return $merchant_order;
+	}
+
+	/**
 	 * Create a checkout preference
 	 * @param array $preference
 	 * @return array(json)
@@ -117,9 +148,7 @@ class MPRestClient {
 	{
 		$connect = curl_init(self::API_BASE_URL.$uri);
 
-		curl_setopt($connect, CURLOPT_USERAGENT, 'MercadoPago PHP SDK v'.MP::VERSION);
-		curl_setopt($connect, CURLOPT_CAINFO, $GLOBALS['LIB_LOCATION'].'/cacert.pem');
-		curl_setopt($connect, CURLOPT_SSLVERSION, 3);
+		curl_setopt($connect, CURLOPT_USERAGENT, 'MercadoPago Prestashop v3.0.0');
 		curl_setopt($connect, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($connect, CURLOPT_CUSTOMREQUEST, $method);
 		curl_setopt($connect, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: '.$content_type));
@@ -160,9 +189,6 @@ class MPRestClient {
 			'status' => $api_http_code,
 			'response' => Tools::jsonDecode($api_result, true)
 		);
-
-		// if ($response['status'] >= 400)
-		// 	throw new Exception ($response['response']['message'], $response['status']);
 
 		curl_close($connect);
 

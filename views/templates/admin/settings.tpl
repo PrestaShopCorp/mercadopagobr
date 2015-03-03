@@ -1,36 +1,71 @@
 {**
-
+* 2007-2015 PrestaShop
+*
 * NOTICE OF LICENSE
 *
-* This source file is subject to the Open Software License (OSL).
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
 * It is also available through the world-wide-web at this URL:
 * http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
 *
-* @category   	Payment Gateway
-* @package    	MercadoPago
-* @author      	Ricardo Brito (ricardo.brito@mercadopago.com.br)
-* @copyright  	Copyright (c) MercadoPago [http://www.mercadopago.com]
-* @license    	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author    ricardobrito
+*  @copyright Copyright (c) MercadoPago [http://www.mercadopago.com]
+*  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of MercadoPago
 *}
-<link rel="stylesheet" type="text/css" href="/prestashop/modules/mercadopago/css/settings.css">
-{if $success eq 'true'}
-<div class="bootstrap">
-	<div class="alert alert-success">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		{l s='Configurações atualizadas com sucesso.' mod='mercadopago'}
-	</div>
-</div>
-{elseif $errors|@count > 0}
-	{foreach from=$errors item=error}
+
+<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/settings.css">
+{if $version eq 6}
+	{if $success eq 'true'}
 	<div class="bootstrap">
-		<div class="alert alert-danger">
+		<div class="alert alert-success">
 			<button type="button" class="close" data-dismiss="alert">×</button>
-			{$error|escape:'htmlall'}
+			{l s='Configurações atualizadas com sucesso.' mod='mercadopago'}
 		</div>
 	</div>
-	{/foreach}
+	{elseif $errors|@count > 0}
+		{foreach from=$errors item=error}
+		<div class="bootstrap">
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				{l s='As configurações não foram atualizadas com sucesso.' mod='mercadopago'}
+			</div>
+		</div>
+		<div class="bootstrap">
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				{$error|escape:'htmlall'}
+			</div>
+		</div>
+		{/foreach}
+	{/if}
+{elseif $version eq 5}
+	{if $success eq 'true'}
+		<div class="conf">
+			{l s='Configurações atualizadas com sucesso.' mod='mercadopago'}
+		</div>
+	</div>
+	{elseif $errors|@count > 0}
+		<div class="error">
+			{l s='As configurações não foram atualizadas com sucesso.' mod='mercadopago'}
+		</div>
+		{foreach from=$errors item=error}
+		<div class="error">
+			{$error|escape:'htmlall'}	
+		</div>
+		{/foreach}
+	{/if}
 {/if}
-<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/img/payment_method_logo_large.png" style="
+<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_large.png" style="
     margin-top: 30px;">
 <form action="{$uri|escape:'htmlall'}" method="post">
 	<fieldset style="margin-top: 40px;">
@@ -38,17 +73,17 @@
 			<img src="../img/admin/contact.gif" />{l s='Configurações - Geral' mod='mercadopago'}
 		</legend>
 		<label>{l s='Client Id:' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<input type="text" size="33" name="mercadopago_CLIENT_ID" value="{$client_id|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Client Secret:' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<input type="text" size="33" name="mercadopago_CLIENT_SECRET" value="{$client_secret|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Categoria:' mod='mercadopago'}</label>
-			<div class="margin-form"> 
+			<div class=""> 
 				<select name="mercadopago_CATEGORY" id="category" style="width: 215px;color: black;background: white;">
 					 <option value="art" id="type-checkout-Collectibles &amp; Art">Collectibles &amp; Art</option>
 					 <option value="baby" id="type-checkout-Toys for Baby, Stroller, Stroller Accessories, Car Safety Seats">Toys for Baby, Stroller, Stroller Accessories, Car Safety Seats</option>
@@ -81,7 +116,7 @@
 			<img src="../img/admin/contact.gif" />{l s='Configurações - Cartão de Crédito Transparente' mod='mercadopago'}
 		</legend>
 		<label>{l s='Ativado: ' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<select name="mercadopago_CREDITCARD_ACTIVE" id="creditcard_active" style="width: 215px;color: black;background: white;">
 				<option value="true"> {l s='Sim' mod='mercadopago'}</option>
 				<option value="false"> {l s='Não' mod='mercadopago'} </option>
@@ -89,12 +124,12 @@
 		</div>
 		<br />
 		<label>{l s='Public Key:' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<input type="text" size="33" name="mercadopago_PUBLIC_KEY" value="{$public_key|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Banner:' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<input type="text" size="33" name="mercadopago_CREDITCARD_BANNER" value="{$creditcard_banner|escape:'htmlall'}" />
 		</div>
 		<br />
@@ -104,7 +139,7 @@
 			<img src="../img/admin/contact.gif" />{l s='Configurações - Boleto Transparente' mod='mercadopago'}
 		</legend>
 		<label>{l s='Ativado: ' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<select name="mercadopago_BOLETO_ACTIVE" id="boleto_active"style="width: 215px;color: black;background: white;">
 				<option value="true"> {l s='Sim' mod='mercadopago'} </option>
 				<option value="false"> {l s='Não' mod='mercadopago'} </option>
@@ -116,7 +151,7 @@
 			<img src="../img/admin/contact.gif" />{l s='Configurações - MercadoPago Standard' mod='mercadopago'}
 		</legend>
 		<label>{l s='Ativado: ' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<select name="mercadopago_STANDARD_ACTIVE" id="standard_active" style="width: 215px;color: black;background: white;">
 				<option value="true"> {l s='Sim' mod='mercadopago'} </option>
 				<option value="false"> {l s='Não' mod='mercadopago'} </option>
@@ -124,12 +159,12 @@
 		</div>
 		<br />
 		<label>{l s='Banner:' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<input type="text" size="33" name="mercadopago_STANDARD_BANNER" value="{$standard_banner|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Tipo de checkout:' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<select name="mercadopago_WINDOW_TYPE" id="window_type" style="width: 215px;color: black;background: white;">
 				<option value="iframe"> {l s='iFrame' mod='mercadopago'} </option>
 				<option value="modal"> {l s='Lightbox' mod='mercadopago'} </option>
@@ -137,23 +172,44 @@
 			</select>
 		</div>
 		<br />
+		<label>{l s='Excluir os meios de pagamento:' mod='mercadopago'}</label>
+		<div class="payment-methods">
+			<br />
+			<br />
+			<input type="checkbox" name="mercadopago_VISA" id="visa" value="{$visa|escape:'htmlall'}"> Visa</input>
+			<br />
+			<input type="checkbox" name="mercadopago_MASTERCARD" id="mastercard" value="{$mastercard|escape:'htmlall'}"> Mastercard</input>
+			<br />
+			<input type="checkbox" name="mercadopago_HIPERCARD" id="hipercard" value="{$hipercard|escape:'htmlall'}"> Hipercard</input>
+			<br />
+			<input type="checkbox" name="mercadopago_AMEX" id="amex" value="{$amex|escape:'htmlall'}"> American Express</input>
+			<br />
+			<input type="checkbox" name="mercadopago_DINERS" id="diners" value="{$diners|escape:'htmlall'}"> Diners</input>
+			<br />
+			<input type="checkbox" name="mercadopago_ELO" id="elo" value="{$elo|escape:'htmlall'}"> Elo</input>
+			<br />
+			<input type="checkbox" name="mercadopago_MELI" id="meli" value="{$meli|escape:'htmlall'}"> Cartão MercadoLivre</input>
+			<br />
+			<input type="checkbox" name="mercadopago_BOLBRADESCO" id="bolbradesco" value="{$bolbradesco|escape:'htmlall'}"> Boleto</input>
+		</div>
+		<br />
 		<label>{l s='Largura do checkout iFrame:' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<input type="text" size="33" name="mercadopago_IFRAME_WIDTH" value="{$iframe_width|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Altura do checkout iFrame:' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<input type="text" size="33" name="mercadopago_IFRAME_HEIGHT" value="{$iframe_height|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Número máximo de parcelas: ' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<div class="">
 			<input type="text" size="33" name="mercadopago_INSTALLMENTS" value="{$installments|escape:'htmlall'}" />
 		</div>
 		<br />
-		<label>{l s='Auto Redirect: ' mod='mercadopago'}</label>
-		<div class="margin-form">
+		<label>{l s='Auto Return: ' mod='mercadopago'}</label>
+		<div class="">
 			<select name="mercadopago_AUTO_RETURN" id="auto_return" style="width: 215px;color: black;background: white;">
 				<option value="approved"> {l s='Sim' mod='mercadopago'} </option>
 				<option value="false"> {l s='Não' mod='mercadopago'} </option>
@@ -172,5 +228,21 @@
 		document.getElementById("standard_active").value = "{$standard_active|escape:'htmlall'}";
 		document.getElementById("window_type").value = "{$window_type|escape:'htmlall'}";
 		document.getElementById("auto_return").value = "{$auto_return|escape:'htmlall'}";
+		document.getElementById("visa").checked = "{$visa|escape:'htmlall'}";
+		document.getElementById("mastercard").checked = "{$mastercard|escape:'htmlall'}";
+		document.getElementById("hipercard").checked = "{$hipercard|escape:'htmlall'}";
+		document.getElementById("amex").checked = "{$amex|escape:'htmlall'}";
+		document.getElementById("meli").checked = "{$meli|escape:'htmlall'}";
+		document.getElementById("bolbradesco").checked = "{$bolbradesco|escape:'htmlall'}";
+		document.getElementById("diners").checked = "{$diners|escape:'htmlall'}";
+		document.getElementById("elo").checked = "{$elo|escape:'htmlall'}";
 	}
+
+	$("input[type='checkbox']").click(function (e) {
+		if ($("#" + e.target.id).attr("checked") !== undefined) {
+			$("#" + e.target.id).val("checked");
+		} else {
+			$("#" + e.target.id).val("")
+		}
+	});
 </script>

@@ -23,23 +23,14 @@
 *  International Registered Trademark & Property of MercadoPago
 *}
 
-<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/mercadopago_v6.css">
-<h4 id="id-confirmation-boleto">
-	<strong>
-		{l s='Obrigado pela sua compra! Estamos aguardando o pagamento do boleto.' mod='mercadopago'}
-		</br>
-		</br>
-	</strong>
-	<h5>
-		{l s='Numero de pagamento (MercadoPago): ' mod='mercadopago'}
-		{$payment_id|escape:'htmlall'}</br>
-	</h5>
-	</br>
-	{if $boleto_url != null}
-		<iframe src="{$boleto_url}" style="width: 600px; height: 845px"/>
-		</br>
-	{/if}
-	<span style="background: url({$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png) no-repeat;" class="footer-logo"></span>
-</h4>
-
+{if $creditcard_active == 'true' && $public_key != ''}
+	<script type="text/javascript">
+		if (window.Checkout === undefined) {
+			$.getScript("https://secure.mlstatic.com/org-img/checkout/custom/1.0/checkout.js")
+				.done(function( script, textStatus ) {
+					Checkout.setPublishableKey("{$public_key|escape:'htmlall'}");
+				});
+		}
+	</script>
+{/if}
 

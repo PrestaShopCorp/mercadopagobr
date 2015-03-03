@@ -1,19 +1,29 @@
 {**
+* 2007-2015 PrestaShop
 *
 * NOTICE OF LICENSE
 *
-* This source file is subject to the Open Software License (OSL).
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
 * It is also available through the world-wide-web at this URL:
 * http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
 *
-* @category   	Payment Gateway
-* @package    	MercadoPago
-* @author      	Ricardo Brito (ricardo.brito@mercadopago.com.br)
-* @copyright  	Copyright (c) MercadoPago [http://www.mercadopago.com]
-* @license    	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author    ricardobrito
+*  @copyright Copyright (c) MercadoPago [http://www.mercadopago.com]
+*  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of MercadoPago
 *}
 
-<link rel="stylesheet" type="text/css" href="/prestashop/modules/mercadopago/css/mercadopago.css">
+<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/mercadopago_v6.css">
 <h4>
 	<strong>
 		{if $status_detail eq 'accredited'}
@@ -28,12 +38,16 @@
 		**** **** **** {$four_digits|escape:'htmlall'}</br>
 		{l s='Método de Pagamento: ' mod='mercadopago'}
 		{$payment_method_id|escape:'htmlall'}</br>
-		{l s='Data de Expiração: ' mod='mercadopago'}
-		{$expiration_date|escape:'htmlall'}</br>
-		{l s='Valor: R$' mod='mercadopago'}
+		{if $expiration_date != null}
+			{l s='Data de Expiração: ' mod='mercadopago'}
+			{$expiration_date|escape:'htmlall'}</br>
+		{/if}
+		{l s='Valor: ' mod='mercadopago'}
 		{$amount|escape:'htmlall'}</br>
-		{l s='Parcelas: ' mod='mercadopago'}
-		{$installments|escape:'htmlall'}</br>
+		{if $installments != null}
+			{l s='Parcelas: ' mod='mercadopago'}
+			{$installments|escape:'htmlall'}</br>
+		{/if}
 		{l s='Identificação na Fatura: ' mod='mercadopago'}
 		{$statement_descriptor|escape:'htmlall'}</br>
 		{l s='Numero de pagamento (MercadoPago): ' mod='mercadopago'}
@@ -45,7 +59,7 @@
 	{elseif $status_detail eq 'pending_contingency'}
 		{l s='O seu pagamento está pendente. Estamos processando o pagamento. Em menos de 1 hora, nós enviaremos o resultado por e-mail.' mod='mercadopago'}
 	{elseif $payment_status eq 'rejected'}
-		{l s='O seu pagamento foi rejeitado.' mod='mercadopago'}</br></br>
+		{l s='O seu pagamento foi rejeitado.' mod='mercadopago'}</br>
 		{if $status_detail eq 'cc_rejected_bad_filled_card_number'}
 			{l s='Verifique o número do cartão.' mod='mercadopago'}
 		
@@ -95,7 +109,13 @@
 			{$payment_method_id|escape:'htmlall'}
 			{l s=' não processou o pagamento.' mod='mercadopago'}
 		{/if}
+	{elseif $payment_id eq null && $payment_type eq null}
+		{l s='O pagamento no valor de ' mod='mercadopago'}
+		{$amount|escape:'htmlall'}
+		{l s='não foi finalizado.' mod='mercadopago'}
+	{elseif status_detail eq 'expired'}
+		{l s='O pagamento foi expirado.' mod='mercadopago'}
 	{/if}
 </h4>
 </br>
-<span class="footer-logo"></span>
+<span style="background: url({$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png) no-repeat;" class="footer-logo"></span>

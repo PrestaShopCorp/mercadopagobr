@@ -1,24 +1,39 @@
 {**
+* 2007-2015 PrestaShop
 *
 * NOTICE OF LICENSE
 *
-* This source file is subject to the Open Software License (OSL).
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
 * It is also available through the world-wide-web at this URL:
 * http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
 *
-* @category   	Payment Gateway
-* @package    	MercadoPago
-* @author      	Ricardo Brito (ricardo.brito@mercadopago.com.br)
-* @copyright  	Copyright (c) MercadoPago [http://www.mercadopago.com]
-* @license    	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author    ricardobrito
+*  @copyright Copyright (c) MercadoPago [http://www.mercadopago.com]
+*  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of MercadoPago
 *}
 
-<link rel="stylesheet" type="text/css" href="/prestashop/modules/mercadopago/css/mercadopago.css">
+<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/mercadopago_v6.css">
+<div class="lightbox" id="text">
+  <div class="box">
+    <div class="content" style="background: white url({$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/spinner.gif) 50% 50% no-repeat;">
+    	<div class="processing">
+	  		<span>{l s='Processando...' mod='mercadopago'}</span>
+	  	</div>
+  	</div>
+  </div>
+</div>
 {if $creditcard_active == 'true' && $public_key != ''}
-<script type="text/javascript" src="https://secure.mlstatic.com/org-img/checkout/custom/1.0/checkout.js"></script>
-<script type="text/javascript">
-	Checkout.setPublishableKey("{$public_key|escape:'htmlall'}");
-</script>
 <div class="row">
 	<div class="col-xs-12 col-md-6">
 			<div class="mp-form"> 
@@ -27,7 +42,7 @@
 						<span class="payment-label"> {l s='CARTÃO DE CRÉDITO' mod='mercadopago'} </span>
 						</br>
 						<span class="poweredby"> Powered by </span>
-						<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/img/payment_method_logo.png">
+						<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png">
 					</div>
 					{if !empty($creditcard_banner)}
 					<div class="col title">
@@ -35,7 +50,7 @@
 					</div>
 					{/if}
 				</div>
-				<form action="{$this_path_ssl|escape:'htmlall'}index.php?fc=module&module=mercadopago&controller=payment" method="post" id="form-pagar-mp">
+				<form action="{$this_path_ssl|escape:'htmlall'}index.php?fc=module&module=mercadopago&controller=custompayment" method="post" id="form-pagar-mp">
 				    <div class="row">
 				    	<div class="col">
 					    	<label for="id-card-number">{l s='Número do cartão: ' mod='mercadopago'}</label>
@@ -46,20 +61,7 @@
 				   	 <div class="row">
 					   	<div class="col">
 					    	<label for="id-card-expiration-month">{l s='Validade: ' mod='mercadopago'}</label>
-					    	<select id="id-card-expiration-month" class="small-select" data-checkout="cardExpirationMonth" type="text" name="cardExpirationMonth">
-					    		<option value="01"> {l s='Janeiro' mod='mercadopago'}</option>
-					    		<option value="02"> {l s='Fevereiro' mod='mercadopago'}</option>
-								<option value="03"> {l s='Março' mod='mercadopago'}</option>
-								<option value="04"> {l s='Abril' mod='mercadopago'}</option>
-								<option value="05"> {l s='Maio' mod='mercadopago'}</option>
-								<option value="06"> {l s='Junho' mod='mercadopago'}</option>
-								<option value="07"> {l s='Julho' mod='mercadopago'}</option>
-								<option value="08"> {l s='Agosto' mod='mercadopago'}</option>
-								<option value="09"> {l s='Setembro' mod='mercadopago'}</option>
-								<option value="10"> {l s='Outubro' mod='mercadopago'}</option>
-								<option value="11"> {l s='Novembro' mod='mercadopago'}</option>
-								<option value="12"> {l s='Dezembro' mod='mercadopago'}</option>
-					    	</select>
+					    	<select id="id-card-expiration-month" class="small-select" data-checkout="cardExpirationMonth" type="text" name="cardExpirationMonth"></select>
 					    </div>
 					    <div class="col">
 					    	<select id="id-card-expiration-year" class="small-select"  data-checkout="cardExpirationYear" type="text" name="cardExpirationYear"></select>
@@ -77,7 +79,7 @@
 				    	<div class="col">
 					    	<label for="id-security-code">{l s='Código de segurança: ' mod='mercadopago'}</label>
 					    	<input id="id-security-code" data-checkout="securityCode" type="text" maxlength="4"//>
-					    	<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/img/cvv.png" class="cvv"/>
+					    	<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/cvv.png" class="cvv"/>
 					    	<div id="id-security-code-status" class="status"></div>
 					    </div> 
 			    	</div>
@@ -98,19 +100,10 @@
 				    <input id="amount" type="hidden" value="{$amount|escape:'htmlall'}"/>
 				    <div class="row">
 			    		<div class="col-bottom">
-					    	<input type="submit" value="{l s='Confirmar pagamento' mod='mercadopago'}" class="ch-btn ch-btn-big" />
+					    	<input type="submit" value="{l s=' Confirmar pagamento' mod='mercadopago'}" class="ch-btn ch-btn-big" />
 				    	</div>
 				    </div>
 				</form>
-				<div class="lightbox" id="text">
-				  <div class="box">
-				    <div class="content">
-				    	<div class="processing">
-					  		<span>{l s='Processando...' mod='mercadopago'}</span>
-					  	</div>
-				  	</div>
-				  </div>
-				</div>
 			</div>
 		</p>
 	</div>
@@ -127,13 +120,13 @@
 	<div class="col-xs-12 col-md-6">
 			<a href="javascript:void(0);" id="id-boleto">
 				<div class="mp-form hover"> 
-					<div class="row boleto">
+					<div class="row boleto" style="background: url(/prestashop/modules/mercadopago/views/img/boleto.png) 60% no-repeat;">
 						<div class="col">
 							<span class="payment-label"> {l s='BOLETO' mod='mercadopago'} </span></br>
 							<span class="poweredby"> Powered by </span>
-							<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/img/payment_method_logo.png">
+							<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png">
 						</div>
-						<form action="{$this_path_ssl|escape:'htmlall'}index.php?fc=module&module=mercadopago&controller=payment" method="post" id="form-boleto-mp" style="margin-left: 30px;">
+						<form action="{$this_path_ssl|escape:'htmlall'}index.php?fc=module&module=mercadopago&controller=custompayment" method="post" id="form-boleto-mp" style="margin-left: 30px;">
 					    	<input name="payment_method_id" type="hidden" value="bolbradesco"/>
 					    	<input type="submit" style="display:none;" id="id-create-boleto">
 						</form>	
@@ -146,23 +139,17 @@
 {if $standard_active eq 'true'}
 <div class="row">
 	<div class="col-xs-12 col-md-6">
-		{if $window_type eq 'iframe'}
-			<div class="mp-form" style="width: {math equation="$iframe_width + 20"}px; height: {math equation="$iframe_height + 20"}px;"> 
-			<iframe src="{$preferences_url|escape:'htmlall'}" name="MP-Checkout" width="{$iframe_width|escape:'htmlall'}" height="{$iframe_height|escape:'htmlall'}" frameborder="0"/>
-			</div>
-		{else}
-			<a href="{$preferences_url|escape:'htmlall'}" id="id-standard" name="MP-Checkout" mp-mode="{$window_type|escape:'htmlall'}">
+			<a href="{$this_path_ssl|escape:'htmlall'}index.php?fc=module&module=mercadopago&controller=standardcheckout" id="id-standard">
 			<div class="mp-form hover"> 
 				<div class="row">
 					<div class="col">
-					<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/img/payment_method_logo_120_31.png" id="id-standard-logo">
+					<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_120_31.png" id="id-standard-logo">
 					<img src="{$standard_banner|escape:'htmlall'}" title="MercadoPago - Meios de pagamento" class="mp-standard-banner"/>
 					<span class="payment-label standard"> {l s='Pague via MercadoPago e parcele em até 24 vezes' mod='mercadopago'} </span>
 					</div>
 				</div>
 			</div>
 			</a>
-		{/if}
 	</div>
 </div>
 {/if}
@@ -216,8 +203,6 @@
 	$("#form-pagar-mp").submit(function( event ) {
     	var $form = $(this);
     	var cpf = $("#id-doc-number").val();
-    	
-    	clearErrorStatus();
 
     	if (validateCpf(cpf)) {
     		Checkout.createToken($form, mpResponseHandler);
@@ -230,8 +215,9 @@
 	});
 
 	var mpResponseHandler = function(status, response) {
-		var $form = $('#form-pagar-mp');
+		clearErrorStatus();
 
+		var $form = $('#form-pagar-mp');
 		if (response.error) {
 			$.each(response.cause, function (p, e){
 				switch (e.code) {
@@ -274,8 +260,8 @@
 
 		$("#id-card-number").removeClass("error");
 		$("#id-security-code").removeClass("error");
-		$("#id-card-expiration-month").removeClass("error");
-		$("#id-card-expiration-year").removeClass("error");
+		$("#id-card-expiration-month").removeClass("boxshadow-error");
+		$("#id-card-expiration-year").removeClass("boxshadow-error");
 		$("#id-card-holder-name").removeClass("error");
 		$("#id-doc-number").removeClass("error");
 	}
@@ -323,34 +309,45 @@
             html_options += "<option value='" + (currentYear + i).toString().substr(2,2) + "'>" + (currentYear + i) + "</option>";
         };
         $("#id-card-expiration-year").html(html_options);
-  	};
+  	}
+
+  	function setExpirationMonth() {
+  		var html_options = "";
+        var currentMonth = new Date().getMonth();
+        var months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+        for (i = 0; i < 12; i++) {
+        	if(currentMonth == i)
+            	html_options += "<option value='" + (i + 1) + "' selected>" + months[i] + "</option>";
+            else
+            	html_options += "<option value='" + (i + 1) + "'>" + months[i] + "</option>";
+        };
+
+        $("#id-card-expiration-month").html(html_options);
+  	}
 
   	setExpirationYear();
+  	setExpirationMonth();
 
   	$("#id-boleto").click(function (e) {
   		$('#id-create-boleto', this).click();
   	});
 
   	$("#id-create-boleto").click(function (e) {
+  		$(".lightbox").show();
   		e.stopImmediatePropagation();
   	});
 
+  	$("#id-standard").click(function (e) {
+  		$(".lightbox").show();
+  	});
+ 
   	function createModal() {
   		$("body").append($(".lightbox"));
   	}
  	
  	createModal();
 
-  	(function() {
-  		function $MPBR_load() {
-  			window.$MPBR_loaded !== true && (function() {
-  			var s = document.createElement("script");
-  			s.type = "text/javascript";s.async = true;
-    		s.src = ("https:"==document.location.protocol?"https://www.mercadopago.com/org-img/jsapi/mptools/buttons/":"http://mp-tools.mlstatic.com/buttons/")+"render.js";
-   			 var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPBR_loaded = true;
-   			})();
-   		}
-
-    	window.$MPBR_loaded !== true ? (window.attachEvent ? window.attachEvent('onload', $MPBR_load) : window.addEventListener('load', $MPBR_load, false)) : null;
-    })();
+ 	// need to set 0 so modal checkout can work
+	$("#header").css("z-index", 0);
 </script>
