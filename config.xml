@@ -3,8 +3,7 @@
             <name>mercadopago</name>
             <displayName><![CDATA[MercadoPago]]></displayName>
             <version><![CDATA[3.0.0]]></version>
-            <description><![CDATA[Receba pagamentos via MercadoPago de cart&otilde;es de cr&eacute;ditos 
-										e boletos utlizando nosso checkout transparente ou standard.]]></description>
+            <description><![CDATA[Receba pagamentos via MercadoPago de cart&otilde;es de cr&eacute;ditos e boletos utlizando nosso checkout transparente ou standard.]]></description>
             <author><![CDATA[MERCADOPAGO.COM REPRESENTA&Ccedil;&Otilde;ES LTDA.]]></author>
             <tab><![CDATA[payments_gateways]]></tab>
 	<confirmUninstall>Você tem certeza que deseja desinstalar MercadoPago?</confirmUninstall>

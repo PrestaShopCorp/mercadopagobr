@@ -23,25 +23,23 @@
 *  International Registered Trademark & Property of MercadoPago
 *}
 
-<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/mercadopago_v6.css">
-<h4 id="id-confirmation-standard">
-	
+<h4 id="id-confirmation-standard">	
 	{if $window_type eq 'iframe'}
 		<iframe src="{$preferences_url|escape:'htmlall'}" name="MP-Checkout" width="{$iframe_width|escape:'htmlall'}" height="{$iframe_height|escape:'htmlall'}" frameborder="0"/>
 	{else}
 		<strong>
-			{l s='Valor da compra: ' mod='mercadopago'}
+			{l s='Amount to pay: ' mod='mercadopago'}
 			{$amount|escape:'htmlall'}
 		</strong>
 		</br>
 		</br>
-		<a href="{$preferences_url|escape:'htmlall'}" class="ch-btn ch-btn-big" id="id-standard" name="MP-Checkout" mp-mode="{$window_type|escape:'htmlall'}" style="float: left;">{l s='Finalizar o pagamento' mod='mercadopago'}	
+		<a href="{$preferences_url|escape:'htmlall'}" class="ch-btn ch-btn-big" id="id-standard" name="MP-Checkout" mp-mode="{$window_type|escape:'htmlall'}">{l s='Finish payment' mod='mercadopago'}	
 		</a>
 	{/if}
 	</br>
 	</br>
 	</br>
-	<span style="background: url({$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png) no-repeat;" class="footer-logo"></span>
+	<span class="footer-logo"></span>
 </h4>
 <script type="text/javascript">
   	(function() {

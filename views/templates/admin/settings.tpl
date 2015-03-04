@@ -23,13 +23,12 @@
 *  International Registered Trademark & Property of MercadoPago
 *}
 
-<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/settings.css">
 {if $version eq 6}
 	{if $success eq 'true'}
 	<div class="bootstrap">
 		<div class="alert alert-success">
 			<button type="button" class="close" data-dismiss="alert">×</button>
-			{l s='Configurações atualizadas com sucesso.' mod='mercadopago'}
+			{l s='Settings changed successfully.' mod='mercadopago'}
 		</div>
 	</div>
 	{elseif $errors|@count > 0}
@@ -37,7 +36,7 @@
 		<div class="bootstrap">
 			<div class="alert alert-danger">
 				<button type="button" class="close" data-dismiss="alert">×</button>
-				{l s='As configurações não foram atualizadas com sucesso.' mod='mercadopago'}
+				{l s='Settings failed to change.' mod='mercadopago'}
 			</div>
 		</div>
 		<div class="bootstrap">
@@ -51,12 +50,12 @@
 {elseif $version eq 5}
 	{if $success eq 'true'}
 		<div class="conf">
-			{l s='Configurações atualizadas com sucesso.' mod='mercadopago'}
+			{l s='Settings changed successfully.' mod='mercadopago'}
 		</div>
 	</div>
 	{elseif $errors|@count > 0}
 		<div class="error">
-			{l s='As configurações não foram atualizadas com sucesso.' mod='mercadopago'}
+			{l s='Settings failed to change.' mod='mercadopago'}
 		</div>
 		{foreach from=$errors item=error}
 		<div class="error">
@@ -65,159 +64,166 @@
 		{/foreach}
 	{/if}
 {/if}
-<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_large.png" style="
-    margin-top: 30px;">
+<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_large.png">
+</br>
+</br>
+</br>
+<h3> {l s='Notes:' mod='mercadopago'}</h3>
+<h4> {l s='- To obtain your Client Id and Client Secret please access: ' mod='mercadopago'}
+	<a href="https://www.mercadopago.com/mlb/ferramentas/aplicacoes"><u>https://www.mercadopago.com/mlb/ferramentas/aplicacoes</u></a>
+</h4>
+<h4> {l s='- To obtain your public key please send an email to developers@mercadopago.com.br with subject "Prestashop Public key" informing your Client Id' mod='mercadopago'}</h4>
 <form action="{$uri|escape:'htmlall'}" method="post">
-	<fieldset style="margin-top: 40px;">
+	<fieldset>
 		<legend>
-			<img src="../img/admin/contact.gif" />{l s='Configurações - Geral' mod='mercadopago'}
+			<img src="../img/admin/contact.gif" />{l s='Settings - General' mod='mercadopago'}
 		</legend>
 		<label>{l s='Client Id:' mod='mercadopago'}</label>
 		<div class="">
-			<input type="text" size="33" name="mercadopago_CLIENT_ID" value="{$client_id|escape:'htmlall'}" />
+			<input type="text" size="33" name="MERCADOPAGO_CLIENT_ID" value="{$client_id|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Client Secret:' mod='mercadopago'}</label>
 		<div class="">
-			<input type="text" size="33" name="mercadopago_CLIENT_SECRET" value="{$client_secret|escape:'htmlall'}" />
+			<input type="text" size="33" name="MERCADOPAGO_CLIENT_SECRET" value="{$client_secret|escape:'htmlall'}" />
 		</div>
 		<br />
-		<label>{l s='Categoria:' mod='mercadopago'}</label>
+		<label>{l s='Category:' mod='mercadopago'}</label>
 			<div class=""> 
-				<select name="mercadopago_CATEGORY" id="category" style="width: 215px;color: black;background: white;">
-					 <option value="art" id="type-checkout-Collectibles &amp; Art">Collectibles &amp; Art</option>
-					 <option value="baby" id="type-checkout-Toys for Baby, Stroller, Stroller Accessories, Car Safety Seats">Toys for Baby, Stroller, Stroller Accessories, Car Safety Seats</option>
-					 <option value="coupons" id="type-checkout-Coupons">Coupons</option>
-					 <option value="donations" id="type-checkout-Donations">Donations</option>
-					 <option value="computing" id="type-checkout-Computers &amp; Tablets">Computers &amp; Tablets</option>
-					 <option value="cameras" id="type-checkout-Cameras &amp; Photography">Cameras &amp; Photography</option>
-					 <option value="video_games" id="type-checkout-Video Games &amp; Consoles">Video Games &amp; Consoles</option>
-					 <option value="television" id="type-checkout-LCD, LED, Smart TV, Plasmas, TVs">LCD, LED, Smart TV, Plasmas, TVs</option>
-					 <option value="car_electronics" id="type-checkout-Car Audio, Car Alarm Systems &amp; Security, Car DVRs, Car Video Players, Car PC">Car Audio, Car Alarm Systems &amp; Security, Car DVRs, Car Video Players, Car PC</option>
-					 <option value="electronics" id="type-checkout-Audio &amp; Surveillance, Video &amp; GPS, Others">Audio &amp; Surveillance, Video &amp; GPS, Others</option>
-					 <option value="automotive" id="type-checkout-Parts &amp; Accessories">Parts &amp; Accessories</option>
-					 <option value="entertainment" id="type-checkout-Music, Movies &amp; Series, Books, Magazines &amp; Comics, Board Games &amp; Toys">Music, Movies &amp; Series, Books, Magazines &amp; Comics, Board Games &amp; Toys</option>
-					 <option value="fashion" id="type-checkout-Men's, Women's, Kids &amp; baby, Handbags &amp; Accessories, Health &amp; Beauty, Shoes, Jewelry &amp; Watches">Men's, Women's, Kids &amp; baby, Handbags &amp; Accessories, Health &amp; Beauty, Shoes, Jewelry &amp; Watches</option>
-					 <option value="games" id="type-checkout-Online Games &amp; Credits">Online Games &amp; Credits</option>
-					 <option value="home" id="type-checkout-Home appliances. Home &amp; Garden">Home appliances. Home &amp; Garden</option>
-					 <option value="musical" id="type-checkout-Instruments &amp; Gear">Instruments &amp; Gear</option>
-					 <option value="phones" id="type-checkout-Cell Phones &amp; Accessories">Cell Phones &amp; Accessories</option>
-					 <option value="services" id="type-checkout-General services">General services</option>
-					 <option value="learnings" id="type-checkout-Trainings, Conferences, Workshops">Trainings, Conferences, Workshops</option>
-					 <option value="tickets" id="type-checkout-Tickets for Concerts, Sports, Arts, Theater, Family, Excursions tickets, Events &amp; more">Tickets for Concerts, Sports, Arts, Theater, Family, Excursions tickets, Events &amp; more</option>
-					 <option value="travels" id="type-checkout-Plane tickets, Hotel vouchers, Travel vouchers">Plane tickets, Hotel vouchers, Travel vouchers</option>
-					 <option value="virtual_goods" id="type-checkout-E-books, Music Files, Software, Digital Images,  PDF Files and any item which can be electronically stored in a file, Mobile Recharge, DTH Recharge and any Online Recharge">E-books, Music Files, Software, Digital Images,  PDF Files and any item which can be electronically stored in a file, Mobile Recharge, DTH Recharge and any Online Recharge</option>
-					 <option value="others" id="type-checkout-Other categories" selected="selected">Other categories</option>
+				<select name="MERCADOPAGO_CATEGORY" id="category">
+					 <option value="art">{l s='Collectibles & Art' mod='mercadopago'}</option>
+					 <option value="baby">{l s='Toys for Baby, Stroller, Stroller Accessories, Car Safety Seats' mod='mercadopago'}</option>
+					 <option value="coupons">{l s='Coupons' mod='mercadopago'}</option>
+					 <option value="donations">{l s='Donations' mod='mercadopago'}</option>
+					 <option value="computing">{l s='Computers & Tablets' mod='mercadopago'}</option>
+					 <option value="cameras">{l s='Cameras & Photography' mod='mercadopago'}</option>
+					 <option value="video_games">{l s='Video Games & Consoles' mod='mercadopago'}</option>
+					 <option value="television">{l s='LCD, LED, Smart TV, Plasmas, TVs' mod='mercadopago'}</option>
+					 <option value="car_electronics">{l s='Car Audio, Car Alarm Systems & Security, Car DVRs, Car Video Players, Car PC' mod='mercadopago'}</option>
+					 <option value="electronics">{l s='Audio & Surveillance, Video & GPS, Others' mod='mercadopago'}</option>
+					 <option value="automotive">{l s='Parts & Accessories' mod='mercadopago'}</option>
+					 <option value="entertainment">{l s='Music, Movies & Series, Books, Magazines & Comics, Board Games & Toys' mod='mercadopago'}</option>
+					 <option value="fashion">{l s='Men\'s, Women\'s, Kids & baby, Handbags & Accessories, Health & Beauty, Shoes, Jewelry & Watches' mod='mercadopago'}</option>
+					 <option value="games"> {l s='Online Games & Credits' mod='mercadopago'}</option>
+					 <option value="home">{l s='Home appliances. Home & Garden' mod='mercadopago'}</option>
+					 <option value="musical">{l s='Instruments & Gear' mod='mercadopago'}</option>
+					 <option value="phones">{l s='Cell Phones & Accessories' mod='mercadopago'}</option>
+					 <option value="services">{l s='General services' mod='mercadopago'}</option>
+					 <option value="learnings" >{l s='Trainings, Conferences, Workshops' mod='mercadopago'}</option>
+					 <option value="tickets">{l s='Tickets for Concerts, Sports, Arts, Theater, Family, Excursions tickets, Events & more' mod='mercadopago'}</option>
+					 <option value="travels">{l s='Plane tickets, Hotel vouchers, Travel vouchers' mod='mercadopago'}</option>
+					 <option value="virtual_goods">{l s='E-books, Music Files, Software, Digital Images,  PDF Files and any item which can be electronically stored in a file, Mobile Recharge, DTH Recharge and any Online Recharge' mod='mercadopago'}</option>
+					 <option value="others" selected="selected">{l s='Other categories' mod='mercadopago'}</option>
 				</select>	
 			</div>
 	</fieldset>
-	<fieldset style="margin-top: 40px;">
+	<fieldset>
 		<legend>
-			<img src="../img/admin/contact.gif" />{l s='Configurações - Cartão de Crédito Transparente' mod='mercadopago'}
+			<img src="../img/admin/contact.gif" />{l s='Settings - Custom Credit Card' mod='mercadopago'}
 		</legend>
-		<label>{l s='Ativado: ' mod='mercadopago'}</label>
+		<label>{l s='Active: ' mod='mercadopago'}</label>
 		<div class="">
-			<select name="mercadopago_CREDITCARD_ACTIVE" id="creditcard_active" style="width: 215px;color: black;background: white;">
-				<option value="true"> {l s='Sim' mod='mercadopago'}</option>
-				<option value="false"> {l s='Não' mod='mercadopago'} </option>
+			<select name="MERCADOPAGO_CREDITCARD_ACTIVE" id="creditcard_active">
+				<option value="true">{l s='Yes' mod='mercadopago'}</option>
+				<option value="false">{l s='No' mod='mercadopago'} </option>
 			</select>
 		</div>
 		<br />
 		<label>{l s='Public Key:' mod='mercadopago'}</label>
 		<div class="">
-			<input type="text" size="33" name="mercadopago_PUBLIC_KEY" value="{$public_key|escape:'htmlall'}" />
+			<input type="text" size="33" name="MERCADOPAGO_PUBLIC_KEY" value="{$public_key|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Banner:' mod='mercadopago'}</label>
 		<div class="">
-			<input type="text" size="33" name="mercadopago_CREDITCARD_BANNER" value="{$creditcard_banner|escape:'htmlall'}" />
+			<input type="text" size="33" name="MERCADOPAGO_CREDITCARD_BANNER" value="{$creditcard_banner|escape:'htmlall'}" />
 		</div>
 		<br />
 	</fieldset>
-	<fieldset style="margin-top: 40px;">
+	<fieldset>
 		<legend>
-			<img src="../img/admin/contact.gif" />{l s='Configurações - Boleto Transparente' mod='mercadopago'}
+			<img src="../img/admin/contact.gif" />{l s='Settings - Custom Ticket' mod='mercadopago'}
 		</legend>
-		<label>{l s='Ativado: ' mod='mercadopago'}</label>
+		<label>{l s='Active: ' mod='mercadopago'}</label>
 		<div class="">
-			<select name="mercadopago_BOLETO_ACTIVE" id="boleto_active"style="width: 215px;color: black;background: white;">
-				<option value="true"> {l s='Sim' mod='mercadopago'} </option>
-				<option value="false"> {l s='Não' mod='mercadopago'} </option>
+			<select name="MERCADOPAGO_BOLETO_ACTIVE" id="boleto_active">
+				<option value="true">{l s='Yes' mod='mercadopago'} </option>
+				<option value="false">{l s='No' mod='mercadopago'} </option>
 			</select>
 		</div>
 	</fieldset>
-	<fieldset style="margin-top: 40px;">
+	<fieldset>
 		<legend>
-			<img src="../img/admin/contact.gif" />{l s='Configurações - MercadoPago Standard' mod='mercadopago'}
+			<img src="../img/admin/contact.gif" />{l s='Settings - MercadoPago Standard' mod='mercadopago'}
 		</legend>
-		<label>{l s='Ativado: ' mod='mercadopago'}</label>
+		<label>{l s='Active: ' mod='mercadopago'}</label>
 		<div class="">
-			<select name="mercadopago_STANDARD_ACTIVE" id="standard_active" style="width: 215px;color: black;background: white;">
-				<option value="true"> {l s='Sim' mod='mercadopago'} </option>
-				<option value="false"> {l s='Não' mod='mercadopago'} </option>
+			<select name="MERCADOPAGO_STANDARD_ACTIVE" id="standard_active">
+				<option value="true">{l s='Yes' mod='mercadopago'} </option>
+				<option value="false">{l s='No' mod='mercadopago'} </option>
 			</select>
 		</div>
 		<br />
 		<label>{l s='Banner:' mod='mercadopago'}</label>
 		<div class="">
-			<input type="text" size="33" name="mercadopago_STANDARD_BANNER" value="{$standard_banner|escape:'htmlall'}" />
+			<input type="text" size="33" name="MERCADOPAGO_STANDARD_BANNER" value="{$standard_banner|escape:'htmlall'}" />
 		</div>
 		<br />
-		<label>{l s='Tipo de checkout:' mod='mercadopago'}</label>
+		<label>{l s='Checkout window:' mod='mercadopago'}</label>
 		<div class="">
-			<select name="mercadopago_WINDOW_TYPE" id="window_type" style="width: 215px;color: black;background: white;">
-				<option value="iframe"> {l s='iFrame' mod='mercadopago'} </option>
-				<option value="modal"> {l s='Lightbox' mod='mercadopago'} </option>
-				<option value="redirect"> {l s='Redirect' mod='mercadopago'} </option>
+			<select name="MERCADOPAGO_WINDOW_TYPE" id="window_type">
+				<option value="iframe">{l s='iFrame' mod='mercadopago'} </option>
+				<option value="modal">{l s='Lightbox' mod='mercadopago'} </option>
+				<option value="redirect">{l s='Redirect' mod='mercadopago'} </option>
 			</select>
 		</div>
 		<br />
-		<label>{l s='Excluir os meios de pagamento:' mod='mercadopago'}</label>
+		<label>{l s='Exclude payment methods:' mod='mercadopago'}</label>
 		<div class="payment-methods">
 			<br />
 			<br />
-			<input type="checkbox" name="mercadopago_VISA" id="visa" value="{$visa|escape:'htmlall'}"> Visa</input>
+			<input type="checkbox" name="MERCADOPAGO_VISA" id="visa" value="{$visa|escape:'htmlall'}">{l s='Visa' mod='mercadopago'}</input>
 			<br />
-			<input type="checkbox" name="mercadopago_MASTERCARD" id="mastercard" value="{$mastercard|escape:'htmlall'}"> Mastercard</input>
+			<input type="checkbox" name="MERCADOPAGO_MASTERCARD" id="mastercard" value="{$mastercard|escape:'htmlall'}">{l s='Mastercard' mod='mercadopago'}</input>
 			<br />
-			<input type="checkbox" name="mercadopago_HIPERCARD" id="hipercard" value="{$hipercard|escape:'htmlall'}"> Hipercard</input>
+			<input type="checkbox" name="MERCADOPAGO_HIPERCARD" id="hipercard" value="{$hipercard|escape:'htmlall'}">{l s='Hipercard' mod='mercadopago'}</input>
 			<br />
-			<input type="checkbox" name="mercadopago_AMEX" id="amex" value="{$amex|escape:'htmlall'}"> American Express</input>
+			<input type="checkbox" name="MERCADOPAGO_AMEX" id="amex" value="{$amex|escape:'htmlall'}">{l s='American Express' mod='mercadopago'}</input>
 			<br />
-			<input type="checkbox" name="mercadopago_DINERS" id="diners" value="{$diners|escape:'htmlall'}"> Diners</input>
+			<input type="checkbox" name="MERCADOPAGO_DINERS" id="diners" value="{$diners|escape:'htmlall'}">{l s='Diners' mod='mercadopago'}</input>
 			<br />
-			<input type="checkbox" name="mercadopago_ELO" id="elo" value="{$elo|escape:'htmlall'}"> Elo</input>
+			<input type="checkbox" name="MERCADOPAGO_ELO" id="elo" value="{$elo|escape:'htmlall'}">{l s='Elo' mod='mercadopago'}</input>
 			<br />
-			<input type="checkbox" name="mercadopago_MELI" id="meli" value="{$meli|escape:'htmlall'}"> Cartão MercadoLivre</input>
+			<input type="checkbox" name="MERCADOPAGO_MELI" id="meli" value="{$meli|escape:'htmlall'}">{l s='MercadoLibre Card' mod='mercadopago'}</input>
 			<br />
-			<input type="checkbox" name="mercadopago_BOLBRADESCO" id="bolbradesco" value="{$bolbradesco|escape:'htmlall'}"> Boleto</input>
+			<input type="checkbox" name="MERCADOPAGO_BOLBRADESCO" id="bolbradesco" value="{$bolbradesco|escape:'htmlall'}">{l s='Ticket' mod='mercadopago'}</input>
 		</div>
 		<br />
-		<label>{l s='Largura do checkout iFrame:' mod='mercadopago'}</label>
+		<label>{l s='iFrame width:' mod='mercadopago'}</label>
 		<div class="">
-			<input type="text" size="33" name="mercadopago_IFRAME_WIDTH" value="{$iframe_width|escape:'htmlall'}" />
+			<input type="text" size="33" name="MERCADOPAGO_IFRAME_WIDTH" value="{$iframe_width|escape:'htmlall'}" />
 		</div>
 		<br />
-		<label>{l s='Altura do checkout iFrame:' mod='mercadopago'}</label>
+		<label>{l s='iFrame height:' mod='mercadopago'}</label>
 		<div class="">
-			<input type="text" size="33" name="mercadopago_IFRAME_HEIGHT" value="{$iframe_height|escape:'htmlall'}" />
+			<input type="text" size="33" name="MERCADOPAGO_IFRAME_HEIGHT" value="{$iframe_height|escape:'htmlall'}" />
 		</div>
 		<br />
-		<label>{l s='Número máximo de parcelas: ' mod='mercadopago'}</label>
+		<label>{l s='Max installments:' mod='mercadopago'}</label>
 		<div class="">
-			<input type="text" size="33" name="mercadopago_INSTALLMENTS" value="{$installments|escape:'htmlall'}" />
+			<input type="text" size="33" name="MERCADOPAGO_INSTALLMENTS" value="{$installments|escape:'htmlall'}" />
 		</div>
 		<br />
 		<label>{l s='Auto Return: ' mod='mercadopago'}</label>
 		<div class="">
-			<select name="mercadopago_AUTO_RETURN" id="auto_return" style="width: 215px;color: black;background: white;">
-				<option value="approved"> {l s='Sim' mod='mercadopago'} </option>
-				<option value="false"> {l s='Não' mod='mercadopago'} </option>
+			<select name="MERCADOPAGO_AUTO_RETURN" id="auto_return">
+				<option value="approved">{l s='Yes' mod='mercadopago'} </option>
+				<option value="false">{l s='No' mod='mercadopago'} </option>
 			</select>
 		</div>
 	</fieldset>
 	<center>
-		<input type="submit" name="submitmercadopago" value="{l s='Atualizar' mod='mercadopago'}" class="ch-btn ch-btn-big"/>
+		<input type="submit" name="submitmercadopago" value="{l s='Save' mod='mercadopago'}" class="ch-btn ch-btn-big"/>
 	</center>
 </form>
 <script type="text/javascript">

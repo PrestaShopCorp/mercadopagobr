@@ -45,7 +45,7 @@ class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontControlle
 					'{bankwire_address}' => ''
 					);
 
-		$mercadopago->validateOrder($cart->id, Configuration::get('mercadopago_STATUS_0'),
+		$mercadopago->validateOrder($cart->id, Configuration::get('MERCADOPAGO_STATUS_0'),
 									$total,
 									$mercadopago->displayName,
 									null,

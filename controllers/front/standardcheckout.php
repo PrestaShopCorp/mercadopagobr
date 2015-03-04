@@ -45,7 +45,7 @@ class MercadoPagoStandardCheckoutModuleFrontController extends ModuleFrontContro
 					'{bankwire_address}' => ''
 					);
 
-		$mercadopago->validateOrder($cart->id, Configuration::get('mercadopago_STATUS_0'),
+		$mercadopago->validateOrder($cart->id, Configuration::get('MERCADOPAGO_STATUS_0'),
 									$total,
 									$mercadopago->displayName,
 									null,
@@ -59,12 +59,12 @@ class MercadoPagoStandardCheckoutModuleFrontController extends ModuleFrontContro
 
 		$uri .= '&checkout=standard';
 		$uri .= '&preferences_url='.urlencode($result['response']['init_point']);
-		$uri .= '&window_type='.Configuration::get('mercadopago_WINDOW_TYPE');
+		$uri .= '&window_type='.Configuration::get('MERCADOPAGO_WINDOW_TYPE');
 
-		if (Configuration::get('mercadopago_WINDOW_TYPE') == 'iframe')
+		if (Configuration::get('MERCADOPAGO_WINDOW_TYPE') == 'iframe')
 		{
-			$uri .= '&iframe_width='.Configuration::get('mercadopago_IFRAME_WIDTH');
-			$uri .= '&iframe_height='.Configuration::get('mercadopago_IFRAME_HEIGHT');
+			$uri .= '&iframe_width='.Configuration::get('MERCADOPAGO_IFRAME_WIDTH');
+			$uri .= '&iframe_height='.Configuration::get('MERCADOPAGO_IFRAME_HEIGHT');
 		}
 
 		Tools::redirectLink($uri);

@@ -24,14 +24,22 @@
 *  International Registered Trademark & Property of MercadoPago
 */
 
-include_once dirname(__FILE__).'/../../../../config/config.inc.php';
-include_once dirname(__FILE__).'/../../../../init.php';
 include_once(dirname(__FILE__).'/../../mercadopago.php');
 
-if (Tools::getValue('topic') && Tools::getValue('id'))
-{
-	$mercadopago = new MercadoPago();
-	$mercadopago->updateOrder(Tools::getValue('topic'), Tools::getValue('id'));
-}
+class MercadoPagoNotificationModuleFrontController extends ModuleFrontController {
+	public function initContent()
+	{
+		parent::initContent();
+		$this->displayAjax();
+	}
 
+	public function displayAjax()
+	{
+		if (Tools::getValue('topic') && Tools::getValue('id'))
+		{
+			$mercadopago = new MercadoPago();
+			$mercadopago->updateOrder(Tools::getValue('topic'), Tools::getValue('id'));
+		}
+	}
+}
 ?>

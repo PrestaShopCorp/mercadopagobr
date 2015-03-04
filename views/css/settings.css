@@ -26,6 +26,7 @@
 fieldset {
 	background-color: #EAF7FE !important;
 	color: #2D3277 !important;
+    margin-top: 40px !important;
 }
 legend {
 	background-color: #EAF7FE !important;
@@ -33,6 +34,19 @@ legend {
 }
 label {
 	color: #2D3277 !important; 
+}
+select {
+    width: 215px;
+    color: black;
+    background: white;
+}
+h4,h3 {
+    color: #2D3277 !important;
+    margin-left: 10px;
+}
+.logo {
+    margin-top: 30px;
+    margin-left: 10px;
 }
 
 .payment-methods {

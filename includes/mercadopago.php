@@ -67,6 +67,14 @@ class MP {
 					&& $public_key_result['client_id'] == $this->client_id ? true : false;
 	}
 
+	public function isTestUser()
+	{
+		$access_token = $this->getAccessToken();
+		$result = MPRestClient::get('/users/me?access_token='.$access_token);
+
+		return in_array('test_user', $result['response']['tags']);
+	}
+
 	/**
 	 * Get information for specific payment
 	 * @param int $id
@@ -189,6 +197,9 @@ class MPRestClient {
 			'status' => $api_http_code,
 			'response' => Tools::jsonDecode($api_result, true)
 		);
+
+		if ($response['status'] >= 400)
+			error_log('status: '.$response['status'].' error: '.$response['response']['message']);
 
 		curl_close($connect);
 
