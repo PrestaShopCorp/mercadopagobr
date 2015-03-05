@@ -24,17 +24,15 @@ payment methods (i.e. all credit cards, bar code payment, account money) and all
 window types (i.e. redirect, iframe, modal, blank and popup). Customization is not allowed.
 
 <br />
-## Configuration:
+## Setup:
 
-1. On your store administration, go to Modules > Modules
+1. On your store administration, go to Modules > Payment
 
-2. Search by **MercadoPago**
+2. Install **MercadoPago**.
 
-3. Click in **Configure**.
+3. Set your **CLIENT_ID**, **CLIENT_SECRET**.
 
-4. Set your **CLIENT_ID**, **CLIENT_SECRET**.
-
-5. Set your **PUBLIC_KEY**.
+4. Set your **PUBLIC_KEY**.
 
 
 <br />
