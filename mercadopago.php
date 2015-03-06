@@ -693,7 +693,6 @@ class MercadoPago extends PaymentModule {
 				{
 					case 'cancelled':
 					case 'refunded':
-					case 'charged_back':
 					case 'rejected':
 						$this->updateOrderHistory($id_order, Configuration::get('PS_OS_CANCELED'), false);
 					break;
