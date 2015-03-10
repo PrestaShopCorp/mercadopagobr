@@ -249,3 +249,7 @@ h5 {
 	font: 600 14px/18px "Open Sans", sans-serif;
 	font-weight: 100;
 }
+
+.alert.alert-danger:before {
+	display: none;
+}

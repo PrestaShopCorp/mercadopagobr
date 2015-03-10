@@ -131,12 +131,12 @@ class MercadoPago extends PaymentModule {
 			|| !Configuration::updateValue('MERCADOPAGO_CLIENT_ID', '')
 			|| !Configuration::updateValue('MERCADOPAGO_CLIENT_SECRET', '')
 			|| !Configuration::updateValue('MERCADOPAGO_CATEGORY', 'others')
-			|| !Configuration::updateValue('MERCADOPAGO_CREDITCARD_BANNER', Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://'.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').
+			|| !Configuration::updateValue('MERCADOPAGO_CREDITCARD_BANNER', (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://').htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').
 																			__PS_BASE_URI__.'modules/mercadopago/views/img/credit_card.png')
 			|| !Configuration::updateValue('MERCADOPAGO_CREDITCARD_ACTIVE', 'true')
 			|| !Configuration::updateValue('MERCADOPAGO_BOLETO_ACTIVE', 'true')
 			|| !Configuration::updateValue('MERCADOPAGO_STANDARD_ACTIVE', 'false')
-			|| !Configuration::updateValue('MERCADOPAGO_STANDARD_BANNER', Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://'.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').
+			|| !Configuration::updateValue('MERCADOPAGO_STANDARD_BANNER', (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://').htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').
 																			__PS_BASE_URI__.'modules/mercadopago/views/img/banner_all_methods.png')
 			|| !Configuration::updateValue('MERCADOPAGO_WINDOW_TYPE', 'redirect')
 			|| !Configuration::updateValue('MERCADOPAGO_IFRAME_WIDTH', '725')
@@ -328,7 +328,7 @@ class MercadoPago extends PaymentModule {
 				'uri' => $_SERVER['REQUEST_URI'],
 				'errors' => $errors,
 				'success' => $success,
-				'this_path_ssl' => Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://'
+				'this_path_ssl' => (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
 									.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__,
 				'version' => $this->getPrestashopVersion()
 
@@ -361,6 +361,7 @@ class MercadoPago extends PaymentModule {
 
 		$data = array(
 				'creditcard_active' => Configuration::get('MERCADOPAGO_CREDITCARD_ACTIVE'),
+				'standard_active' => Configuration::get('MERCADOPAGO_STANDARD_ACTIVE'),
 				'public_key' => Configuration::get('MERCADOPAGO_PUBLIC_KEY')
 		);
 
@@ -376,7 +377,7 @@ class MercadoPago extends PaymentModule {
 
 		if ($this->hasCredential())
 		{	
-			$this_path_ssl = Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://'
+			$this_path_ssl = (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
 									.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__;
 			$data = array(
 				'this_path_ssl' => $this_path_ssl,
@@ -384,7 +385,12 @@ class MercadoPago extends PaymentModule {
 				'creditcard_active' => Configuration::get('MERCADOPAGO_CREDITCARD_ACTIVE'),
 				'standard_active' => Configuration::get('MERCADOPAGO_STANDARD_ACTIVE'),
 				'version' => $this->getPrestashopVersion(),
-				'custom_action_url' => $this->link->getModuleLink('mercadopago', 'custompayment', array(), Configuration::get('PS_SSL_ENABLED'), null, null, false)
+				'custom_action_url' => $this->link->getModuleLink('mercadopago', 'custompayment', array(), Configuration::get('PS_SSL_ENABLED'), null, null, false),
+				'payment_status' => Tools::getValue('payment_status'),
+				'status_detail' => Tools::getValue('status_detail'),
+				'payment_method_id' => Tools::getValue('payment_method_id'),
+				'installments' => Tools::getValue('installments'),
+				'statement_descriptor' => Tools::getValue('statement_descriptor'),
 			);
 
 			// send credit card configurations only activated
@@ -397,7 +403,18 @@ class MercadoPago extends PaymentModule {
 
 			// send standard configurations only activated
 			if (Configuration::get('MERCADOPAGO_STANDARD_ACTIVE') == 'true')
+			{
+				$result = $this->createStandardCheckoutPreference();
 				$data['standard_banner'] = Configuration::get('MERCADOPAGO_STANDARD_BANNER');
+				$data['preferences_url'] = $result['response']['init_point'];
+				$data['window_type'] = Configuration::get('MERCADOPAGO_WINDOW_TYPE');
+
+				if ($data['window_type'] == 'iframe')
+				{
+					$data['iframe_width'] = Configuration::get('MERCADOPAGO_IFRAME_WIDTH');
+					$data['iframe_height'] = Configuration::get('MERCADOPAGO_IFRAME_HEIGHT');
+				}
+			}
 
 			$this->context->smarty->assign($data);
 
@@ -418,7 +435,7 @@ class MercadoPago extends PaymentModule {
 				array(
 					'payment_id' => Tools::getValue('payment_id'),
 					'boleto_url' => Tools::getValue('boleto_url'),
-					'this_path_ssl' => Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://'
+					'this_path_ssl' => (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
 									.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__
 				)
 			);
@@ -431,7 +448,7 @@ class MercadoPago extends PaymentModule {
 			$data['preferences_url'] = Tools::getValue('preferences_url');
 			$data['window_type'] = Tools::getValue('window_type');
 			$data['standard_banner'] = Tools::getValue('standard_banner');
-			$data['this_path_ssl'] = Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://'
+			$data['this_path_ssl'] = (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
 									.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__;
 
 			if ($data['window_type'] == 'iframe')
@@ -463,7 +480,7 @@ class MercadoPago extends PaymentModule {
 					'statement_descriptor' => Tools::getValue('statement_descriptor'),
 					'payment_id' => Tools::getValue('payment_id'),
 					'amount' => Tools::displayPrice($params['total_to_pay'], $params['currencyObj'], false),
-					'this_path_ssl' => Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://'
+					'this_path_ssl' => (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
 									.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__
 				)
 			);
@@ -554,7 +571,7 @@ class MercadoPago extends PaymentModule {
 		}
 
 		$data = array(
-			'external_reference' => $this->currentOrder,
+			'external_reference' => $cart->id,
 			'customer' => $customer_data,
 			'items' => $items,
 			'shipments' => $shipments,
@@ -587,7 +604,7 @@ class MercadoPago extends PaymentModule {
 		{
 			$data['auto_return'] = Configuration::get('MERCADOPAGO_AUTO_RETURN') == 'approved' ? 'approved' : '';
 			$data['back_urls']['success'] = $this->link->getModuleLink('mercadopago', 'standardreturn', array(), Configuration::get('PS_SSL_ENABLED'), null, null, false);
-			$data['back_urls']['failure'] = $this->link->getModuleLink('mercadopago', 'standardreturn', array(), Configuration::get('PS_SSL_ENABLED'), null, null, false);
+			$data['back_urls']['failure'] = $this->link->getPageLink('order-opc', Configuration::get('PS_SSL_ENABLED'), null, null, false, null);
 			$data['back_urls']['pending'] = $this->link->getModuleLink('mercadopago', 'standardreturn', array(), Configuration::get('PS_SSL_ENABLED'), null, null, false);
 			$data['payment_methods']['excluded_payment_methods'] = $this->getExcludedPaymentMethods();
 			$data['payment_methods']['excluded_payment_types'] = array();
@@ -667,14 +684,33 @@ class MercadoPago extends PaymentModule {
 					$order_status = 'MERCADOPAGO_STATUS_3';
 					break;
 			}
-			$id_order = $payment_info['external_reference'];
+			
+			$id_order = Order::getOrderByCartId($payment_info['external_reference']);
 
+			// If order wasn't created yet and payment is approved or pending or in_process, create it. 
+			// This can happen when user closes checkout standard
+			if (!$id_order && ($payment_status == 'in_process' || $payment_status == 'approved' || $payment_status == 'pending'))
+			{
+				$cart = new Cart($payment_info['external_reference']);
+				$total = (Float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
+				$extra_vars = array (
+						'{bankwire_owner}' => $this->textshowemail,
+						'{bankwire_details}' => '',
+						'{bankwire_address}' => ''
+						);
+				$this->validateOrder($payment_info['external_reference'], Configuration::get($order_status),
+											$total,
+											$this->displayName,
+											null,
+											$extra_vars, $cart->id_currency);
+			}
+
+			$id_order  = !$id_order ? Order::getOrderByCartId($payment_info['external_reference']) : $id_order;
 			$order = new Order($id_order);
-
 			// Only update if previous state is different from new state
 			if ($order->current_state != null && $order->current_state != Configuration::get($order_status))
 			{
-				$this->updateOrderHistory($id_order, Configuration::get($order_status));
+				$this->updateOrderHistory($order->id, Configuration::get($order_status));
 
 				// update order payment information
 				$order_payments = $order->getOrderPayments();

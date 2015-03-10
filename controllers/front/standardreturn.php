@@ -25,47 +25,83 @@
 */
 
 include_once(dirname(__FILE__).'/../../mercadopago.php');
+ini_set('display_errors',1); ini_set('display_startup_erros',1); error_reporting(E_ALL);
 
 class MercadoPagoStandardReturnModuleFrontController extends ModuleFrontController {
 	public function initContent()
 	{
 		parent::initContent();
 
+		$cart = new Cart(Tools::getValue('external_reference'));
+		$total = (Float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
 		$mercadopago = MercadoPago::getInstanceByName('mercadopago');
 
-		$order = new Order(Tools::getValue('external_reference'));
+		$extra_vars = array (
+					'{bankwire_owner}' => $mercadopago->textshowemail,
+					'{bankwire_details}' => '',
+					'{bankwire_address}' => ''
+					);
 
-		$uri = __PS_BASE_URI__.'order-confirmation.php?id_cart='.$order->id_cart.'&id_module='.$mercadopago->id.
-				'&id_order='.$order->id.'&key='.$order->secure_key;
-
-		if (Tools::getValue('collection_id') != 'null')
+		$order_status = null;
+		switch (Tools::getValue('collection_status'))
 		{
-			$order_payments = $order->getOrderPayments();
-			$order_payments[0]->transaction_id = Tools::getValue('collection_id');
-
-			$mercadopago_sdk = $mercadopago->mercadopago;
-			$result = $mercadopago_sdk->getPayment(Tools::getValue('collection_id'));
-			$payment_info = $result['response']['collection'];
-
-			$uri .= '&payment_status='.$payment_info['status'];
-			$uri .= '&payment_id='.$payment_info['id'];
-			$uri .= '&payment_type='.$payment_info['payment_type'];
-			$uri .= '&payment_method_id='.$payment_info['payment_method_id'];
-
-			if ($payment_info['payment_type'] == 'credit_card')
-			{
-				$uri .= '&card_holder_name='.$payment_info['cardholder']['name'];
-				$uri .= '&four_digits='.$payment_info['last_four_digits'];
-				$uri .= '&statement_descriptor='.$payment_info['statement_descriptor'];
-				$uri .= '&status_detail='.$payment_info['status_detail'];
-
-				$order_payments[0]->card_number = 'xxxx xxxx xxxx '.$payment_info['last_four_digits'];
-				$order_payments[0]->card_brand = Tools::ucfirst($payment_info['payment_method_id']);
-				$order_payments[0]->card_holder = $payment_info['cardholder']['name'];
-			}
-			$order_payments[0]->save();
+			case 'in_process':
+				$order_status = 'MERCADOPAGO_STATUS_0';
+				break;
+			case 'approved':
+				$order_status = 'MERCADOPAGO_STATUS_1';
+				break;
+			case 'pending':
+				$order_status = 'MERCADOPAGO_STATUS_7';
+				break;
 		}
-		Tools::redirectLink($uri);
+
+		$order_id = Order::getOrderByCartId($cart->id);
+
+		if ($order_status != null)
+		{
+			if (!$order_id)
+			{
+				$mercadopago->validateOrder($cart->id, Configuration::get($order_status),
+									$total,
+									$mercadopago->displayName,
+									null,
+									$extra_vars, $cart->id_currency);
+			}
+
+			$order_id  = !$order_id ? Order::getOrderByCartId($cart->id) : $order_id;
+			$order = new Order($order_id);
+			$uri = __PS_BASE_URI__.'order-confirmation.php?id_cart='.$order->id_cart.'&id_module='.$mercadopago->id.
+					'&id_order='.$order->id.'&key='.$order->secure_key;
+
+			if (Tools::getValue('collection_id') != 'null')
+			{
+				$order_payments = $order->getOrderPayments();
+				$order_payments[0]->transaction_id = Tools::getValue('collection_id');
+				$mercadopago_sdk = $mercadopago->mercadopago;
+				$result = $mercadopago_sdk->getPayment(Tools::getValue('collection_id'));
+				$payment_info = $result['response']['collection'];
+
+				$uri .= '&payment_status='.$payment_info['status'];
+				$uri .= '&payment_id='.$payment_info['id'];
+				$uri .= '&payment_type='.$payment_info['payment_type'];
+				$uri .= '&payment_method_id='.$payment_info['payment_method_id'];
+
+				if ($payment_info['payment_type'] == 'credit_card')
+				{
+					$uri .= '&card_holder_name='.$payment_info['cardholder']['name'];
+					$uri .= '&four_digits='.$payment_info['last_four_digits'];
+					$uri .= '&statement_descriptor='.$payment_info['statement_descriptor'];
+					$uri .= '&status_detail='.$payment_info['status_detail'];
+
+					$order_payments[0]->card_number = 'xxxx xxxx xxxx '.$payment_info['last_four_digits'];
+					$order_payments[0]->card_brand = Tools::ucfirst($payment_info['payment_method_id']);
+					$order_payments[0]->card_holder = $payment_info['cardholder']['name'];
+				}
+				$order_payments[0]->save();
+			}
+			Tools::redirectLink($uri);
+		}
 	}
 }
 ?>

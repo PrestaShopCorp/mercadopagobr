@@ -218,31 +218,48 @@
 {/if}
 {if $standard_active eq 'true'}
 	{if $version == 5}
+		{if $window_type != 'iframe'}
 		<div class="payment_module mp-form"> 
 				<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_120_31.png" id="id-standard-logo">
-				<a class="standard" href="{$this_path_ssl|escape:'htmlall'}index.php?fc=module&module=mercadopago&controller=standardcheckout" id="id-standard">{l s='Pay via MercadoPago and split into ' mod='mercadopago'}</br>{l s=' up to 24 times' mod='mercadopago'}</a>
+				<a class="standard" href="{$preferences_url|escape:'htmlall'}" mp-mode="{$window_type|escape:'htmlall'}" id="id-standard" name="MP-Checkout">{l s='Pay via MercadoPago and split into ' mod='mercadopago'}</br>{l s=' up to 24 times' mod='mercadopago'}</a>
 				<img src="{$standard_banner|escape:'htmlall'}" class="mp-standard-banner"/>
-			</div>
 		</div>
+		{else}
+			<div class="mp-form" style="width: {math equation="$iframe_width + 20"}px; height: {math equation="$iframe_height + 20"}px;"> 
+				<iframe src="{$preferences_url|escape:'htmlall'}" name="MP-Checkout" width="{$iframe_width|escape:'htmlall'}" height="{$iframe_height|escape:'htmlall'}" frameborder="0"/>
+			</div>
+		{/if}
 	{elseif $version == 6}
 		<div class="row">
 			<div class="col-xs-12 col-md-6">
-					<a href="{$this_path_ssl|escape:'htmlall'}index.php?fc=module&module=mercadopago&controller=standardcheckout" id="id-standard">
-						<div class="mp-form hover"> 
-							<div class="row">
-								<div class="col">
-								<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_120_31.png" id="id-standard-logo">
-								<img src="{$standard_banner|escape:'htmlall'}" class="mp-standard-banner"/>
-								<span class="payment-label standard">{l s='Pay via MercadoPago and split into up to 24 times' mod='mercadopago'}</span>
+					{if $window_type != 'iframe'}
+						<a href="{$preferences_url|escape:'htmlall'}" id="id-standard" mp-mode="{$window_type|escape:'htmlall'}" name="MP-Checkout">
+							<div class="mp-form hover"> 
+								<div class="row">
+									<div class="col">
+									<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_120_31.png" id="id-standard-logo">
+									<img src="{$standard_banner|escape:'htmlall'}" class="mp-standard-banner"/>
+									<span class="payment-label standard">{l s='Pay via MercadoPago and split into up to 24 times' mod='mercadopago'}</span>
+									</div>
 								</div>
 							</div>
+						</a>
+					{else}
+						<div class="mp-form" style="width: {math equation="$iframe_width + 20"}px; height: {math equation="$iframe_height + 20"}px;"> 
+							<iframe src="{$preferences_url|escape:'htmlall'}" name="MP-Checkout" width="{$iframe_width|escape:'htmlall'}" height="{$iframe_height|escape:'htmlall'}" frameborder="0"/>
 						</div>
-					</a>
+					{/if}
 			</div>
 		</div>
 	{/if}
 {/if}
 <script type="text/javascript">
+	// first load force to clear all fields
+	$("#id-card-number").val("");
+	$("#id-security-code").val("");
+	$("#id-card-holder-name").val("");
+	$("#id-doc-number").val("");
+
  	$("input[data-checkout='cardNumber']").bind("keyup",function(){
       var bin = $(this).val().replace(/ /g, '').replace(/-/g, '').replace(/\./g, '');
       if (bin.length == 6){
@@ -335,6 +352,7 @@
 			var card_token_id = response.id;
 			$form.append($('<input type="hidden" id="card_token_id" name="card_token_id"/>').val(card_token_id));
 			$form.get(0).submit();
+			
 			$(".lightbox").show();
 		}
 	}
@@ -425,10 +443,6 @@
   	$("#id-create-boleto").click(function (e) {
   		$(".lightbox").show();
   		e.stopImmediatePropagation();
-  	});
-
-  	$("#id-standard").click(function (e) {
-  		$(".lightbox").show();
   	});
   
   	function createModal() {

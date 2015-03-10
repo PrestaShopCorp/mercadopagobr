@@ -29,62 +29,103 @@ include_once(dirname(__FILE__).'/../../mercadopago.php');
 class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontController {
 	public function initContent()
 	{
+		$this->display_column_left = false;
+
 		parent::initContent();
 		$this->placeOrder();
 	}
 
 	private function placeOrder()
 	{
-		$cart = Context::getContext()->cart;
-		$total = (Float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
 		$mercadopago = MercadoPago::getInstanceByName('mercadopago');
-
-		$extra_vars = array (
-					'{bankwire_owner}' => $mercadopago->textshowemail,
-					'{bankwire_details}' => '',
-					'{bankwire_address}' => ''
-					);
-
-		$mercadopago->validateOrder($cart->id, Configuration::get('MERCADOPAGO_STATUS_0'),
-									$total,
-									$mercadopago->displayName,
-									null,
-									$extra_vars, $cart->id_currency);
-
-		
 		$response = $mercadopago->execPayment($_POST);
+		$order_status = null;
 
-		$order = new Order($mercadopago->currentOrder);
-		$order_payments = $order->getOrderPayments();
-		$order_payments[0]->transaction_id = $response['payment_id'];
+		switch ($response['status'])
+		{
+			case 'in_process':
+				$order_status = 'MERCADOPAGO_STATUS_0';
+				break;
+			case 'approved':
+				$order_status = 'MERCADOPAGO_STATUS_1';
+				break;
+			case 'pending':
+				$order_status = 'MERCADOPAGO_STATUS_7';
+				break;
+		}
 
-		$uri = __PS_BASE_URI__.'order-confirmation.php?id_cart='.$cart->id.'&id_module='.$mercadopago->id.
+
+		if ($order_status != null)
+		{
+			$cart = Context::getContext()->cart;
+			$total = (Float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
+
+			$extra_vars = array (
+						'{bankwire_owner}' => $mercadopago->textshowemail,
+						'{bankwire_details}' => '',
+						'{bankwire_address}' => ''
+						);
+
+			$mercadopago->validateOrder($cart->id, Configuration::get($order_status),
+										$total,
+										$mercadopago->displayName,
+										null,
+										$extra_vars, $cart->id_currency);
+
+			$order = new Order($mercadopago->currentOrder);
+			$order_payments = $order->getOrderPayments();
+			$order_payments[0]->transaction_id = $response['payment_id'];	
+
+			$uri = __PS_BASE_URI__.'order-confirmation.php?id_cart='.$cart->id.'&id_module='.$mercadopago->id.
 				'&id_order='.$mercadopago->currentOrder.'&key='.$order->secure_key.'&payment_id='.$response['payment_id'].
 				'&payment_status='.$response['status'];
 
-		if (Tools::getValue('payment_method_id') == 'bolbradesco')
-			$uri .= '&payment_method_id='.Tools::getValue('payment_method_id').'&boleto_url='.urlencode($response['activation_uri']);
+			if (Tools::getValue('payment_method_id') == 'bolbradesco')
+				$uri .= '&payment_method_id='.Tools::getValue('payment_method_id').'&boleto_url='.urlencode($response['activation_uri']);
+			else
+			{
+				// get credit card last 4 digits
+				$four_digits = Tools::substr(Tools::getValue('cardNumber'), -4);
+				// expiration date
+				$expiration_date = Tools::getValue('cardExpirationMonth').'/20'.Tools::getValue('cardExpirationYear');
+
+				$order_payments[0]->card_number = 'xxxx xxxx xxxx '.$four_digits;
+				$order_payments[0]->card_brand = Tools::ucfirst(Tools::getValue('payment_method_id'));
+				$order_payments[0]->card_expiration = $expiration_date;
+				$order_payments[0]->card_holder = Tools::getValue('cardholderName');
+
+				$uri .= '&card_token='.Tools::getValue('card_token_id').'&card_holder_name='.Tools::getValue('cardholderName').
+				'&four_digits='.$four_digits.'&payment_method_id='.Tools::getValue('payment_method_id').
+				'&expiration_date='.$expiration_date.'&installments='.$response['installments'].
+				'&statement_descriptor='.$response['statement_descriptor'].'&status_detail='.$response['status_detail'].
+				'&amount='.$response['amount'];
+			}
+
+			$order_payments[0]->save();
+			Tools::redirectLink($uri);
+		}
 		else
 		{
-			// get credit card last 4 digits
-			$four_digits = Tools::substr(Tools::getValue('cardNumber'), -4);
-			// expiration date
-			$expiration_date = Tools::getValue('cardExpirationMonth').'/20'.Tools::getValue('cardExpirationYear');
-
-			$order_payments[0]->card_number = 'xxxx xxxx xxxx '.$four_digits;
-			$order_payments[0]->card_brand = Tools::ucfirst(Tools::getValue('payment_method_id'));
-			$order_payments[0]->card_expiration = $expiration_date;
-			$order_payments[0]->card_holder = Tools::getValue('cardholderName');
-
-			$uri .= '&card_token='.Tools::getValue('card_token_id').'&card_holder_name='.Tools::getValue('cardholderName').
-			'&four_digits='.$four_digits.'&payment_method_id='.Tools::getValue('payment_method_id').
-			'&expiration_date='.$expiration_date.'&installments='.$response['installments'].
-			'&statement_descriptor='.$response['statement_descriptor'].'&status_detail='.$response['status_detail'].
-			'&amount='.$response['amount'];
+			$this->context->controller->addCss(
+				(Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
+				.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__.'modules/mercadopago/views/css/mercadopago_core.css', 'all');
+			
+			$this->context->smarty->assign(
+				array(
+					'version' => $mercadopago->getPrestashopVersion(),
+					'status_detail' => $response['status_detail'],
+					'card_holder_name' => Tools::getValue('cardholderName'),
+					'four_digits' => Tools::substr(Tools::getValue('cardNumber'), -4),
+					'payment_method_id' => Tools::getValue('payment_method_id'),
+					'expiration_date' => Tools::getValue('cardExpirationMonth').'/20'.Tools::getValue('cardExpirationYear'),
+					'installments' => $response['installments'],
+					'amount' => Tools::displayPrice($response['amount'], new Currency(Context::getContext()->cart->id_currency), false),
+					'payment_id' => $response['payment_id'],
+					'one_step' => Configuration::get('PS_ORDER_PROCESS_TYPE')
+				)
+			);
+			$this->setTemplate('error.tpl');
 		}
-
-		$order_payments[0]->save();
-		Tools::redirectLink($uri);
 	}
 }
 ?>

@@ -35,7 +35,8 @@
 	</h5>
 	</br>
 	{if $boleto_url != null}
-		<iframe src="{$boleto_url}" class="boleto-frame"/>
+		<iframe src="{$boleto_url}" class="boleto-frame">
+		</iframe>
 		</br>
 	{/if}
 	<span class="footer-logo"></span>

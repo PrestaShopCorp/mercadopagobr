@@ -173,7 +173,7 @@
 		<div class="">
 			<select name="MERCADOPAGO_WINDOW_TYPE" id="window_type">
 				<option value="iframe">{l s='iFrame' mod='mercadopago'} </option>
-				<option value="modal">{l s='Lightbox' mod='mercadopago'} </option>
+				<!-- <option value="modal">{l s='Lightbox' mod='mercadopago'} </option> -->
 				<option value="redirect">{l s='Redirect' mod='mercadopago'} </option>
 			</select>
 		</div>
