@@ -77,6 +77,7 @@ $_MODULE['<{mercadopago}prestashop>settings_9412305f1434ac4869dbe498dd4dd525'] =
 $_MODULE['<{mercadopago}prestashop>settings_ec6c833b9b1ab37b7e132b39c0ec6c65'] = 'Número máximo de parcelas:';
 $_MODULE['<{mercadopago}prestashop>settings_9e4891d2f525fbb901559d5eaf017e52'] = 'Retorno automático:';
 $_MODULE['<{mercadopago}prestashop>settings_c9cc8cce247e49bae79f15173ce97354'] = 'Atualizar';
+$_MODULE['<{mercadopago}prestashop>error_1e97d97a923eaddd810e056c828e99ea'] = 'Erro no pagamento';
 $_MODULE['<{mercadopago}prestashop>error_d37f3fd96c35d2a1d6d629ebb6a5cc04'] = 'Um erro ocorreu durante o processo do pagamento. Por favor revise suas informações ou escolha outro método de pagamento.';
 $_MODULE['<{mercadopago}prestashop>error_6685410a28617450ce2138637e5f298c'] = 'Verifique o número do cartão.';
 $_MODULE['<{mercadopago}prestashop>error_a9d2471f6aebc5278f4ff378da11f75d'] = 'Verifique a data de validade.';
