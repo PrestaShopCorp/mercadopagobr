@@ -361,7 +361,6 @@ class MercadoPago extends PaymentModule {
 
 		$data = array(
 				'creditcard_active' => Configuration::get('MERCADOPAGO_CREDITCARD_ACTIVE'),
-				'standard_active' => Configuration::get('MERCADOPAGO_STANDARD_ACTIVE'),
 				'public_key' => Configuration::get('MERCADOPAGO_PUBLIC_KEY')
 		);
 

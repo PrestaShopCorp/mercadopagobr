@@ -37,7 +37,7 @@ class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontControlle
 
 	private function placeOrder()
 	{
-		$mercadopago = MercadoPago::getInstanceByName('mercadopago');
+		$mercadopago = $this->module;
 		$response = $mercadopago->execPayment($_POST);
 		$order_status = null;
 
