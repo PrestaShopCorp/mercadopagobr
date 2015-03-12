@@ -404,14 +404,22 @@ class MercadoPago extends PaymentModule {
 			if (Configuration::get('MERCADOPAGO_STANDARD_ACTIVE') == 'true')
 			{
 				$result = $this->createStandardCheckoutPreference();
-				$data['standard_banner'] = Configuration::get('MERCADOPAGO_STANDARD_BANNER');
-				$data['preferences_url'] = $result['response']['init_point'];
-				$data['window_type'] = Configuration::get('MERCADOPAGO_WINDOW_TYPE');
-
-				if ($data['window_type'] == 'iframe')
+				if (array_key_exists('init_point', $result['response']))
 				{
-					$data['iframe_width'] = Configuration::get('MERCADOPAGO_IFRAME_WIDTH');
-					$data['iframe_height'] = Configuration::get('MERCADOPAGO_IFRAME_HEIGHT');
+					$data['standard_banner'] = Configuration::get('MERCADOPAGO_STANDARD_BANNER');
+					$data['preferences_url'] = $result['response']['init_point'];
+					$data['window_type'] = Configuration::get('MERCADOPAGO_WINDOW_TYPE');
+
+					if ($data['window_type'] == 'iframe')
+					{
+						$data['iframe_width'] = Configuration::get('MERCADOPAGO_IFRAME_WIDTH');
+						$data['iframe_height'] = Configuration::get('MERCADOPAGO_IFRAME_HEIGHT');
+					}
+				}
+				else
+				{
+					$data['preferences_url'] = null;
+					error_log('An error occurred during preferences creation. Please check your credentials and try again.');
 				}
 			}
 

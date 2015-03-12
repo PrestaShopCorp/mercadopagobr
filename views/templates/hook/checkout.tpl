@@ -216,7 +216,7 @@
 		</div>
 	{/if}
 {/if}
-{if $standard_active eq 'true'}
+{if $standard_active eq 'true' && $preferences_url != null}
 	{if $version == 5}
 		{if $window_type != 'iframe'}
 		<div class="payment_module mp-form"> 
