@@ -22,12 +22,6 @@
 *  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 *  International Registered Trademark & Property of MercadoPago
 *}
-<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/mercadopago_core.css">
-{if $version == 5}
-	<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/mercadopago_v5.css">
-{elseif $version == 6}
-	<link rel="stylesheet" type="text/css" href="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/css/mercadopago_v6.css">
-{/if}
 <div class="lightbox" id="text">
   <div class="box">
     <div class="content">
@@ -225,8 +219,9 @@
 				<img src="{$standard_banner|escape:'htmlall'}" class="mp-standard-banner"/>
 		</div>
 		{else}
-			<div class="mp-form" style="width: {math equation="$iframe_width + 20"}px; height: {math equation="$iframe_height + 20"}px;"> 
-				<iframe src="{$preferences_url|escape:'htmlall'}" name="MP-Checkout" width="{$iframe_width|escape:'htmlall'}" height="{$iframe_height|escape:'htmlall'}" frameborder="0"/>
+			<div class="mp-form"> 
+				<iframe src="{$preferences_url|escape:'htmlall'}" name="MP-Checkout" width="{$iframe_width|escape:'htmlall'}" height="{$iframe_height|escape:'htmlall'}" frameborder="0">
+				</iframe>
 			</div>
 		{/if}
 	{elseif $version == 6}
@@ -245,8 +240,9 @@
 							</div>
 						</a>
 					{else}
-						<div class="mp-form" style="width: {math equation="$iframe_width + 20"}px; height: {math equation="$iframe_height + 20"}px;"> 
-							<iframe src="{$preferences_url|escape:'htmlall'}" name="MP-Checkout" width="{$iframe_width|escape:'htmlall'}" height="{$iframe_height|escape:'htmlall'}" frameborder="0"/>
+						<div class="mp-form"> 
+							<iframe src="{$preferences_url|escape:'htmlall'}" name="MP-Checkout" width="{$iframe_width|escape:'htmlall'}" height="{$iframe_height|escape:'htmlall'}" frameborder="0">
+							</iframe>
 						</div>
 					{/if}
 			</div>
@@ -453,4 +449,9 @@
 
  	// need to set 0 so modal checkout can work
 	$("#header").css("z-index", 0);
+
+	if("{$window_type}" == "iframe"){
+		$(".mp-form").css("width", parseInt("{$iframe_width}", 10) + 20 + "px");
+		$(".mp-form").css("height", parseInt("{$iframe_height}", 10) + 20 + "px");
+	}
 </script>

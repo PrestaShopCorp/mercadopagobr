@@ -378,6 +378,9 @@ class MercadoPago extends PaymentModule {
 				'public_key' => Configuration::get('MERCADOPAGO_PUBLIC_KEY')
 		);
 
+		$this->context->controller->addCss($this->_path.'views/css/mercadopago_core.css', 'all');
+		$this->context->controller->addCss($this->_path.'views/css/mercadopago_v'.$this->getPrestashopVersion().'.css', 'all');
+
 		$this->context->smarty->assign($data);
 
 		return $this->display(__file__, '/views/templates/hook/payment_top.tpl');
