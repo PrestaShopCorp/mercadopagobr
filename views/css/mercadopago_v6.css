@@ -23,18 +23,6 @@
 *  International Registered Trademark & Property of MercadoPago
 */
 
-strong {
-	color: #333333;
-	font: 600 18px/22px "Open Sans", sans-serif;
-}
-input {
-	padding-left: 5px;
-	padding-top: 2px;
-}
-h5 {
-	font: 600 12px/16px "Open Sans", sans-serif;
-	color: black;
-}
 @media all and (min-width: 600px) {
 	.mp-form {
 		border: 1px solid #d6d4d4;
@@ -89,7 +77,7 @@ h5 {
 		margin-left: 15px;
 	}
 
-	.logo {
+	.mp-form .logo {
 		width: 80px;
 		height: 20px;
 	}
@@ -176,7 +164,7 @@ h5 {
 }
 
 @media all and (max-width: 599px) {
-	input {
+	.mp-form input {
 		font: 600 8px/12px "Open Sans", sans-serif;
 	}
 
@@ -230,7 +218,7 @@ h5 {
 		margin-left: 10px;
 	}
 
-	.logo {
+	.mp-form .logo {
 		width: 50px;
 		height: 14px;
 	}
@@ -292,6 +280,11 @@ h5 {
 	#id-standard-logo {
 		width: 70px;
 	}
+}
+
+.mp-form input[type="text"] {
+	padding-left: 5px;
+	padding-top: 2px;
 }
 
 .mp-boleto-banner {

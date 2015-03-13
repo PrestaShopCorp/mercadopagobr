@@ -30,7 +30,9 @@
 		<div class="alert alert-danger">
 {/if}
 {l s='An error occurred during your payment process. Please review your data or choose another payment method.' mod='mercadopago'}</br>
-{if $status_detail eq 'cc_rejected_bad_filled_card_number'}
+{if $valid_user eq false}
+	{l s='Invalid users involved.' mod='mercadopago'}
+{elseif $status_detail eq 'cc_rejected_bad_filled_card_number'}
 	{l s='Check the card number.' mod='mercadopago'}
 
 {elseif $status_detail eq 'cc_rejected_bad_filled_date'}
@@ -82,28 +84,30 @@
 	{$payment_method_id|escape:'htmlall'}
 	{l s=' did not process the payment.' mod='mercadopago'}
 {/if}
+{if $valid_user}
 </br>
 </br>
-{l s='Card holder name: ' mod='mercadopago'}
-{$card_holder_name|escape:'htmlall'}</br>
-{l s='Credit card: ' mod='mercadopago'}
-**** **** **** {$four_digits|escape:'htmlall'}</br>
-{l s='Payment method: ' mod='mercadopago'}
-{$payment_method_id|escape:'htmlall'}</br>
-{if $expiration_date != null}
-	{l s='Expiration date: ' mod='mercadopago'}
-	{$expiration_date|escape:'htmlall'}</br>
-{/if}
-{l s='Amount: ' mod='mercadopago'}
-{$amount|escape:'htmlall'}</br>
-{if $installments != null}
-	{l s='Installments: ' mod='mercadopago'}
-	{$installments|escape:'htmlall'}</br>
-{/if}
-{l s='Payment id (MercadoPago): ' mod='mercadopago'}
-{$payment_id|escape:'htmlall'}</br>
-{if $version == 6}
-	</div>
+	{l s='Card holder name: ' mod='mercadopago'}
+	{$card_holder_name|escape:'htmlall'}</br>
+	{l s='Credit card: ' mod='mercadopago'}
+	**** **** **** {$four_digits|escape:'htmlall'}</br>
+	{l s='Payment method: ' mod='mercadopago'}
+	{$payment_method_id|escape:'htmlall'}</br>
+	{if $expiration_date != null}
+		{l s='Expiration date: ' mod='mercadopago'}
+		{$expiration_date|escape:'htmlall'}</br>
+	{/if}
+	{l s='Amount: ' mod='mercadopago'}
+	{$amount|escape:'htmlall'}</br>
+	{if $installments != null}
+		{l s='Installments: ' mod='mercadopago'}
+		{$installments|escape:'htmlall'}</br>
+	{/if}
+	{l s='Payment id (MercadoPago): ' mod='mercadopago'}
+	{$payment_id|escape:'htmlall'}</br>
+	{if $version == 6}
+		</div>
+	{/if}
 {/if}
 </div>
 <span class="footer-logo"></span>

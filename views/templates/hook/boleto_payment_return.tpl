@@ -22,24 +22,25 @@
 *  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 *  International Registered Trademark & Property of MercadoPago
 *}
-
-<h4 id="id-confirmation-boleto">
-	<strong>
-		{l s='Thank you for your purchase! We are awaiting the ticket payment.' mod='mercadopago'}
+<div class="return-div">
+	<h4 id="id-confirmation-boleto">
+		<strong>
+			{l s='Thank you for your purchase! We are awaiting the ticket payment.' mod='mercadopago'}
+			</br>
+			</br>
+		</strong>
+		<h5>
+			{l s='Payment Id (MercadoPago): ' mod='mercadopago'}
+			{$payment_id|escape:'htmlall'}</br>
+		</h5>
 		</br>
-		</br>
-	</strong>
-	<h5>
-		{l s='Payment Id (MercadoPago): ' mod='mercadopago'}
-		{$payment_id|escape:'htmlall'}</br>
-	</h5>
-	</br>
-	{if $boleto_url != null}
-		<iframe src="{$boleto_url|escape}" class="boleto-frame">
-		</iframe>
-		</br>
-	{/if}
-	<span class="footer-logo"></span>
-</h4>
+		{if $boleto_url != null}
+			<iframe src="{$boleto_url|escape}" class="boleto-frame">
+			</iframe>
+			</br>
+		{/if}
+		<span class="footer-logo"></span>
+	</h4>
+</div>
 
 

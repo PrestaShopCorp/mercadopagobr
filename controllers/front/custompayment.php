@@ -109,21 +109,32 @@ class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontControlle
 			$this->context->controller->addCss(
 				(Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
 				.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__.'modules/mercadopago/views/css/mercadopago_core.css', 'all');
+
+			$data = array(
+						'version' => $mercadopago->getPrestashopVersion(),
+						'one_step' => Configuration::get('PS_ORDER_PROCESS_TYPE')
+				);
+
+			if (array_key_exists('message', $response) && strpos($response['message'],'Invalid users involved') !== false) 
+			{
+				$data['valid_user'] = false;
+			}
+			else
+			{
+				$data['version'] = $mercadopago->getPrestashopVersion();
+				$data['status_detail'] = $response['status_detail'];
+				$data['card_holder_name'] = Tools::getValue('cardholderName');
+				$data['four_digits'] = Tools::substr(Tools::getValue('cardNumber'), -4);
+				$data['payment_method_id'] = Tools::getValue('payment_method_id');
+				$data['expiration_date'] = Tools::getValue('cardExpirationMonth').'/20'.Tools::getValue('cardExpirationYear');
+				$data['installments'] = $response['installments'];
+				$data['amount'] = Tools::displayPrice($response['amount'], new Currency(Context::getContext()->cart->id_currency), false);
+				$data['payment_id'] = $response['payment_id'];
+				$data['one_step'] = Configuration::get('PS_ORDER_PROCESS_TYPE');
+				$data['valid_user'] = true;
+			}
 			
-			$this->context->smarty->assign(
-				array(
-					'version' => $mercadopago->getPrestashopVersion(),
-					'status_detail' => $response['status_detail'],
-					'card_holder_name' => Tools::getValue('cardholderName'),
-					'four_digits' => Tools::substr(Tools::getValue('cardNumber'), -4),
-					'payment_method_id' => Tools::getValue('payment_method_id'),
-					'expiration_date' => Tools::getValue('cardExpirationMonth').'/20'.Tools::getValue('cardExpirationYear'),
-					'installments' => $response['installments'],
-					'amount' => Tools::displayPrice($response['amount'], new Currency(Context::getContext()->cart->id_currency), false),
-					'payment_id' => $response['payment_id'],
-					'one_step' => Configuration::get('PS_ORDER_PROCESS_TYPE')
-				)
-			);
+			$this->context->smarty->assign($data);
 			$this->setTemplate('error.tpl');
 		}
 	}

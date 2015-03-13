@@ -59,12 +59,12 @@ class MercadoPago extends PaymentModule {
 		$order_states = array(
 			array('#ccfbff', $this->l('Transaction in Process'), 'in_process', '010010000'),
 			array('#c9fecd', $this->l('Transaction Finished'), 'payment', '110010010'),
-			array('#fec9c9', $this->l('Trasaction Cancelled'), 'order_canceled', '010010000'),
-			array('#fec9c9', $this->l('Trasaction Rejected'), 'payment_error', '010010000'),
-			array('#ffeddb', $this->l('Trasaction Refunded'), 'refund', '110010000'),
-			array('#c28566', $this->l('Trasaction Chargedback'), 'charged_back', '010010000'),
-			array('#b280b2', $this->l('Trasaction in Mediation'), 'in_mediation', '010010000'),
-			array('#fffb96', $this->l('Trasaction Pending'), 'pending', '010010000')
+			array('#fec9c9', $this->l('Transaction Cancelled'), 'order_canceled', '010010000'),
+			array('#fec9c9', $this->l('Transaction Rejected'), 'payment_error', '010010000'),
+			array('#ffeddb', $this->l('Transaction Refunded'), 'refund', '110010000'),
+			array('#c28566', $this->l('Transaction Chargedback'), 'charged_back', '010010000'),
+			array('#b280b2', $this->l('Transaction in Mediation'), 'in_mediation', '010010000'),
+			array('#fffb96', $this->l('Transaction Pending'), 'pending', '010010000')
 		);
 
 		$languages = Language::getLanguages();
@@ -99,7 +99,9 @@ class MercadoPago extends PaymentModule {
 				}
 			}
 
-			$order_state->add();
+			if (!$order_state->add())
+				return false;
+
 			$file = _PS_ROOT_DIR_.'/img/os/'.(int)$order_state->id.'.gif';
 			copy((dirname(__file__).'/views/img/mp_icon.gif'), $file);
 
@@ -121,6 +123,17 @@ class MercadoPago extends PaymentModule {
 			$template = dirname(__file__).'/mails/'.$name.'.'.$extension;
 			copy($template, $new_template);
 		}
+	}
+
+	private function deleteStates()
+	{
+		for ($index = 0; $index <= 7; $index++)
+		{
+			$order_state = new OrderState(Configuration::get('MERCADOPAGO_STATUS_'.$index));
+			if(!$order_state->delete())
+				return false;
+		}
+		return true;
 	}
 
 	public function install()
@@ -162,7 +175,8 @@ class MercadoPago extends PaymentModule {
 
 	public function uninstall()
 	{
-		if (!Configuration::deleteByName('MERCADOPAGO_PUBLIC_KEY')
+		if (!$this->deleteStates()
+			|| !Configuration::deleteByName('MERCADOPAGO_PUBLIC_KEY')
 			|| !Configuration::deleteByName('MERCADOPAGO_CLIENT_ID')
 			|| !Configuration::deleteByName('MERCADOPAGO_CLIENT_SECRET')
 			|| !Configuration::deleteByName('MERCADOPAGO_CATEGORY')
