@@ -407,6 +407,9 @@ class MercadoPago extends PaymentModule {
 				'payment_method_id' => Tools::getValue('payment_method_id'),
 				'installments' => Tools::getValue('installments'),
 				'statement_descriptor' => Tools::getValue('statement_descriptor'),
+				'window_type' => Configuration::get('MERCADOPAGO_WINDOW_TYPE'),
+				'iframe_width' => Configuration::get('MERCADOPAGO_IFRAME_WIDTH'),
+				'iframe_height' => Configuration::get('MERCADOPAGO_IFRAME_HEIGHT'),
 			);
 
 			// send credit card configurations only activated
@@ -425,13 +428,6 @@ class MercadoPago extends PaymentModule {
 				{
 					$data['standard_banner'] = Configuration::get('MERCADOPAGO_STANDARD_BANNER');
 					$data['preferences_url'] = $result['response']['init_point'];
-					$data['window_type'] = Configuration::get('MERCADOPAGO_WINDOW_TYPE');
-
-					if ($data['window_type'] == 'iframe')
-					{
-						$data['iframe_width'] = Configuration::get('MERCADOPAGO_IFRAME_WIDTH');
-						$data['iframe_height'] = Configuration::get('MERCADOPAGO_IFRAME_HEIGHT');
-					}
 				}
 				else
 				{
