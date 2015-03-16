@@ -41,19 +41,21 @@ class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontControlle
 		$response = $mercadopago->execPayment($_POST);
 		$order_status = null;
 
-		switch ($response['status'])
+		if (array_key_exists('status', $response))
 		{
-			case 'in_process':
-				$order_status = 'MERCADOPAGO_STATUS_0';
-				break;
-			case 'approved':
-				$order_status = 'MERCADOPAGO_STATUS_1';
-				break;
-			case 'pending':
-				$order_status = 'MERCADOPAGO_STATUS_7';
-				break;
+			switch($response['status'])
+			{
+				case 'in_process':
+					$order_status = 'MERCADOPAGO_STATUS_0';
+					break;
+				case 'approved':
+					$order_status = 'MERCADOPAGO_STATUS_1';
+					break;
+				case 'pending':
+					$order_status = 'MERCADOPAGO_STATUS_7';
+					break;
+			}
 		}
-
 
 		if ($order_status != null)
 		{
