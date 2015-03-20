@@ -314,6 +314,8 @@ class MercadoPago extends PaymentModule {
 		}
 
 		$this->context->controller->addCss($this->_path.'views/css/settings.css', 'all');
+		$this->context->controller->addCss($this->_path.'views/css/bootstrap.css', 'all');
+		$this->context->controller->addCss($this->_path.'views/css/style.css', 'all');
 
 		$this->context->smarty->assign(
 			array(

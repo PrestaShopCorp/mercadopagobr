@@ -22,10 +22,12 @@
 *  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 *  International Registered Trademark & Property of MercadoPago
 *}
-
+{include file='./marketing.tpl' this_path_ssl=$this_path_ssl|escape:'htmlall'}
+<div id="settings">
+<div id="alerts">
 {if $version eq 6}
 	{if $success eq 'true'}
-	<div class="bootstrap">
+	<div id="alert" class="bootstrap">
 		<div class="alert alert-success">
 			<button type="button" class="close" data-dismiss="alert">×</button>
 			{l s='Settings changed successfully.' mod='mercadopago'}
@@ -64,6 +66,7 @@
 		{/foreach}
 	{/if}
 {/if}
+</div>
 <img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_large.png">
 </br>
 </br>
@@ -224,9 +227,19 @@
 	</fieldset>
 	<center>
 		<input type="submit" name="submitmercadopago" value="{l s='Save' mod='mercadopago'}" class="ch-btn ch-btn-big"/>
+		<input type="button" id="back" value="{l s='Back' mod='mercadopago'}" class="ch-btn-orange ch-btn-big-orange"/>
 	</center>
 </form>
 <script type="text/javascript">
+	$(document).ready(function (){
+		// hide marketing when settings are updated
+		if ($("#alerts").length > 0) {
+			$(".marketing").hide();
+			$("#settings").show();
+			$.scrollTo(0, 0);
+		}
+	})
+	
 	window.onload = function() {
 		document.getElementById("category").value = "{$category|escape:'htmlall'}";
 		document.getElementById("creditcard_active").value = "{$creditcard_active|escape:'htmlall'}";
@@ -250,5 +263,14 @@
 		} else {
 			$("#" + e.target.id).val("")
 		}
+	});
+
+	$("#back").click(
+		function() { 
+			$(".marketing").show();
+			$("#settings").hide();
+			$("#alerts").remove();
+
+			$.scrollTo(0, 0);
 	});
 </script>
