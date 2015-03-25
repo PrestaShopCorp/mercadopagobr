@@ -28,7 +28,7 @@
 		if (window.Checkout === undefined) {
 			$.getScript("https://secure.mlstatic.com/org-img/checkout/custom/1.0/checkout.js")
 				.done(function( script, textStatus ) {
-					Checkout.setPublishableKey("{$public_key|escape:'htmlall'}");
+					Checkout.setPublishableKey("{$public_key|escape:'javascript'}");
 				});
 		}
 	</script>

@@ -233,7 +233,7 @@
 <script type="text/javascript">
 	$(document).ready(function (){
 		// hide marketing when settings are updated
-		if ($("#alerts").length > 0) {
+		if ($("#alerts").children().length > 0) {
 			$(".marketing").hide();
 			$("#settings").show();
 			$.scrollTo(0, 0);
@@ -241,20 +241,20 @@
 	})
 	
 	window.onload = function() {
-		document.getElementById("category").value = "{$category|escape:'htmlall'}";
-		document.getElementById("creditcard_active").value = "{$creditcard_active|escape:'htmlall'}";
-		document.getElementById("boleto_active").value = "{$boleto_active|escape:'htmlall'}";
-		document.getElementById("standard_active").value = "{$standard_active|escape:'htmlall'}";
-		document.getElementById("window_type").value = "{$window_type|escape:'htmlall'}";
-		document.getElementById("auto_return").value = "{$auto_return|escape:'htmlall'}";
-		document.getElementById("visa").checked = "{$visa|escape:'htmlall'}";
-		document.getElementById("mastercard").checked = "{$mastercard|escape:'htmlall'}";
-		document.getElementById("hipercard").checked = "{$hipercard|escape:'htmlall'}";
-		document.getElementById("amex").checked = "{$amex|escape:'htmlall'}";
-		document.getElementById("meli").checked = "{$meli|escape:'htmlall'}";
-		document.getElementById("bolbradesco").checked = "{$bolbradesco|escape:'htmlall'}";
-		document.getElementById("diners").checked = "{$diners|escape:'htmlall'}";
-		document.getElementById("elo").checked = "{$elo|escape:'htmlall'}";
+		document.getElementById("category").value = "{$category|escape:'javascript'}";
+		document.getElementById("creditcard_active").value = "{$creditcard_active|escape:'javascript'}";
+		document.getElementById("boleto_active").value = "{$boleto_active|escape:'javascript'}";
+		document.getElementById("standard_active").value = "{$standard_active|escape:'javascript'}";
+		document.getElementById("window_type").value = "{$window_type|escape:'javascript'}";
+		document.getElementById("auto_return").value = "{$auto_return|escape:'javascript'}";
+		document.getElementById("visa").checked = "{$visa|escape:'javascript'}";
+		document.getElementById("mastercard").checked = "{$mastercard|escape:'javascript'}";
+		document.getElementById("hipercard").checked = "{$hipercard|escape:'javascript'}";
+		document.getElementById("amex").checked = "{$amex|escape:'javascript'}";
+		document.getElementById("meli").checked = "{$meli|escape:'javascript'}";
+		document.getElementById("bolbradesco").checked = "{$bolbradesco|escape:'javascript'}";
+		document.getElementById("diners").checked = "{$diners|escape:'javascript'}";
+		document.getElementById("elo").checked = "{$elo|escape:'javascript'}";
 	}
 
 	$("input[type='checkbox']").click(function (e) {

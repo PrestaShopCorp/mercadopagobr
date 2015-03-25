@@ -130,7 +130,7 @@ class MercadoPago extends PaymentModule {
 		for ($index = 0; $index <= 7; $index++)
 		{
 			$order_state = new OrderState(Configuration::get('MERCADOPAGO_STATUS_'.$index));
-			if(!$order_state->delete())
+			if (!$order_state->delete())
 				return false;
 		}
 		return true;
@@ -394,7 +394,7 @@ class MercadoPago extends PaymentModule {
 			return;
 
 		if ($this->hasCredential())
-		{	
+		{   
 			$this_path_ssl = (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
 									.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__;
 			$data = array(
@@ -706,28 +706,29 @@ class MercadoPago extends PaymentModule {
 					$order_status = 'MERCADOPAGO_STATUS_3';
 					break;
 			}
-			
-			$id_order = Order::getOrderByCartId($payment_info['external_reference']);
+
+			$id_cart = $payment_info['external_reference'];
+			$id_order = Order::getOrderByCartId($id_cart);
 
 			// If order wasn't created yet and payment is approved or pending or in_process, create it. 
 			// This can happen when user closes checkout standard
 			if (!$id_order && ($payment_status == 'in_process' || $payment_status == 'approved' || $payment_status == 'pending'))
 			{
-				$cart = new Cart($payment_info['external_reference']);
-				$total = (Float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
+				$cart = new Cart($id_cart);
+				$total = (Float)number_format($payment_info['transaction_amount'], 2, '.', '');
 				$extra_vars = array (
 						'{bankwire_owner}' => $this->textshowemail,
 						'{bankwire_details}' => '',
 						'{bankwire_address}' => ''
 						);
-				$this->validateOrder($payment_info['external_reference'], Configuration::get($order_status),
+				$this->validateOrder($id_cart, Configuration::get($order_status),
 											$total,
 											$this->displayName,
 											null,
 											$extra_vars, $cart->id_currency);
 			}
 
-			$id_order  = !$id_order ? Order::getOrderByCartId($payment_info['external_reference']) : $id_order;
+			$id_order  = !$id_order ? Order::getOrderByCartId($id_cart) : $id_order;
 			$order = new Order($id_order);
 			// Only update if previous state is different from new state
 			if ($order->current_state != null && $order->current_state != Configuration::get($order_status))
@@ -785,5 +786,4 @@ class MercadoPago extends PaymentModule {
 		return $version;
 	}
 }
-
 ?>

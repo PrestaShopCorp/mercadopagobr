@@ -449,9 +449,8 @@
 
  	// need to set 0 so modal checkout can work
 	$("#header").css("z-index", 0);
-
-	if("{$standard_active}" == "true" && "{$window_type}" == "iframe"){
-		$(".mp-form").css("width", parseInt("{$iframe_width}", 10) + 20 + "px");
-		$(".mp-form").css("height", parseInt("{$iframe_height}", 10) + 20 + "px");
+	if("{$standard_active|escape:'javascript'}" == "true" && "{$window_type|escape:'javascript'}" == "iframe"){
+		$(".mp-form").css("width", parseInt("{$iframe_width|escape:'javascript'}", 10) + 20 + "px");
+		$(".mp-form").css("height", parseInt("{$iframe_height|escape:'javascript'}", 10) + 20 + "px");
 	}
 </script>

@@ -43,7 +43,7 @@ class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontControlle
 
 		if (array_key_exists('status', $response))
 		{
-			switch($response['status'])
+			switch ($response['status'])
 			{
 				case 'in_process':
 					$order_status = 'MERCADOPAGO_STATUS_0';
@@ -60,7 +60,7 @@ class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontControlle
 		if ($order_status != null)
 		{
 			$cart = Context::getContext()->cart;
-			$total = (Float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
+			$total = (Float)number_format($response['amount'], 2, '.', '');
 
 			$extra_vars = array (
 						'{bankwire_owner}' => $mercadopago->textshowemail,
@@ -117,10 +117,8 @@ class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontControlle
 						'one_step' => Configuration::get('PS_ORDER_PROCESS_TYPE')
 				);
 
-			if (array_key_exists('message', $response) && strpos($response['message'],'Invalid users involved') !== false) 
-			{
+			if (array_key_exists('message', $response) && strpos($response['message'], 'Invalid users involved') !== false)
 				$data['valid_user'] = false;
-			}
 			else
 			{
 				$data['version'] = $mercadopago->getPrestashopVersion();
