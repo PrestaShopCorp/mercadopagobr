@@ -26,7 +26,7 @@
   <div class="box">
     <div class="content">
     	<div class="processing">
-	  		<span>{l s='Processing...' mod='mercadopago'}</span>
+	  		<span>{l s='Processing...' mod='mercadopagobr'}</span>
 	  	</div>
   	</div>
   </div>
@@ -35,10 +35,10 @@
 	{if $version == 5}
 		<div class="payment_module mp-form"> 
 			<div class="row">
-				<span class="payment-label">{l s='CREDIT CARD' mod='mercadopago'} </span>
+				<span class="payment-label">{l s='CREDIT CARD' mod='mercadopagobr'} </span>
 				</br>
-				<span class="poweredby">{l s='Powered by' mod='mercadopago'}</span>
-				<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png"/>
+				<span class="poweredby">{l s='Powered by' mod='mercadopagobr'}</span>
+				<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopagobr/views/img/payment_method_logo.png"/>
 				{if !empty($creditcard_banner)}
 				<img src="{$creditcard_banner|escape:'htmlall'}" class="mp-creditcard-banner"/>
 				{/if}
@@ -46,39 +46,39 @@
 			<form action="{$custom_action_url|escape:'htmlall'}" method="post" id="form-pagar-mp">
 		    	<div class="row">
 			    	<div class="col">
-				    	<label for="id-card-number">{l s='Card number: ' mod='mercadopago'}</label>
+				    	<label for="id-card-number">{l s='Card number: ' mod='mercadopagobr'}</label>
 				    	<input id="id-card-number" data-checkout="cardNumber" type="text" name="cardNumber"/>
 				    	<div id="id-card-number-status" class="status"></div>
 			    	</div>
 			    	<div class="col col-expiration">
-				    	<label for="id-card-expiration-month">{l s='Month Exp: ' mod='mercadopago'}</label>
+				    	<label for="id-card-expiration-month">{l s='Month Exp: ' mod='mercadopagobr'}</label>
 				    	<select id="id-card-expiration-month" class="small-select" data-checkout="cardExpirationMonth" type="text" name="cardExpirationMonth"></select>
 				    </div>
 				    <div class="col col-expiration">
-				    	<label for="id-card-expiration-month">{l s='Year Exp: ' mod='mercadopago'}</label>
+				    	<label for="id-card-expiration-month">{l s='Year Exp: ' mod='mercadopagobr'}</label>
 				    	<select id="id-card-expiration-year" class="small-select"  data-checkout="cardExpirationYear" type="text" name="cardExpirationYear"></select>
 			    		<div id="id-card-expiration-year-status" class="status"></div>
 			    	</div>
 			    	<div class="col">
-				    	<label for="id-card-holder-name">{l s='Card Holder Name: ' mod='mercadopago'}</label>
+				    	<label for="id-card-holder-name">{l s='Card Holder Name: ' mod='mercadopagobr'}</label>
 				    	<input id="id-card-holder-name" name="cardholderName" data-checkout="cardholderName" type="text"/>
 			    		<div id="id-card-holder-name-status" class="status"></div>
 			    	</div>
 			    </div>
 			    <div class="row">
 			    	<div class="col col-security">
-				    	<label for="id-security-code">{l s='Security Code: ' mod='mercadopago'}</label>
+				    	<label for="id-security-code">{l s='Security Code: ' mod='mercadopagobr'}</label>
 				    	<input id="id-security-code" data-checkout="securityCode" type="text" maxlength="4"//>
-				    	<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/cvv.png" class="cvv"/>
+				    	<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopagobr/views/img/cvv.png" class="cvv"/>
 				    	<div id="id-security-code-status" class="status"></div>
 			    	</div>
 				    	<div class="col col-cpf">
-				    	<label for="id-doc-number">{l s='CPF: ' mod='mercadopago'}</label>
+				    	<label for="id-doc-number">{l s='CPF: ' mod='mercadopagobr'}</label>
 				    	<input id="id-doc-number" name="docNumber" data-checkout="docNumber" type="text" maxlength="11"/>
 				    	<div id="id-doc-number-status" class="status"></div>
 			    	</div>
 			    	<div class="col">
-				    	<label for="id-installments">{l s='Installments: ' mod='mercadopago'}</label>
+				    	<label for="id-installments">{l s='Installments: ' mod='mercadopagobr'}</label>
 				    	<select id="id-installments" name="installments" type="text>"></select>
 			    	</div>
 			    </div>
@@ -86,7 +86,7 @@
 			    <input id="amount" type="hidden" value="{$amount|escape:'htmlall'}"/>
 			    <div class="row">
 			   		<div class="col-bottom">
-		    			<input type="submit" value="{l s='Confirm payment' mod='mercadopago'}" class="ch-btn ch-btn-big" />
+		    			<input type="submit" value="{l s='Confirm payment' mod='mercadopagobr'}" class="ch-btn ch-btn-big" />
 					</div>
 		    	</div>
 			</form>
@@ -98,10 +98,10 @@
 					<div class="mp-form"> 
 						<div class="row">
 							<div class="col title">
-								<span class="payment-label">{l s='CREDIT CARD' mod='mercadopago'} </span>
+								<span class="payment-label">{l s='CREDIT CARD' mod='mercadopagobr'} </span>
 								</br>
-								<span class="poweredby">{l s='Powered by' mod='mercadopago'}</span>
-								<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png">
+								<span class="poweredby">{l s='Powered by' mod='mercadopagobr'}</span>
+								<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopagobr/views/img/payment_method_logo.png">
 							</div>
 							{if !empty($creditcard_banner)}
 							<div class="col title">
@@ -112,14 +112,14 @@
 						<form action="{$custom_action_url|escape:'htmlall'}" method="post" id="form-pagar-mp">
 						    <div class="row">
 						    	<div class="col">
-							    	<label for="id-card-number">{l s='Card number: ' mod='mercadopago'}</label>
+							    	<label for="id-card-number">{l s='Card number: ' mod='mercadopagobr'}</label>
 							    	<input id="id-card-number" data-checkout="cardNumber" type="text" name="cardNumber"/>
 							    	<div id="id-card-number-status" class="status"></div>
 							    </div>
 						    </div>
 						   	 <div class="row">
 							   	<div class="col">
-							    	<label for="id-card-expiration-month">{l s='Expiration: ' mod='mercadopago'}</label>
+							    	<label for="id-card-expiration-month">{l s='Expiration: ' mod='mercadopagobr'}</label>
 							    	<select id="id-card-expiration-month" class="small-select" data-checkout="cardExpirationMonth" type="text" name="cardExpirationMonth"></select>
 							    </div>
 							    <div class="col">
@@ -129,29 +129,29 @@
 							</div>
 							<div class="row">
 								<div class="col">
-							    	<label for="id-card-holder-name">{l s='Card Holder Name: ' mod='mercadopago'}</label>
+							    	<label for="id-card-holder-name">{l s='Card Holder Name: ' mod='mercadopagobr'}</label>
 							    	<input id="id-card-holder-name" name="cardholderName" data-checkout="cardholderName" type="text"/>
 							    	<div id="id-card-holder-name-status" class="status"></div>
 						    	</div>
 						    </div>
 							<div class="row">
 						    	<div class="col">
-							    	<label for="id-security-code">{l s='Security Code: ' mod='mercadopago'}</label>
+							    	<label for="id-security-code">{l s='Security Code: ' mod='mercadopagobr'}</label>
 							    	<input id="id-security-code" data-checkout="securityCode" type="text" maxlength="4"//>
-							    	<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/cvv.png" class="cvv"/>
+							    	<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopagobr/views/img/cvv.png" class="cvv"/>
 							    	<div id="id-security-code-status" class="status"></div>
 							    </div> 
 					    	</div>
 						 	<div class="row">
 						    	<div class="col">
-							    	<label for="id-doc-number">{l s='CPF: ' mod='mercadopago'}</label>
+							    	<label for="id-doc-number">{l s='CPF: ' mod='mercadopagobr'}</label>
 							    	<input id="id-doc-number" name="docNumber" data-checkout="docNumber" type="text" maxlength="11"/>
 							    	<div id="id-doc-number-status" class="status"></div>
 							    </div>
 						    </div>
 							<div class="row">
 							    <div class="col">
-							    	<label for="id-installments">{l s='Installments: ' mod='mercadopago'}</label>
+							    	<label for="id-installments">{l s='Installments: ' mod='mercadopagobr'}</label>
 							    	<select id="id-installments" name="installments" type="text>"></select>
 							    </div>
 						 	</div>
@@ -159,7 +159,7 @@
 						    <input id="amount" type="hidden" value="{$amount|escape:'htmlall'}"/>
 						    <div class="row">
 					    		<div class="col-bottom">
-							    	<input type="submit" value="{l s=' Confirm payment' mod='mercadopago'}" class="ch-btn ch-btn-big" />
+							    	<input type="submit" value="{l s=' Confirm payment' mod='mercadopagobr'}" class="ch-btn ch-btn-big" />
 						    	</div>
 						    </div>
 						</form>
@@ -175,11 +175,11 @@
 			<div class="row">
 				<div class="row boleto">
 					<div class="col">
-						<span class="payment-label">{l s='TICKET' mod='mercadopago'}</span></br>
-						<span class="poweredby">{l s=' Powered by ' mod='mercadopago'}</span>
-						<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png">
+						<span class="payment-label">{l s='TICKET' mod='mercadopagobr'}</span></br>
+						<span class="poweredby">{l s=' Powered by ' mod='mercadopagobr'}</span>
+						<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopagobr/views/img/payment_method_logo.png">
 					</div>
-					<a href="javascript:void(0);" id="id-boleto">{l s='Pay through ticket via MercadoPago' mod='mercadopago'}
+					<a href="javascript:void(0);" id="id-boleto">{l s='Pay through ticket via MercadoPago' mod='mercadopagobr'}
 						<form action="{$custom_action_url|escape:'htmlall'}" method="post" id="form-boleto-mp">
 					    	<input name="payment_method_id" type="hidden" value="bolbradesco"/>
 					    	<input type="submit" id="id-create-boleto">
@@ -195,9 +195,9 @@
 						<div class="mp-form hover"> 
 							<div class="row boleto">
 								<div class="col">
-									<span class="payment-label">{l s='TICKET' mod='mercadopago'} </span></br>
-									<span class="poweredby">{l s='Powered by' mod='mercadopago'}</span>
-									<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo.png">
+									<span class="payment-label">{l s='TICKET' mod='mercadopagobr'} </span></br>
+									<span class="poweredby">{l s='Powered by' mod='mercadopagobr'}</span>
+									<img class="logo" src="{$this_path_ssl|escape:'htmlall'}modules/mercadopagobr/views/img/payment_method_logo.png">
 								</div>
 								<form action="{$custom_action_url|escape:'htmlall'}" method="post" id="form-boleto-mp">
 							    	<input name="payment_method_id" type="hidden" value="bolbradesco"/>
@@ -214,8 +214,8 @@
 	{if $version == 5}
 		{if $window_type != 'iframe'}
 		<div class="payment_module mp-form"> 
-				<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_120_31.png" id="id-standard-logo">
-				<a class="standard" href="{$preferences_url|escape:'htmlall'}" mp-mode="{$window_type|escape:'htmlall'}" id="id-standard" name="MP-Checkout">{l s='Pay via MercadoPago and split into ' mod='mercadopago'}</br>{l s=' up to 24 times' mod='mercadopago'}</a>
+				<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopagobr/views/img/payment_method_logo_120_31.png" id="id-standard-logo">
+				<a class="standard" href="{$preferences_url|escape:'htmlall'}" mp-mode="{$window_type|escape:'htmlall'}" id="id-standard" name="MP-Checkout">{l s='Pay via MercadoPago and split into ' mod='mercadopagobr'}</br>{l s=' up to 24 times' mod='mercadopagobr'}</a>
 				<img src="{$standard_banner|escape:'htmlall'}" class="mp-standard-banner"/>
 		</div>
 		{else}
@@ -232,9 +232,9 @@
 							<div class="mp-form hover"> 
 								<div class="row">
 									<div class="col">
-									<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopago/views/img/payment_method_logo_120_31.png" id="id-standard-logo">
+									<img src="{$this_path_ssl|escape:'htmlall'}modules/mercadopagobr/views/img/payment_method_logo_120_31.png" id="id-standard-logo">
 									<img src="{$standard_banner|escape:'htmlall'}" class="mp-standard-banner"/>
-									<span class="payment-label standard">{l s='Pay via MercadoPago and split into up to 24 times' mod='mercadopago'}</span>
+									<span class="payment-label standard">{l s='Pay via MercadoPago and split into up to 24 times' mod='mercadopagobr'}</span>
 									</div>
 								</div>
 							</div>
@@ -309,7 +309,7 @@
     	if (validateCpf(cpf)) {
     		Checkout.createToken($form, mpResponseHandler);
     	} else {
-    		$("#id-doc-number-status").html("{l s='CPF invalid' mod='mercadopago'}");
+    		$("#id-doc-number-status").html("{l s='CPF invalid' mod='mercadopagobr'}");
     		$("#id-doc-number").addClass("form-error");
     	}
 	    event.preventDefault();
@@ -324,22 +324,22 @@
 			$.each(response.cause, function (p, e){
 				switch (e.code) {
 					case "E301": 
-						$("#id-card-number-status").html("{l s='Card invalid' mod='mercadopago'}");
+						$("#id-card-number-status").html("{l s='Card invalid' mod='mercadopagobr'}");
 						$("#id-card-number").addClass("form-error");
 					break;
 					case "E302": 
-						$("#id-security-code-status").html("{l s='CVV invalid' mod='mercadopago'}");
+						$("#id-security-code-status").html("{l s='CVV invalid' mod='mercadopagobr'}");
 						$("#id-security-code").addClass("form-error");
 					break;
 					case "325":
 					case "326": 
-						$("#id-card-expiration-year-status").html("{l s='Date invalid' mod='mercadopago'}");
+						$("#id-card-expiration-year-status").html("{l s='Date invalid' mod='mercadopagobr'}");
 						$("#id-card-expiration-month").addClass("boxshadow-error");
 						$("#id-card-expiration-year").addClass("boxshadow-error");
 					break;
 					case "316":
 					case "221": 
-						$("#id-card-holder-name-status").html("{l s='Name invalid' mod='mercadopago'}");
+						$("#id-card-holder-name-status").html("{l s='Name invalid' mod='mercadopagobr'}");
 						$("#id-card-holder-name").addClass("form-error");
 					break;
 				}
@@ -417,7 +417,7 @@
   	function setExpirationMonth() {
   		var html_options = "";
         var currentMonth = new Date().getMonth();
-        var months = ["{l s='January' mod='mercadopago'}", "{l s='Febuary' mod='mercadopago'}", "{l s='March' mod='mercadopago'}", "{l s='April' mod='mercadopago'}", "{l s='May' mod='mercadopago'}", "{l s='June' mod='mercadopago'}", "{l s='July' mod='mercadopago'}", "{l s='August' mod='mercadopago'}", "{l s='September' mod='mercadopago'}", "{l s='October' mod='mercadopago'}", "{l s='November' mod='mercadopago'}", "{l s='December' mod='mercadopago'}"];
+        var months = ["{l s='January' mod='mercadopagobr'}", "{l s='Febuary' mod='mercadopagobr'}", "{l s='March' mod='mercadopagobr'}", "{l s='April' mod='mercadopagobr'}", "{l s='May' mod='mercadopagobr'}", "{l s='June' mod='mercadopagobr'}", "{l s='July' mod='mercadopagobr'}", "{l s='August' mod='mercadopagobr'}", "{l s='September' mod='mercadopagobr'}", "{l s='October' mod='mercadopagobr'}", "{l s='November' mod='mercadopagobr'}", "{l s='December' mod='mercadopagobr'}"];
 
         for (i = 0; i < 12; i++) {
         	if(currentMonth == i)

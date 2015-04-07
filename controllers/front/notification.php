@@ -24,9 +24,7 @@
 *  International Registered Trademark & Property of MercadoPago
 */
 
-include_once(dirname(__FILE__).'/../../mercadopago.php');
-
-class MercadoPagoNotificationModuleFrontController extends ModuleFrontController {
+class MercadoPagoBrNotificationModuleFrontController extends ModuleFrontController {
 	public function initContent()
 	{
 		parent::initContent();
@@ -37,7 +35,7 @@ class MercadoPagoNotificationModuleFrontController extends ModuleFrontController
 	{
 		if (Tools::getValue('topic') && Tools::getValue('id'))
 		{
-			$mercadopago = new MercadoPago();
+			$mercadopago = $this->module;
 			$mercadopago->updateOrder(Tools::getValue('topic'), Tools::getValue('id'));
 		}
 	}

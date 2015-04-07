@@ -156,7 +156,7 @@ class MPRestClient {
 	{
 		$connect = curl_init(self::API_BASE_URL.$uri);
 
-		curl_setopt($connect, CURLOPT_USERAGENT, 'MercadoPago Prestashop v3.0.0');
+		curl_setopt($connect, CURLOPT_USERAGENT, 'MercadoPago Prestashop Brasil v3.0.0');
 		curl_setopt($connect, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($connect, CURLOPT_CUSTOMREQUEST, $method);
 		curl_setopt($connect, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: '.$content_type));

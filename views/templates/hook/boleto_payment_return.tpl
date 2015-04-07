@@ -25,12 +25,12 @@
 <div class="return-div">
 	<h4 id="id-confirmation-boleto">
 		<strong>
-			{l s='Thank you for your purchase! We are awaiting the ticket payment.' mod='mercadopago'}
+			{l s='Thank you for your purchase! We are awaiting the ticket payment.' mod='mercadopagobr'}
 			</br>
 			</br>
 		</strong>
 		<h5>
-			{l s='Payment Id (MercadoPago): ' mod='mercadopago'}
+			{l s='Payment Id (MercadoPago): ' mod='mercadopagobr'}
 			{$payment_id|escape:'htmlall'}</br>
 		</h5>
 		</br>

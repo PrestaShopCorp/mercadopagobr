@@ -24,9 +24,7 @@
 *  International Registered Trademark & Property of MercadoPago
 */
 
-include_once(dirname(__FILE__).'/../../mercadopago.php');
-
-class MercadoPagoStandardReturnModuleFrontController extends ModuleFrontController {
+class MercadoPagoBrStandardReturnModuleFrontController extends ModuleFrontController {
 	public function initContent()
 	{
 		parent::initContent();
