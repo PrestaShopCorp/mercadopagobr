@@ -24,9 +24,7 @@
 *  International Registered Trademark & Property of MercadoPago
 */
 
-include_once(dirname(__FILE__).'/../../mercadopago.php');
-
-class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontController {
+class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontController {
 	public function initContent()
 	{
 		$this->display_column_left = false;
@@ -110,7 +108,7 @@ class MercadoPagoCustomPaymentModuleFrontController extends ModuleFrontControlle
 		{
 			$this->context->controller->addCss(
 				(Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
-				.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__.'modules/mercadopago/views/css/mercadopago_core.css', 'all');
+				.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__.'modules/mercadopagobr/views/css/mercadopago_core.css', 'all');
 
 			$data = array(
 						'version' => $mercadopago->getPrestashopVersion(),

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
         <module>
-            <name>mercadopago</name>
-            <displayName><![CDATA[MercadoPago]]></displayName>
+            <name>mercadopagobr</name>
+            <displayName><![CDATA[MercadoPago Brasil]]></displayName>
             <version><![CDATA[3.0.0]]></version>
             <description><![CDATA[Receba pagamentos via MercadoPago de cart&otilde;es de cr&eacute;ditos e boletos utlizando nosso checkout transparente ou standard.]]></description>
             <author><![CDATA[MERCADOPAGO.COM REPRESENTA&Ccedil;&Otilde;ES LTDA.]]></author>
