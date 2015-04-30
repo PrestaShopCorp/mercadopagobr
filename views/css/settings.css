@@ -24,16 +24,16 @@
 */
 
 fieldset {
-	background-color: #EAF7FE !important;
-	color: #2D3277 !important;
+    background-color: #FCFCFC !important;
+    color: #2D3277 !important;
     margin-top: 40px !important;
 }
 legend {
-	background-color: #EAF7FE !important;
-	font-size: 14px !important;
+    background-color: #D9DADB !important;
+    font-size: 14px !important;
 }
 label {
-	color: #2D3277 !important; 
+    color: #2D3277 !important; 
 }
 select {
     width: 215px;
@@ -43,6 +43,9 @@ select {
 h4,h3 {
     color: #2D3277 !important;
     margin-left: 10px;
+}
+#settings a {
+    color: #05A3DF !important;
 }
 #settings {
     display: none;
@@ -60,14 +63,14 @@ h4,h3 {
 }
 
 .ch-btn-big, .ch-btn-big:focus {
-	font-size: 17px !important;
-	text-align: center !important;
-	line-height: 1.25em !important;
-	padding: 6px 40px !important;
-	outline: 0 !important;
-	float: center !important;
-	margin-right: 162px !important;
-	margin-bottom: 5px !important;
+    font-size: 17px !important;
+    text-align: center !important;
+    line-height: 1.25em !important;
+    padding: 6px 40px !important;
+    outline: 0 !important;
+    float: center !important;
+    margin-right: 162px !important;
+    margin-bottom: 5px !important;
 }
 
 .ch-btn, .ch-btn:focus, .ch-btn:visited {
