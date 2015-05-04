@@ -36,7 +36,7 @@ class MercadoPagoBr extends PaymentModule {
 	{
 		$this->name = 'mercadopagobr';
 		$this->tab = 'payments_gateways';
-		$this->version = '3.0.0';
+		$this->version = '3.0.1';
 		$this->currencies = true;
 		$this->currencies_mode = 'radio';
 		$this->need_instance = 0;
@@ -166,7 +166,7 @@ class MercadoPagoBr extends PaymentModule {
 			|| !Configuration::updateValue('MERCADOPAGO_BOLBRADESCO', '')
 			|| !$this->registerHook('payment')
 			|| !$this->registerHook('paymentReturn')
-			|| !$this->registerHook('displayPaymentTop'))
+			|| !$this->registerHook('displayHeader'))
 
 			return false;
 
@@ -370,7 +370,7 @@ class MercadoPagoBr extends PaymentModule {
 		return $mp->validatePublicKey($public_key);
 	}
 
-	public function hookDisplayPaymentTop()
+	public function hookDisplayHeader()
 	{
 		if (!$this->active)
 			return;
@@ -385,7 +385,7 @@ class MercadoPagoBr extends PaymentModule {
 
 		$this->context->smarty->assign($data);
 
-		return $this->display(__file__, '/views/templates/hook/payment_top.tpl');
+		return $this->display(__file__, '/views/templates/hook/header.tpl');
 	}
 
 	public function hookPayment($params)
@@ -411,7 +411,7 @@ class MercadoPagoBr extends PaymentModule {
 				'statement_descriptor' => Tools::getValue('statement_descriptor'),
 				'window_type' => Configuration::get('MERCADOPAGO_WINDOW_TYPE'),
 				'iframe_width' => Configuration::get('MERCADOPAGO_IFRAME_WIDTH'),
-				'iframe_height' => Configuration::get('MERCADOPAGO_IFRAME_HEIGHT'),
+				'iframe_height' => Configuration::get('MERCADOPAGO_IFRAME_HEIGHT')
 			);
 
 			// send credit card configurations only activated
@@ -419,7 +419,7 @@ class MercadoPagoBr extends PaymentModule {
 			{
 				$data['public_key'] = Configuration::get('MERCADOPAGO_PUBLIC_KEY');
 				$data['creditcard_banner'] = Configuration::get('MERCADOPAGO_CREDITCARD_BANNER');
-				$data['amount'] = (Float)number_format($params['cart']->getOrderTotal(true, 3), 2, '.', '');
+				$data['amount'] = (Float)number_format($params['cart']->getOrderTotal(true, Cart::BOTH), 2, '.', '');
 			}
 
 			// send standard configurations only activated
@@ -466,7 +466,7 @@ class MercadoPagoBr extends PaymentModule {
 		else if (Tools::getValue('checkout') == 'standard')
 		{
 			$data = array();
-			$data['amount'] = Tools::displayPrice($params['total_to_pay'], $params['currencyObj'], false);
+			$data['amount'] = Tools::displayPrice(Tools::getValue('amount'), $params['currencyObj'], false);
 			$data['preferences_url'] = Tools::getValue('preferences_url');
 			$data['window_type'] = Tools::getValue('window_type');
 			$data['standard_banner'] = Tools::getValue('standard_banner');
@@ -501,7 +501,7 @@ class MercadoPagoBr extends PaymentModule {
 					'transaction_amount' => Tools::displayPrice(Tools::getValue('transaction_amount'), $params['currencyObj'], false),
 					'statement_descriptor' => Tools::getValue('statement_descriptor'),
 					'payment_id' => Tools::getValue('payment_id'),
-					'amount' => Tools::displayPrice($params['total_to_pay'], $params['currencyObj'], false),
+					'amount' => Tools::displayPrice(Tools::getValue('amount'), $params['currencyObj'], false),
 					'this_path_ssl' => (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://')
 									.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__
 				)
@@ -592,6 +592,51 @@ class MercadoPagoBr extends PaymentModule {
 			$items[] = $item;
 		}
 
+		// include shipping cost
+		$shipping_cost = (Float)$cart->getOrderTotal(true, Cart::ONLY_SHIPPING);
+		if ($shipping_cost > 0)
+		{
+			$item = array (
+				'title' => 'Shipping',
+				'description' => 'Shipping service used by store',
+				'quantity' => 1,
+				'unit_price' => $shipping_cost,
+				'category_id'=> Configuration::get('MERCADOPAGO_CATEGORY')
+			);
+
+			$items[] = $item;
+		}
+
+		// include wrapping cost
+		$wrapping_cost = (Float)$cart->getOrderTotal(true, Cart::ONLY_WRAPPING);
+		if ($wrapping_cost > 0)
+		{
+			$item = array (
+				'title' => 'Wrapping',
+				'description' => 'Wrapping service used by store',
+				'quantity' => 1,
+				'unit_price' => $wrapping_cost,
+				'category_id'=> Configuration::get('MERCADOPAGO_CATEGORY')
+			);
+
+			$items[] = $item;
+		}
+
+		// include discounts
+		$discounts = (Float)$cart->getOrderTotal(true, Cart::ONLY_DISCOUNTS);
+		if ($discounts > 0)
+		{
+			$item = array (
+				'title' => 'Discount',
+				'description' => 'Discount provided by store',
+				'quantity' => 1,
+				'unit_price' => -$discounts,
+				'category_id'=> Configuration::get('MERCADOPAGO_CATEGORY')
+			);
+
+			$items[] = $item;
+		}
+		
 		$data = array(
 			'external_reference' => $cart->id,
 			'customer' => $customer_data,
@@ -609,7 +654,7 @@ class MercadoPagoBr extends PaymentModule {
 			$cart = Context::getContext()->cart;
 
 			$data['reason'] = 'Prestashop via MercadoPago';
-			$data['amount'] = (Float)number_format($cart->getOrderTotal(true, 3), 2, '.', '');
+			$data['amount'] = (Float)number_format($cart->getOrderTotal(true, Cart::BOTH), 2, '.', '');
 			$data['payer_email'] = $customer_fields['email'];
 
 			// add only for creditcard
