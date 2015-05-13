@@ -239,13 +239,7 @@ class MercadoPagoBr extends PaymentModule {
 				$success = true;
 
 				if ($creditcard_active == 'true' && !empty($public_key))
-					if (!$this->validatePublicKey($client_id, $client_secret, $public_key))
-					{
-						$errors[] = $this->l('Public Key invalid.');
-						$success = false;
-					}
-					else
-						Configuration::updateValue('MERCADOPAGO_PUBLIC_KEY', $public_key);
+					Configuration::updateValue('MERCADOPAGO_PUBLIC_KEY', $public_key);
 			}
 
 			$category = Tools::getValue('MERCADOPAGO_CATEGORY');
@@ -360,14 +354,6 @@ class MercadoPagoBr extends PaymentModule {
 		$mp->getAccessToken();
 
 		return $mp->getAccessToken() ? true : false;
-	}
-
-	private function validatePublicKey($client_id, $client_secret, $public_key)
-	{
-		$mp = new MP($client_id, $client_secret);
-		$mp->validatePublicKey($public_key);
-
-		return $mp->validatePublicKey($public_key);
 	}
 
 	public function hookDisplayHeader()
