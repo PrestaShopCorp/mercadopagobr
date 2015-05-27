@@ -85,11 +85,12 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 			else
 			{
 				// get credit card last 4 digits
-				$four_digits = Tools::getValue('lastFourDigits');
+				$four_digits = '**** **** **** '.Tools::getValue('lastFourDigits');
 				// expiration date
 				$expiration_date = Tools::getValue('cardExpirationMonth').'/20'.Tools::getValue('cardExpirationYear');
-
-				$order_payments[0]->card_number = 'xxxx xxxx xxxx '.$four_digits;
+				$statement_descriptor = array_key_exists('statement_descriptor', $response) ? $response['statement_descriptor'] : null;
+				
+				$order_payments[0]->card_number = $four_digits;
 				$order_payments[0]->card_brand = Tools::ucfirst(Tools::getValue('payment_method_id'));
 				$order_payments[0]->card_expiration = $expiration_date;
 				$order_payments[0]->card_holder = Tools::getValue('cardholderName');
@@ -97,7 +98,7 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 				$uri .= '&card_token='.Tools::getValue('card_token_id').'&card_holder_name='.Tools::getValue('cardholderName').
 				'&four_digits='.$four_digits.'&payment_method_id='.Tools::getValue('payment_method_id').
 				'&expiration_date='.$expiration_date.'&installments='.$response['installments'].
-				'&statement_descriptor='.$response['statement_descriptor'].'&status_detail='.$response['status_detail'].
+				'&statement_descriptor='.$statement_descriptor.'&status_detail='.$response['status_detail'].
 				'&amount='.$response['amount'];
 			}
 
@@ -120,16 +121,19 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 			else
 			{
 				$data['version'] = $mercadopago->getPrestashopVersion();
-				$data['status_detail'] = $response['status_detail'];
+				$data['status_detail'] = array_key_exists('status_detail', $response) ? $response['status_detail'] : null;
 				$data['card_holder_name'] = Tools::getValue('cardholderName');
-				$data['four_digits'] = Tools::getValue('lastFourDigits');
+				$data['four_digits'] = '**** **** **** '.Tools::getValue('lastFourDigits');
 				$data['payment_method_id'] = Tools::getValue('payment_method_id');
 				$data['expiration_date'] = Tools::getValue('cardExpirationMonth').'/20'.Tools::getValue('cardExpirationYear');
-				$data['installments'] = $response['installments'];
-				$data['amount'] = Tools::displayPrice($response['amount'], new Currency(Context::getContext()->cart->id_currency), false);
-				$data['payment_id'] = $response['payment_id'];
+				$data['installments'] = array_key_exists('installments', $response) ? $response['installments'] : null;
+				$data['payment_id'] = array_key_exists('payment_id', $response) ? $response['payment_id'] : null;
 				$data['one_step'] = Configuration::get('PS_ORDER_PROCESS_TYPE');
 				$data['valid_user'] = true;
+				
+				$amount = array_key_exists('amount', $response) ? $response['amount'] : 0;
+				$amount = $amount > 0 ? Tools::displayPrice($response['amount'], new Currency(Context::getContext()->cart->id_currency), false) : null;
+				$data['amount'] = $amount;
 			}
 			
 			$this->context->smarty->assign($data);
