@@ -130,10 +130,7 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 				$data['payment_id'] = array_key_exists('payment_id', $response) ? $response['payment_id'] : null;
 				$data['one_step'] = Configuration::get('PS_ORDER_PROCESS_TYPE');
 				$data['valid_user'] = true;
-				
-				$amount = array_key_exists('amount', $response) ? $response['amount'] : 0;
-				$amount = $amount > 0 ? Tools::displayPrice($response['amount'], new Currency(Context::getContext()->cart->id_currency), false) : null;
-				$data['amount'] = $amount;
+				$data['amount'] = array_key_exists('amount', $response) ? Tools::displayPrice($response['amount'], new Currency(Context::getContext()->cart->id_currency), false) : null;
 			}
 			
 			$this->context->smarty->assign($data);
