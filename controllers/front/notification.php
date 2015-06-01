@@ -36,7 +36,7 @@ class MercadoPagoBrNotificationModuleFrontController extends ModuleFrontControll
 		if (Tools::getValue('topic') && Tools::getValue('id'))
 		{
 			$mercadopago = $this->module;
-			$mercadopago->updateOrder(Tools::getValue('topic'), Tools::getValue('id'));
+			$mercadopago->listenIPN(Tools::getValue('checkout'), Tools::getValue('topic'), Tools::getValue('id'));
 		}
 	}
 }
