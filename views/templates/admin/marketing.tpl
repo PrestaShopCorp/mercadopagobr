@@ -222,11 +222,11 @@
 						</div>
 						<div>
 							<span class="icon i-bullet-1"></span>
-							<h5>{l s='You must create a "Public_key"' mod='mercadopagobr'}</h5>
+							<h5>{l s='You must activate your production "Public_key"' mod='mercadopagobr'}</h5>
 							<ul>
-								<li>{l s='1. Send an email to' mod='mercadopagobr'}<a href="mailto:developers@mercadopago.com.br" target="_blank"><strong> developers@mercadopago.com.br</strong></a> {l s='informing your "Client_id" and Prestashop as platform' mod='mercadopagobr'}</li>
-								<li>{l s='2. Until 1 working day your email will be answered with your "Public_key' mod='mercadopagobr'}</li>
-								<li>{l s='3. Verify your spam box if necessary' mod='mercadopagobr'}</li>
+								<li>{l s='To activate access ' mod='mercadopagobr'}
+									<a href="https://www.mercadopago.com/mlb/account/credentials" target="_blank"><strong class="font-2">https://www.mercadopago.com/mlb/account/credentials</strong></a>
+								</li>
 							</ul>
 						</div>
 						<div>
@@ -237,11 +237,7 @@
 						<div>
 							<span class="icon i-bullet-2"></span>
 							<span class="icon i-bullet-1"></span>
-							<h5>{l s='Fill the fields "Client Id" and "Client Secret"' mod='mercadopagobr'}</h5>
-						</div>
-						<div>
-							<span class="icon i-bullet-1"></span>
-							<h5>{l s='Fill the field "Public Key" that you received via email' mod='mercadopagobr'}</h5>
+							<h5>{l s='Fill the fields "Client Id", "Client Secret" and "Public Key"' mod='mercadopagobr'}</h5>
 						</div>
 						<div>
 							<span class="icon i-bullet-2"></span>
