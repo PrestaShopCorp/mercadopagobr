@@ -28,7 +28,7 @@ $GLOBALS['LIB_LOCATION'] = dirname(__FILE__);
 
 class MP {
 
-	const VERSION = '3.0.1';
+	const VERSION = '3.0.3';
 
 	private $client_id;
 	private $client_secret;
@@ -57,14 +57,6 @@ class MP {
 		$this->access_data = $access_data['response'];
 
 		return $this->access_data['access_token'];
-	}
-
-	public function validatePublicKey($public_key)
-	{
-		$public_key_result = MPRestClient::get('/checkout/custom/public_key/'.$public_key);
-		$public_key_result = $public_key_result['response'];
-		return isset($public_key_result) && array_key_exists('client_id', $public_key_result)
-					&& $public_key_result['client_id'] == $this->client_id ? true : false;
 	}
 
 	public function isTestUser()

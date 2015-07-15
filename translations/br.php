@@ -180,7 +180,7 @@ $_MODULE['<{mercadopagobr}prestashop>checkout_2cc5f0fe326d530ebd524ff24a1753f2']
 $_MODULE['<{mercadopagobr}prestashop>checkout_223a9f2caff6134c96857e80e42ea102'] = 'CPF:';
 $_MODULE['<{mercadopagobr}prestashop>checkout_e6405209a1446fbc487b8089579cb4a5'] = 'Parcelas:';
 $_MODULE['<{mercadopagobr}prestashop>checkout_b9cfc6172758d12a3b8be5d10a0e6807'] = 'Confirmar pagamento';
-$_MODULE['<{mercadopagobr}prestashop>checkout_60df0710b06e6093ff0053a4b078d4ad'] = 'Validate:';
+$_MODULE['<{mercadopagobr}prestashop>checkout_60df0710b06e6093ff0053a4b078d4ad'] = 'Validade:';
 $_MODULE['<{mercadopagobr}prestashop>checkout_f535c6bbf11bc41ad8c9bbb1c332e46f'] = 'Confirmar pagamento';
 $_MODULE['<{mercadopagobr}prestashop>checkout_cd819f2eff20b61bcf41bc22df219217'] = 'BOLETO';
 $_MODULE['<{mercadopagobr}prestashop>checkout_84514d6702ec28797b8258e4a6410ce3'] = 'Powered by';
