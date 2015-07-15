@@ -76,7 +76,9 @@
 	<h4> {l s='- To obtain your Client Id and Client Secret please access: ' mod='mercadopagobr'}
 		<a href="https://www.mercadopago.com/mlb/ferramentas/aplicacoes"><u>https://www.mercadopago.com/mlb/ferramentas/aplicacoes</u></a>
 	</h4>
-	<h4> {l s='- To obtain your public key please send an email to developers@mercadopago.com.br with subject "Prestashop Public key" informing your Client Id' mod='mercadopagobr'}</h4>
+	<h4> {l s='- To get and activate your production public_key, please follow the steps "What do I need to go to production?" and "I want to go to production" in the following address: ' mod='mercadopagobr'}
+		<a href="https://www.mercadopago.com/mlb/account/credentials">https://www.mercadopago.com/mlb/account/credentials</a>
+	</h4>
 	<form action="{$uri|escape:'htmlall'}" method="post">
 		<fieldset>
 			<legend>
@@ -133,7 +135,7 @@
 				</select>
 			</div>
 			<br />
-			<label>{l s='Public Key:' mod='mercadopagobr'}</label>
+			<label>{l s='Production Public Key:' mod='mercadopagobr'}</label>
 			<div class="">
 				<input type="text" size="33" name="MERCADOPAGO_PUBLIC_KEY" value="{$public_key|escape:'htmlall'}" />
 			</div>

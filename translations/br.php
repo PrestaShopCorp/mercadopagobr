@@ -16,8 +16,6 @@ $_MODULE['<{mercadopagobr}prestashop>mercadopagobr_ab74c3411f6f46df16a6c47791be5
 $_MODULE['<{mercadopagobr}prestashop>mercadopagobr_bf40a1c10d0b4a9cb26a27593226285b'] = 'Transação em Mediação';
 $_MODULE['<{mercadopagobr}prestashop>mercadopagobr_53b4d02529d11ed85eb327d5297ec1ca'] = 'Transação Pendente';
 $_MODULE['<{mercadopagobr}prestashop>mercadopagobr_78086b44061cc166428738759175358b'] = 'Client id ou client secret inválidos';
-$_MODULE['<{mercadopagobr}prestashop>mercadopagobr_193b67c29f909c34ee2ef62bf9fcf76e'] = 'Public Key inválida.';
-$_MODULE['<{mercadopagobr}prestashop>mercadopagobr_6ee85fcd774802d86e4388cb833a6806'] = 'O modo Standard não pode ser habilitado juntamente com o modo Transparente.';
 $_MODULE['<{mercadopagobr}prestashop>mercadopagobr_d224cb7eb307183325b7e5657d149075'] = 'Habilite pelo menos um método de pagamento.';
 $_MODULE['<{mercadopagobr}prestashop>marketing_142f1c01254127506592cf5e94910369'] = 'MercadoPago';
 $_MODULE['<{mercadopagobr}prestashop>marketing_1a6d2a8ff2319210efdf5327a1de772e'] = 'A maneira mais fácil, rápida e segura';
@@ -65,14 +63,10 @@ $_MODULE['<{mercadopagobr}prestashop>marketing_655359b12da649a1fc7c885daf1f9ccb'
 $_MODULE['<{mercadopagobr}prestashop>marketing_70ab2d4bdda3f1de777775e0811da197'] = 'Crie uma conta no MercadoPago';
 $_MODULE['<{mercadopagobr}prestashop>marketing_bf733d8a933c1601697f364223fc7ecb'] = 'Acesse';
 $_MODULE['<{mercadopagobr}prestashop>marketing_3aa1cdaa33b7ee8f3551c59da50f07c1'] = 'Copie o código do “Client_id” e do “Client_secret”';
-$_MODULE['<{mercadopagobr}prestashop>marketing_33ac0489f7f1f245e0d95be3c2be7cb4'] = 'Será necessário criar uma “Public_Key”';
-$_MODULE['<{mercadopagobr}prestashop>marketing_85c4eb5d19c089517070fa448e755af1'] = '1. Envie um e-mail para';
-$_MODULE['<{mercadopagobr}prestashop>marketing_9a63b11a00d15ca451c7d371793b5ba0'] = 'informando o seu “Cliente_ID” e a Plataforma “PrestaShop”';
-$_MODULE['<{mercadopagobr}prestashop>marketing_1b5cea716b533ccca12abcc05e5069fc'] = '2. Em até 1 dia útil, seu e-mail será respondido com a sua “Public_Key”';
-$_MODULE['<{mercadopagobr}prestashop>marketing_a7dbe3fe0159753ef17b2d8168e154ba'] = '3. Verifique na sua caixa de Spam, se necessário';
+$_MODULE['<{mercadopagobr}prestashop>marketing_0c100fe9a6e33fe0e15e85436ea51775'] = 'Você precisa ativar sua \"Public_key\" de produção';
+$_MODULE['<{mercadopagobr}prestashop>marketing_6d865742d3f3c489f7266da6bd29acb0'] = 'Para ativar, acesse';
 $_MODULE['<{mercadopagobr}prestashop>marketing_03019c6090f6856c3416490d5ed88ff5'] = 'Na página da Plataforma PrestaShop, acesse a página de configuração do Módulo MercadoPago';
-$_MODULE['<{mercadopagobr}prestashop>marketing_c5fa40a5a001d2b1abbbaa49d5f94442'] = 'Preencha os campos “Client_ID” e “Client_Secret”';
-$_MODULE['<{mercadopagobr}prestashop>marketing_cb409e39efb7ce447fa1e35b56d6602a'] = 'Preencha o campo “Public_Key” que você criou e recebeu por e-mail';
+$_MODULE['<{mercadopagobr}prestashop>marketing_10b3bfb2a0b102069d39c0d7de4131b2'] = 'Preencha os campos \"Client Id\", \"Client Secret\" e \"Public Key\"';
 $_MODULE['<{mercadopagobr}prestashop>marketing_eaa87f9f18cc89c620f024301b89abca'] = 'Clique em “Atualizar”';
 $_MODULE['<{mercadopagobr}prestashop>marketing_63a3be538fa32aa02cda5c7acc5c2430'] = 'Pronto!';
 $_MODULE['<{mercadopagobr}prestashop>marketing_61c2b0daf557503525cb74fd143b14c1'] = 'Nunca foi tão fácil vender!';
@@ -84,7 +78,7 @@ $_MODULE['<{mercadopagobr}prestashop>settings_5d4646d84c32dfa4d963c7c41b7799ca']
 $_MODULE['<{mercadopagobr}prestashop>settings_8c66220ba3229322899c260c7586714a'] = 'As configurações não foram atualizadas com sucesso.';
 $_MODULE['<{mercadopagobr}prestashop>settings_2a01d572b1447155c310cabafac3fae9'] = 'Observações:';
 $_MODULE['<{mercadopagobr}prestashop>settings_cfef100e3f47603e51eff1ccb33d6046'] = '- Para obter seu Cliend Id e Client Secret por favor acesse:';
-$_MODULE['<{mercadopagobr}prestashop>settings_150c044019aeb709532ce211158cacfa'] = '- Para obter sua Public Key, por favor envie um email para developers@mercadopago.com.br com o assunto \"Prestashop Public Key\" informando o seu Client Id';
+$_MODULE['<{mercadopagobr}prestashop>settings_f7256f8581b8acaec8de726092b05c6a'] = '- Para obter e ativar a sua Public Key modo de produção, por favor, siga os passos em \"O que preciso para ir a produção?\" e \"Eu quero ir para produção\" encontrados em: ';
 $_MODULE['<{mercadopagobr}prestashop>settings_9a82a186e7652aa9dd2b9b66d07eb6e3'] = 'Configurações - Geral';
 $_MODULE['<{mercadopagobr}prestashop>settings_c3094c38b5d23f8ce7a82fed39c7b3a6'] = 'Client Id:';
 $_MODULE['<{mercadopagobr}prestashop>settings_ba49bdb9b152ac018e612128714909ce'] = 'Client Secret:';
@@ -116,7 +110,7 @@ $_MODULE['<{mercadopagobr}prestashop>settings_7d6e7dae64188098604a9f9ec407f782']
 $_MODULE['<{mercadopagobr}prestashop>settings_25e02e7fa8a60bc58e3e05349006fcc8'] = 'Ativado:';
 $_MODULE['<{mercadopagobr}prestashop>settings_93cba07454f06a4a960172bbd6e2a435'] = 'Sim';
 $_MODULE['<{mercadopagobr}prestashop>settings_bafd7322c6e97d25b6299b5d6fe8920b'] = 'Não';
-$_MODULE['<{mercadopagobr}prestashop>settings_82221cf0a72f7da991c172d97764f1ee'] = 'Public Key:';
+$_MODULE['<{mercadopagobr}prestashop>settings_190ead988d0c96958323648e8f536e26'] = 'Public Key de Produção:';
 $_MODULE['<{mercadopagobr}prestashop>settings_f0a279d8944ba3f4c969d1928dfb6265'] = 'Banner:';
 $_MODULE['<{mercadopagobr}prestashop>settings_4995e326b2561371b4aa448631423599'] = 'Configurações - Boleto Transparente';
 $_MODULE['<{mercadopagobr}prestashop>settings_2add6f4e140bc0631f2584ecedf042ab'] = 'Configurações - MercadoPago Standard';
@@ -180,7 +174,7 @@ $_MODULE['<{mercadopagobr}prestashop>checkout_2cc5f0fe326d530ebd524ff24a1753f2']
 $_MODULE['<{mercadopagobr}prestashop>checkout_223a9f2caff6134c96857e80e42ea102'] = 'CPF:';
 $_MODULE['<{mercadopagobr}prestashop>checkout_e6405209a1446fbc487b8089579cb4a5'] = 'Parcelas:';
 $_MODULE['<{mercadopagobr}prestashop>checkout_b9cfc6172758d12a3b8be5d10a0e6807'] = 'Confirmar pagamento';
-$_MODULE['<{mercadopagobr}prestashop>checkout_60df0710b06e6093ff0053a4b078d4ad'] = 'Validate:';
+$_MODULE['<{mercadopagobr}prestashop>checkout_60df0710b06e6093ff0053a4b078d4ad'] = 'Validade:';
 $_MODULE['<{mercadopagobr}prestashop>checkout_f535c6bbf11bc41ad8c9bbb1c332e46f'] = 'Confirmar pagamento';
 $_MODULE['<{mercadopagobr}prestashop>checkout_cd819f2eff20b61bcf41bc22df219217'] = 'BOLETO';
 $_MODULE['<{mercadopagobr}prestashop>checkout_84514d6702ec28797b8258e4a6410ce3'] = 'Powered by';

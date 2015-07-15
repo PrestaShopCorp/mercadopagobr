@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-        <module>
-            <name>mercadopagobr</name>
-            <displayName><![CDATA[MercadoPago Brasil]]></displayName>
-            <version><![CDATA[3.0.0]]></version>
-            <description><![CDATA[Receba pagamentos via MercadoPago de cart&otilde;es de cr&eacute;ditos e boletos utlizando nosso checkout transparente ou standard.]]></description>
-            <author><![CDATA[MERCADOPAGO.COM REPRESENTA&Ccedil;&Otilde;ES LTDA.]]></author>
-            <tab><![CDATA[payments_gateways]]></tab>
-	<confirmUninstall>Você tem certeza que deseja desinstalar MercadoPago?</confirmUninstall>
-            <is_configurable>1</is_configurable>
-            <need_instance>0</need_instance>
+<module>
+	<name>mercadopagobr</name>
+	<displayName><![CDATA[MercadoPago Brazil]]></displayName>
+	<version><![CDATA[3.0.4]]></version>
+	<description><![CDATA[Receive payments via MercadoPago of credit cards and tickets using our custom checkout or standard checkout]]></description>
+	<author><![CDATA[MERCADOPAGO.COM REPRESENTA&Ccedil;&Otilde;ES LTDA.]]></author>
+	<tab><![CDATA[payments_gateways]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall MercadoPago?]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
 	<limited_countries></limited_countries>
-        </module>
+</module>
