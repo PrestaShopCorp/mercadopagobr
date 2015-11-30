@@ -70,7 +70,10 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 										$total,
 										$mercadopago->displayName,
 										null,
-										$extra_vars, $cart->id_currency);
+										$extra_vars,
+										$cart->id_currency,
+										false,
+										$cart->secure_key);
 
 			$order = new Order($mercadopago->currentOrder);
 			$order_payments = $order->getOrderPayments();
