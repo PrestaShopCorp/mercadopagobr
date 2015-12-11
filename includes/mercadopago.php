@@ -28,7 +28,16 @@ $GLOBALS['LIB_LOCATION'] = dirname(__FILE__);
 
 class MP {
 
-	const VERSION = '3.0.4';
+	const VERSION = '3.0.5';
+
+	/*Info*/
+	const INFO = 1;
+	/*Warning*/
+	const WARNING = 2;
+	/*Error*/
+	const ERROR = 3;
+	/*Fatal Error*/
+	const FATAL_ERROR = 4;
 
 	private $client_id;
 	private $client_secret;
@@ -46,12 +55,12 @@ class MP {
 	 */
 	public function getAccessToken()
 	{
+
 		$app_client_values = $this->buildQuery(array(
 			'client_id' => $this->client_id,
 			'client_secret' => $this->client_secret,
 			'grant_type' => 'client_credentials'
 				));
-
 		$access_data = MPRestClient::post('/oauth/token', $app_client_values, 'application/x-www-form-urlencoded');
 
 		$this->access_data = $access_data['response'];
@@ -179,8 +188,9 @@ class MPRestClient {
 	private static function exec($method, $uri, $data, $content_type)
 	{
 		$connect = self::getConnect($uri, $method, $content_type);
-		if ($data)
+		if ($data){
 			self::setData($connect, $data, $content_type);
+		}
 
 		$api_result = curl_exec($connect);
 		$api_http_code = curl_getinfo($connect, CURLINFO_HTTP_CODE);
@@ -190,8 +200,17 @@ class MPRestClient {
 			'response' => Tools::jsonDecode($api_result, true)
 		);
 
-		if ($response['status'] >= 400)
-			error_log('status: '.$response['status'].' error: '.$response['response']['message']);
+		if (Configuration::get('MERCADOPAGO_LOG') == 'true') {
+			PrestaShopLogger::addLog('Debug Mode :: data = '.Tools::jsonEncode($data), MP::INFO ,  0, null, null, true);
+			PrestaShopLogger::addLog('Debug Mode :: response = '.$api_result, MP::INFO , $response['status'], null, null, true);
+		}
+
+		if ($response['status'] == 0) {
+			$error = 'Can not call the API, status code 0.';
+   			throw new Exception($error);
+		} else if ($response['status'] > 202){
+			PrestaShopLogger::addLog("MercadoPago::exec = ".$response['response']['message'], MP::ERROR , $response['status']);
+		}
 
 		curl_close($connect);
 
