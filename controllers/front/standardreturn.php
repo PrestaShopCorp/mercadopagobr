@@ -40,10 +40,11 @@ class MercadoPagoBrStandardReturnModuleFrontController extends ModuleFrontContro
 			$status_details = array();
 			$transaction_amounts = 0;
 			$collection_ids = split(',', Tools::getValue('collection_id'));
+
+			$mercadopago = $this->module;
+			$mercadopago_sdk = $mercadopago->mercadopago;
 			foreach ($collection_ids as $collection_id)
 			{
-				$mercadopago = $this->module;
-				$mercadopago_sdk = $mercadopago->mercadopago;
 				$result = $mercadopago_sdk->getPayment($collection_id);
 				$payment_info = $result['response']['collection'];
 				$id_cart = $payment_info['external_reference'];
@@ -93,7 +94,10 @@ class MercadoPagoBrStandardReturnModuleFrontController extends ModuleFrontContro
 											$total,
 											$mercadopago->displayName,
 											null,
-											$extra_vars, $cart->id_currency);
+											$extra_vars,
+											$cart->id_currency,
+											false,
+											$cart->secure_key);
 					}
 					$order_id  = !$order_id ? Order::getOrderByCartId($cart->id) : $order_id;
 					$order = new Order($order_id);
@@ -121,8 +125,9 @@ class MercadoPagoBrStandardReturnModuleFrontController extends ModuleFrontContro
 				}
 			}
 		}
-		else
-			error_log('External reference is not set. Order placement has failed.');
+		else {
+			PrestaShopLogger::addLog("MercadoPagoBrStandardReturnModuleFrontController::initContent = ".'External reference is not set. Order placement has failed.', MP::ERRORQ , 0);
+		}
 	}
 }
 ?>

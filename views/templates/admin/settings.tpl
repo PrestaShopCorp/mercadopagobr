@@ -228,6 +228,19 @@
 				</select>
 			</div>
 		</fieldset>
+
+		<fieldset>
+			<legend>
+				<img src="../img/admin/contact.gif" />{l s='Settings - Active log' mod='mercadopagobr'}
+			</legend>
+			<label>{l s='Active: ' mod='mercadopagobr'}</label>
+			<div class="">
+				<select name="MERCADOPAGO_LOG" id="log_active">
+					<option value="true">{l s='Yes' mod='mercadopagobr'} </option>
+					<option value="false">{l s='No' mod='mercadopagobr'} </option>
+				</select>
+			</div>
+		</fieldset>
 		<center>
 			<input type="submit" name="submitmercadopagobr" value="{l s='Save' mod='mercadopagobr'}" class="ch-btn ch-btn-big"/>
 			<input type="button" id="back" value="{l s='Back' mod='mercadopagobr'}" class="ch-btn-orange ch-btn-big-orange"/>
@@ -249,6 +262,7 @@
 		document.getElementById("creditcard_active").value = "{$creditcard_active|escape:'javascript'}";
 		document.getElementById("boleto_active").value = "{$boleto_active|escape:'javascript'}";
 		document.getElementById("standard_active").value = "{$standard_active|escape:'javascript'}";
+		document.getElementById("log_active").value = "{$log_active|escape:'javascript'}";
 		document.getElementById("window_type").value = "{$window_type|escape:'javascript'}";
 		document.getElementById("auto_return").value = "{$auto_return|escape:'javascript'}";
 		document.getElementById("visa").checked = "{$visa|escape:'javascript'}";

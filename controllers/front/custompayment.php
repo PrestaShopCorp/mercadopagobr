@@ -37,7 +37,9 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 	{
 		$mercadopago = $this->module;
 		$response = $mercadopago->execPayment($_POST);
+
 		$order_status = null;
+
 
 		if (array_key_exists('status', $response))
 		{
@@ -66,14 +68,16 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 						'{bankwire_address}' => ''
 						);
 
-			$mercadopago->validateOrder($cart->id, Configuration::get($order_status),
+			$mercadopago->validateOrder($cart->id, 
+									    Configuration::get($order_status),
 										$total,
 										$mercadopago->displayName,
 										null,
-										$extra_vars,
+										$extra_vars, 
 										$cart->id_currency,
 										false,
 										$cart->secure_key);
+
 
 			$order = new Order($mercadopago->currentOrder);
 			$order_payments = $order->getOrderPayments();
@@ -83,8 +87,9 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 				'&id_order='.$mercadopago->currentOrder.'&key='.$order->secure_key.'&payment_id='.$response['payment_id'].
 				'&payment_status='.$response['status'];
 
-			if (Tools::getValue('payment_method_id') == 'bolbradesco')
+			if (Tools::getValue('payment_method_id') == 'bolbradesco') {
 				$uri .= '&payment_method_id='.Tools::getValue('payment_method_id').'&boleto_url='.urlencode($response['activation_uri']);
+			}
 			else
 			{
 				// get credit card last 4 digits
@@ -134,6 +139,8 @@ class MercadoPagoBrCustomPaymentModuleFrontController extends ModuleFrontControl
 				$data['one_step'] = Configuration::get('PS_ORDER_PROCESS_TYPE');
 				$data['valid_user'] = true;
 				$data['amount'] = array_key_exists('amount', $response) ? Tools::displayPrice($response['amount'], new Currency(Context::getContext()->cart->id_currency), false) : null;
+				$data['message'] = Tools::jsonEncode($response);
+				
 			}
 			
 			$this->context->smarty->assign($data);

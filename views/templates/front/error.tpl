@@ -116,6 +116,10 @@
 			{l s='Payment id (MercadoPago): ' mod='mercadopagobr'}
 			{$payment_id|escape:'htmlall'}</br>
 		{/if}
+		{if $message != null}
+			<span>{l s='Technical Error: ' mod='mercadopagobr'}</span>
+			{$message|escape:'htmlall'}</br>
+		{/if}	
 		{if $version == 6}
 			</div>
 		{/if}

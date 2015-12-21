@@ -1,5 +1,4 @@
-<?php
-/**
+{**
 * 2007-2015 PrestaShop
 *
 * NOTICE OF LICENSE
@@ -22,27 +21,34 @@
 *  @copyright Copyright (c) MercadoPago [http://www.mercadopago.com]
 *  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 *  International Registered Trademark & Property of MercadoPago
-*/
+*}
+<div class="mp-module">
+	{if $version == 5}
+		<div class="error">
+	{elseif $version == 6}
+		<div class="bootstrap">
+			<div class="alert alert-danger">
+	{/if}
 
-class MercadoPagoBrNotificationModuleFrontController extends ModuleFrontController {
-	public function initContent()
-	{
-		parent::initContent();
-		$this->displayAjax();
-	}
+	{if $message_error != null}
+		<span class="error">{l s='Fatal Error' mod='mercadopagobr'}: </span>
+		{$message_error|escape:'htmlall'}</br>
+	{/if}	
+	{if $version == 6}
+		</div>
+	{/if}
+	</div>
 
-	public function displayAjax()
-	{
-		if (Configuration::get('MERCADOPAGO_LOG') == 'true') {
-			PrestaShopLogger::addLog('Debug Mode :: displayAjax - topic = '.Tools::getValue('topic'), MP::INFO , 0);			
-			PrestaShopLogger::addLog('Debug Mode :: displayAjax - id = '.Tools::getValue('id'), MP::INFO , 0);	
-			PrestaShopLogger::addLog('Debug Mode :: displayAjax - checkout = '.Tools::getValue('checkout'), MP::INFO , 0);		
-		}
-		if (Tools::getValue('topic') && Tools::getValue('id'))
-		{
-			$mercadopago = $this->module;
-			$mercadopago->listenIPN(Tools::getValue('checkout'), Tools::getValue('topic'), Tools::getValue('id'));
-		}
-	}
-}
-?>
+	<div>
+		<span>
+			<a href="#">{l s='Please visit https://groups.google.com/forum/#!category-topic/mercadopago-developers-brasil/payments-modules/t_aMeOyZSuY for more details about this error message.' mod='mercadopagobr'}</a>
+		</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$("#go-back").click(function () {
+			window.history.go(-1);
+	});
+
+</script>

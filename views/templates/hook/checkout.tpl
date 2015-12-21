@@ -263,7 +263,8 @@
       if (bin.length == 6){
         Checkout.getPaymentMethod(bin,setPaymentMethodInfo);
       } else if (bin.length < 6) {
-			$("#id-card-number").css('background: none;');
+			$("#id-card-number").css('background-image', '');
+			$("#id-installments").html('');
       }
     });
 
@@ -273,33 +274,37 @@
         if (bin.length == 6) {
         	Checkout.getPaymentMethod(bin,setPaymentMethodInfo);
         } else if (bin.length < 6) {
-        	$("#id-card-number").css('background: none;');
+        	$("#id-card-number").css('background-image', '');
+        	$("#id-installments").html('');
         } 
     });
-
     //Estabeleça a informação do meio de pagamento obtido
     function setPaymentMethodInfo(status, result){
-      $.each(result, function(p, r){
-          $.each(r.labels, function(pos, label){
-              if (label == "recommended_method") {
-                  Checkout.getInstallments(r.id ,parseFloat($("#amount").val()), setInstallmentInfo);
-                  //adiciona a imagem do meio de pagamento
-                  var payment_method = result[0]
-                  $("#id-card-number").css(
-                  			"background", "url(" + payment_method.secure_thumbnail + ") 98% 50% no-repeat")
-				  $('#form-pagar-mp').append(
-				  			$('<input type="hidden" name="payment_method_id"/>').val(payment_method.id));
-                  return;
-              }
-          });
-      });
+    	if (status != 404) {
+	      $.each(result, function(p, r){
+
+		      Checkout.getInstallments(r.id ,parseFloat($("#amount").val()), setInstallmentInfo);
+		      //adiciona a imagem do meio de pagamento
+		      var payment_method = result[0]
+		      $("#id-card-number").css(
+		      			"background", "url(" + payment_method.secure_thumbnail + ") 98% 50% no-repeat")
+			  $('#form-pagar-mp').append(
+			  			$('<input type="hidden" name="payment_method_id"/>').val(payment_method.id));
+		      return;
+	      });
+    	} 
     };
+
+
 
     //Mostre as parcelas disponíveis no div 'installmentsOption'
     function setInstallmentInfo(status, installments){
         var html_options = "";
         for(i=0; installments && i<installments.length; i++){
-            html_options += "<option value='"+installments[i].installments+"'>"+installments[i].installments +" de "+installments[i].share_amount+" ("+installments[i].total_amount+")</option>";
+        	if (installments[i] != undefined) {
+          		html_options += "<option value='"+installments[i].installments+"'>"+installments[i].installments +" de "+installments[i].share_amount+" ("+installments[i].total_amount+")</option>";
+        	}
+      
         };
         $("#id-installments").html(html_options);
 	};
