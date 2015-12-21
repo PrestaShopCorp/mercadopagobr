@@ -35,7 +35,7 @@
 		{
 			$this->name = 'mercadopagobr';
 			$this->tab = 'payments_gateways';
-			$this->version = '3.0.5';
+			$this->version = '3.0.6';
 			$this->currencies = true;
 			$this->currencies_mode = 'radio';
 			$this->need_instance = 0;

@@ -2,7 +2,7 @@
 <module>
 	<name>mercadopagobr</name>
 	<displayName><![CDATA[MercadoPago Brazil]]></displayName>
-	<version><![CDATA[3.0.5]]></version>
+	<version><![CDATA[3.0.6]]></version>
 	<description><![CDATA[Receive payments via MercadoPago of credit cards and tickets using our custom checkout or standard checkout]]></description>
 	<author><![CDATA[MERCADOPAGO.COM REPRESENTA&Ccedil;&Otilde;ES LTDA.]]></author>
 	<tab><![CDATA[payments_gateways]]></tab>
