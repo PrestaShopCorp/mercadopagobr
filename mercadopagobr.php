@@ -1,4 +1,4 @@
-	<?php
+<?php
 	/**
 	* 2007-2015 PrestaShop
 	*
@@ -35,7 +35,7 @@
 		{
 			$this->name = 'mercadopagobr';
 			$this->tab = 'payments_gateways';
-			$this->version = '3.0.5';
+			$this->version = '3.0.8';
 			$this->currencies = true;
 			$this->currencies_mode = 'radio';
 			$this->need_instance = 0;
@@ -52,21 +52,6 @@
 			$this->link = new Link();
 			$this->mercadopago = new MP(Configuration::get('MERCADOPAGO_CLIENT_ID'), Configuration::get('MERCADOPAGO_CLIENT_SECRET'));
 
-		}
-
-		public function getStates()
-		{
-
-			for ($index = 0; $index <= 7; $index++)
-			{
-				if (is_null($this->orderStateAvailable(Configuration::get('MERCADOPAGO_STATUS_'.$index)))){
-					error_log('Não existe o status');
-				} else {
-					error_log('Existe o status');
-				}
-			}
-
-			return false;
 		}
 
 	/**
@@ -361,14 +346,16 @@ public function getContent()
 			$success = false;
 		}
 	}	
-
+	$notification_url = $this->link->getModuleLink('mercadopagobr', 'notification', array(), Configuration::get('PS_SSL_ENABLED'), null, null, false);
 	$this->context->smarty->assign(
 		array(
 			'public_key' => htmlentities(Configuration::get('MERCADOPAGO_PUBLIC_KEY'), ENT_COMPAT, 'UTF-8'),
 			'client_id' => htmlentities(Configuration::get('MERCADOPAGO_CLIENT_ID'), ENT_COMPAT, 'UTF-8'),
 			'client_secret' => htmlentities(Configuration::get('MERCADOPAGO_CLIENT_SECRET'), ENT_COMPAT, 'UTF-8'),
 			'category' => htmlentities(Configuration::get('MERCADOPAGO_CATEGORY'), ENT_COMPAT, 'UTF-8'),
+			'notification_url' => htmlentities($notification_url, ENT_COMPAT, 'UTF-8'),
 			'creditcard_banner' => htmlentities(Configuration::get('MERCADOPAGO_CREDITCARD_BANNER'), ENT_COMPAT, 'UTF-8'),
+
 			'creditcard_active' => htmlentities(Configuration::get('MERCADOPAGO_CREDITCARD_ACTIVE'), ENT_COMPAT, 'UTF-8'),
 			'boleto_active' => htmlentities(Configuration::get('MERCADOPAGO_BOLETO_ACTIVE'), ENT_COMPAT, 'UTF-8'),
 			'standard_active' => htmlentities(Configuration::get('MERCADOPAGO_STANDARD_ACTIVE'), ENT_COMPAT, 'UTF-8'),
@@ -527,6 +514,7 @@ public function hookPaymentReturn($params)
 	}
 	else
 	{
+
 		$this->context->controller->addCss($this->_path.'views/css/mercadopago_core.css', 'all');
 
 		$this->context->smarty->assign(
@@ -703,6 +691,7 @@ private function getPrestashopPreferences($post)
 			$data['payer_email'] = $customer_fields['email'];
 
 			$data['notification_url'] = $this->link->getModuleLink('mercadopagobr', 'notification', array(), Configuration::get('PS_SSL_ENABLED'), null, null, false).'?checkout=custom&';
+			
 			// add only for creditcard
 			if (array_key_exists('card_token_id', $post))
 			{
@@ -763,6 +752,7 @@ private function getPrestashopPreferences($post)
 
 	public function listenIPN($checkout, $topic, $id)
 	{
+
 		$payment_method_ids = array();
 		$payment_ids = array();
 		$payment_statuses = array();
@@ -784,9 +774,6 @@ private function getPrestashopPreferences($post)
 			$merchant_order_info = $result['response'];
 			$payments = $merchant_order_info['payments'];
 			$external_reference = $merchant_order_info['external_reference'];
-			if (Configuration::get('MERCADOPAGO_LOG') == 'true') {
-				PrestaShopLogger::addLog('Debug Mode :: listenIPN - payments = '.$payments, MP::INFO , 0);				
-			}
 			foreach($payments as $payment)
 			{
 				// get payment info
@@ -815,6 +802,7 @@ private function getPrestashopPreferences($post)
 			// colect payment details
 			$payment_ids[] = $payment_info['id'];
 			$payment_statuses[] = $payment_info['status'];
+
 			$payment_types[] = $payment_info['payment_type'];
 			$transaction_amounts += $payment_info['transaction_amount'];
 			if ($payment_info['payment_type'] == 'credit_card')
@@ -825,6 +813,38 @@ private function getPrestashopPreferences($post)
 			}
 			$this->updateOrder($payment_ids, $payment_statuses, $payment_method_ids, $payment_types, $credit_cards, $cardholders, $transaction_amounts, $external_reference);
 		}
+	}
+
+	/**
+	*Verify if there is state approved for order
+	*/
+	public static function getOrderStateApproved($id_order)
+	{
+		$id_order_state = Db::getInstance()->getValue('
+		SELECT `id_order_state`
+		FROM '._DB_PREFIX_.'order_history
+		WHERE `id_order` = '.(int)$id_order.' 
+		AND `id_order_state` = '.Configuration::get('MERCADOPAGO_STATUS_1'));
+
+		if (!$id_order_state){
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	* get the name of order state by id
+	*
+	* @param integer $id_order_state State ID
+	* @return string name
+	*/
+	public static function getOrderStateNameByID($id_order_state)
+	{
+		$result = Db::getInstance(_PS_USE_SQL_SLAVE_)->getRow('
+			SELECT `template` AS name
+			FROM `'._DB_PREFIX_.'order_state_lang`
+			WHERE `id_order_state` = '.(int)$id_order_state);
+		return $result['name'];
 	}
 	private function updateOrder($payment_ids, $payment_statuses, $payment_method_ids, $payment_types, $credit_cards, $cardholders, $transaction_amounts, $external_reference)
 	{
@@ -870,6 +890,7 @@ private function getPrestashopPreferences($post)
 				{
 					$order = new Order($id_order);
 				}
+
 				// If order wasn't created yet and payment is approved or pending or in_process, create it. 
 				// This can happen when user closes checkout standard
 				if (empty($id_order) && ($payment_status == 'in_process' || $payment_status == 'approved' || $payment_status == 'pending'))
@@ -895,8 +916,16 @@ private function getPrestashopPreferences($post)
 				}
 				else if (!empty($order) && $order->current_state != null && $order->current_state != Configuration::get($order_status))
 				{
-					$id_order = !$id_order ? Order::getOrderByCartId($id_cart) : $id_order;
-					$order = new Order($id_order);
+										
+					/*this is necessary to ignore the transactions with the same 
+					external reference and states diferents*/
+					if ($payment_status == 'cancelled') {
+						$retorno = $this->getOrderStateApproved($id_order);
+						if ($retorno) {
+							return;
+						}
+					}
+
 					$this->updateOrderHistory($order->id, Configuration::get($order_status));
 					// Cancel the order to force products to go to stock.
 					switch ($payment_status)

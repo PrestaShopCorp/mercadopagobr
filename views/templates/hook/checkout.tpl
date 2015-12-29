@@ -81,6 +81,7 @@
 				    	<div class="col">
 					    	<label for="id-installments">{l s='Installments: ' mod='mercadopagobr'}</label>
 					    	<select id="id-installments" name="installments" type="text>"></select>
+					    	<div id="id-installments-status" class="status"></div>
 				    	</div>
 				    </div>
 				    <input name="docType"  data-checkout="docType" type="hidden" value="CPF"/>
@@ -154,6 +155,7 @@
 								    <div class="col">
 								    	<label for="id-installments">{l s='Installments: ' mod='mercadopagobr'}</label>
 								    	<select id="id-installments" name="installments" type="text>"></select>
+								    	<div id="id-installments-status" class="status"></div>
 								    </div>
 							 	</div>
 							    <input name="docType"  data-checkout="docType" type="hidden" value="CPF"/>
@@ -300,6 +302,7 @@
     //Mostre as parcelas disponíveis no div 'installmentsOption'
     function setInstallmentInfo(status, installments){
         var html_options = "";
+        html_options += "<option value='' selected>{l s='Choice' mod='mercadopagobr'}...</option>";
         for(i=0; installments && i<installments.length; i++){
         	if (installments[i] != undefined) {
           		html_options += "<option value='"+installments[i].installments+"'>"+installments[i].installments +" de "+installments[i].share_amount+" ("+installments[i].total_amount+")</option>";
@@ -310,15 +313,53 @@
 	};
 
 	$("#form-pagar-mp").submit(function( event ) {
+
+		clearErrorStatus();
+
     	var $form = $(this);
     	var cpf = $("#id-doc-number").val();
 
-    	if (validateCpf(cpf)) {
-    		Checkout.createToken($form, mpResponseHandler);
-    	} else {
+    	if ($("#id-card-number").val().length == 0) {
+			$("#id-card-number-status").html("{l s='Card invalid' mod='mercadopagobr'}");
+			$("#id-card-number").addClass("form-error");
+    	} 
+
+
+    	if ($("#id-card-holder-name").val().length == 0) {
+			$("#id-card-holder-name-status").html("{l s='Name invalid' mod='mercadopagobr'}");
+			$("#id-card-holder-name").addClass("form-error");
+    	} 
+
+    	if ($("#id-security-code").val().length == 0) {
+			$("#id-security-code-status").html("{l s='CVV invalid' mod='mercadopagobr'}");
+			$("#id-security-code").addClass("form-error");
+    	}     	
+
+    	if ($("#id-doc-number").val().length == 0) {
     		$("#id-doc-number-status").html("{l s='CPF invalid' mod='mercadopagobr'}");
     		$("#id-doc-number").addClass("form-error");
+    	} 
+
+    	if ($("#id-installments").val() == null || $("#id-installments").val().length == 0) {
+    		$("#id-installments-status").html("{l s='Installments invalid' mod='mercadopagobr'}");
+    		$("#id-installments").addClass("form-error");
+    	} 
+
+    	if ($("#id-installments").val() == null || $("#id-installments").val().length == 0 || $("#id-security-code").val().length == 0 ||
+			$("#id-card-holder-name").val().length == 0 || $("#id-card-number").val().length == 0 || $("#id-doc-number").val().length == 0
+    		) {
+
+		    event.preventDefault();
+		    return false;
+    	} else {
+	     	if (validateCpf(cpf)) {
+	    		Checkout.createToken($form, mpResponseHandler);
+	    	} else {
+	    		$("#id-doc-number-status").html("{l s='CPF invalid' mod='mercadopagobr'}");
+	    		$("#id-doc-number").addClass("form-error");
+	    	}  
     	}
+
 	    event.preventDefault();
 	    return false;
 	});
@@ -372,6 +413,7 @@
 		$("#id-card-expiration-year-status").html("");
 		$("#id-card-holder-name-status").html("");
 		$("#id-doc-number-status").html("");
+		$("#id-installments-status").html("");
 
 		$("#id-card-number").removeClass("form-error");
 		$("#id-security-code").removeClass("form-error");
@@ -379,6 +421,7 @@
 		$("#id-card-expiration-year").removeClass("boxshadow-error");
 		$("#id-card-holder-name").removeClass("form-error");
 		$("#id-doc-number").removeClass("form-error");
+		$("#id-installments").removeClass("form-error");
 	}
 
  	function validateCpf(cpf){
