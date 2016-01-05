@@ -820,16 +820,11 @@ private function getPrestashopPreferences($post)
 	*/
 	public static function getOrderStateApproved($id_order)
 	{
-		$id_order_state = Db::getInstance()->getValue('
-		SELECT `id_order_state`
-		FROM '._DB_PREFIX_.'order_history
-		WHERE `id_order` = '.(int)$id_order.' 
-		AND `id_order_state` = '.Configuration::get('MERCADOPAGO_STATUS_1'));
-
-		if (!$id_order_state){
-			return false;
-		}
-		return true;
+		return (bool) Db::getInstance()->getValue('
+        SELECT `id_order_state`
+        FROM '._DB_PREFIX_.'order_history
+        WHERE `id_order` = '.(int)$id_order.' 
+        AND `id_order_state` = '.(int)Configuration::get('MERCADOPAGO_STATUS_1'));
 	}
 
 	/**
