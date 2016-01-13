@@ -122,6 +122,11 @@
 						 <option value="others" selected="selected">{l s='Other categories' mod='mercadopagobr'}</option>
 					</select>	
 				</div>
+				<br/>
+				<label>{l s='Notification URL:' mod='mercadopagobr'}</label>
+				<div>{$notification_url|escape:'javascript'}</div>
+
+				<br />					
 		</fieldset>
 		<fieldset>
 			<legend>
@@ -144,7 +149,7 @@
 			<div class="">
 				<input type="text" size="33" name="MERCADOPAGO_CREDITCARD_BANNER" value="{$creditcard_banner|escape:'htmlall'}" />
 			</div>
-			<br />
+			<br />		
 		</fieldset>
 		<fieldset>
 			<legend>
