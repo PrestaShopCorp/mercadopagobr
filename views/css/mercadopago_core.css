@@ -50,13 +50,25 @@
 	height: 845px;
 }
 
+.mp-module .MLM {
+	width: 670px; 
+	height: 670px;
+}
+
 .mp-module p {
 	color: black;
 	font-size: 15px;	
 	font-weight: normal;
 }
 
-.mp-form h4 {
+.mp-module .label-checkout {
+	color: black;
+	font-size: 15px;	
+	font-weight: 700;
+	
+}
+    
+.mp-module .mp-form h4 {
 	font-weight: bold;
 	font-size: 22px;
 	color: #333333;

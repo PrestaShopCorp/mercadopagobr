@@ -33,16 +33,22 @@
 			</br>
 			</br>
 			<h5>
-				{l s='Card holder name: ' mod='mercadopagobr'}
-				{$card_holder_name|escape:'htmlall'}</br>
-				{l s='Credit card: ' mod='mercadopagobr'}
-				{$four_digits|escape:'htmlall'}</br>
-				{l s='Payment method: ' mod='mercadopagobr'}
-				{$payment_method_id|escape:'htmlall'}</br>
-				{if $expiration_date != null}
-					{l s='Expiration date: ' mod='mercadopagobr'}
-					{$expiration_date|escape:'htmlall'}</br>
+
+				{if $card_holder_name != null}
+					{l s='Card holder name: ' mod='mercadopagobr'}
+					{$card_holder_name|escape:'htmlall'}</br>
 				{/if}
+				
+				{if $four_digits != null}
+					{l s='Credit card: ' mod='mercadopagobr'}
+					{$four_digits|escape:'htmlall'}</br>
+				{/if}
+
+				{if $payment_method_id != null}
+					{l s='Payment method: ' mod='mercadopagobr'}
+					{$payment_method_id|escape:'htmlall'}</br>
+				{/if}
+
 				{l s='Amount: ' mod='mercadopagobr'}
 				{$amount|escape:'htmlall'}</br>
 				{if $installments != null}
