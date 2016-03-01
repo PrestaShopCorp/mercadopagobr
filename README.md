@@ -1,4 +1,4 @@
-# PrestaShop - Mercadopago Module (1.5.x -  1.6.x)
+# PrestaShop - MercadoPago Module (1.5.x -  1.6.x)
 *Available only for Brazil*
 
 <br />
