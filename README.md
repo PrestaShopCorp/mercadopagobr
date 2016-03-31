@@ -1,4 +1,4 @@
-# PrestaShop - Mercadopago Module (1.5.x -  1.6.x)
+# PrestaShop - MercadoPago Module (1.5.x -  1.6.x)
 *Available only for Brazil*
 
 <br />
@@ -40,9 +40,8 @@ window types (i.e. redirect, iframe, modal, blank and popup). Customization is n
 
 Get your **CLIENT_ID** and **CLIENT_SECRET** at:
 
-	Brazil: https://www.mercadopago.com/mlb/ferramentas/aplicacoes
+	https://www.mercadopago.com/mlb/ferramentas/aplicacoes
 
-To generate a **PUBLIC_KEY**:
+Get your **PUBLIC_KEY** at:
 
-	Send an email to developers@mercadopago.com.br passing your CLIENT_ID asking for a PUBLIC_KEY 
-	for Prestashop
+	https://www.mercadopago.com/mlb/account/credentials
