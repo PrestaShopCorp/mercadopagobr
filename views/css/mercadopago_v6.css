@@ -24,6 +24,15 @@
 */
 
 @media all and (min-width: 600px) {
+	.mp-form-bol {
+		border: 1px solid #d6d4d4;
+		border-radius: 4px;
+		padding: 10px;
+		width: 745px;
+		background: white;
+		margin-bottom: 20px;
+	}
+
 	.mp-form {
 		border: 1px solid #d6d4d4;
 		border-radius: 4px;
@@ -33,20 +42,61 @@
 		margin-bottom: 20px;
 	}
 
+	.mp-form-custom {
+		border: 1px solid #d6d4d4;
+		border-radius: 4px;
+		padding: 10px;
+		width: 570px;
+		background: white;
+		margin-bottom: 20px;
+	}
+
+	.mp-form-boleto {
+		border: 1px solid #d6d4d4;
+		border-radius: 4px;
+		padding: 10px;
+		width: 570px;
+		height: 100px;
+		background: white;
+		margin-bottom: 20px;
+	}
 	.mp-form .col label {
 		width: 180px;
 		text-align: right;
-		font: 600 12px/16px "Open Sans", sans-serif;
+		font: 13px/16px Arial,Helvetica,"Nimbus Sans L",sans-serif;
+		font-weight: 700;
+	}
+
+	.mp-form .col label {
+		width: 180px;
+		text-align: right;
+		font:12px/16px "Open Sans", sans-serif;	
+		font-weight: 700;
+	}	
+
+	.mp-form-custom .col label {
+		width: 180px;
+		text-align: right;
+		font: 13px/16px Arial,Helvetica,"Nimbus Sans L",sans-serif;
+		font-weight: 700;
 	}
 
 	.mp-form #form-pagar-mp {
-		margin-left: 30px;
+		margin-left: 20px;
+	}
+
+	.mp-form-custom #form-pagar-mp {
+		margin-left: 20px;
 	}
 
 	.mp-module .ch-btn-big, .mp-module .ch-btn-big:focus {
 		float: right;
-		margin-right: 165px;
-		padding: 6px 12px;
+		margin-right: 155px;
+		padding: 6px 24px;
+	}
+
+	.mp-module .es-button {
+		padding: 6px 48px!important;
 	}
 
 	.mp-module .col-bottom {
@@ -81,36 +131,50 @@
 		width: 80px;
 		height: 20px;
 	}
-
+	
+	.mp-module .logo_cupom {
+		width: 500px;
+		height: 70px;
+	}
+	
 	.mp-module .poweredby {
 		margin-left: 30px;
 		color: black;
 		font: 600 10px/14px "Open Sans", sans-serif;
 	}
-
 	.mp-module .small-select {
-		width: 88px;
+		width: 97px;
 		height: 30px;
 		background: white;
 		font: 600 12px/16px "Open Sans", sans-serif;
 	}
 
 	.mp-module #id-card-number {
-		width: 190px;
+		width: 210px;
 		padding-right: 35px;
 	}
 
 	.mp-module #id-card-holder-name {
-		width: 190px;
+		width: 210px;
 	}
 
-	.mp-module #id-installments {
-		width: 190px;
+	.mp-module #id-installments, .mp-module #id-issuers-options {
+		width: 210px;
 		height: 30px;
 		background: white;
 		font: 600 12px/16px "Open Sans", sans-serif;
 	}
-
+	
+	.mp-module .document-type {
+		width: 92 px;
+		height: 30px;
+		background: white;
+		font: 600 12px/16px "Open Sans", sans-serif;
+	}
+	
+	.mp-module #docType {
+		width: 95px;
+	}
 	.mp-module #id-doc-number {
 		width: 120px;
 	}
@@ -130,6 +194,11 @@
 		color: black;
 		bottom: 50%;
 		left: 545px;
+	}
+
+	.mp-module .mp-offline-banner {
+		margin-bottom: 9px;
+  		margin-left: 3px;
 	}
 
 	.mp-module .standard {
@@ -172,7 +241,7 @@
 		border: 1px solid #d6d4d4;
 		border-radius: 4px;
 		padding: 10px;
-		min-width: 300px;
+		width: 570px;
 		background: white;
 		margin-bottom: 20px;
 	}
@@ -221,12 +290,6 @@
 	.mp-module .logo {
 		width: 50px;
 		height: 14px;
-	}
-
-	.mp-module .poweredby {
-		color: black;
-		font: 600 7px/11px "Open Sans", sans-serif;
-		margin-left: 1px;
 	}
 
 	.mp-module #id-card-number {
@@ -306,7 +369,7 @@
 	width: 50px;
 }
 
-.mp-module #id-create-boleto {
+.mp-module .create-boleto {
 	display: none;
 }
 
@@ -324,3 +387,21 @@
 	font-size: 10px;
 	display: inline;
 }
+
+.ch-form-hint {
+    color: #999;
+    font-size: 12px;
+    line-height: 12px;
+    margin-left: 90px;
+}
+
+.ch-form-row.discount-link {
+    background: url(https://secure.mlstatic.com/checkout-resources/resourses/assets/icon-discount.bd9c2205796f.png) no-repeat;
+    line-height: 25px;
+    padding-left: 44px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
