@@ -91,7 +91,7 @@ During the sandbox mode tests, you can operate over HTTP, but for homologation y
 
 3. Search by **MercadoPago** and click install. <br />
 You will receive the following message: " Module(s) installed successfully."
-  ![Installation](https://raw.github.com/mercadopago/cart-prestashop/master/README.img/Installation.JPG)<br />
+  ![Installation](https://raw.github.com/mercadopago/cart-prestashop/master/views/img/Installation.JPG)<br />
 
 4. Set your **CLIENT_ID** and **CLIENT_SECRET**, or **PUBLIC_KEY** and **ACCESS_TOKEN** (depending on which module you're using). 
 
@@ -127,16 +127,16 @@ Your notification URL will be automatically send with your payment to our API.
 
 **Credit Card Customized Checkout**
 <br/>
-![pictures_features](https://raw.github.com/mercadopago/cart-prestashop/master/README.img/Checkout.jpg)
+![pictures_features](https://raw.github.com/mercadopago/cart-prestashop/master/views/img/Checkout.jpg)
 
 **Print Ticket**
 <br/>
-![pictures_features](https://raw.github.com/mercadopago/cart-prestashop/master/README.img/Ticket.jpg)
+![pictures_features](https://raw.github.com/mercadopago/cart-prestashop/master/views/img/Ticket.jpg)
 
 **Customer Card** <strong>Prestashop v1.6.x</strong>
 <br/>
-![pictures_features](https://raw.github.com/mercadopago/cart-prestashop/master/README.img/CustomerCard.jpg)
+![pictures_features](https://raw.github.com/mercadopago/cart-prestashop/master/views/img/CustomerCard.jpg)
 
 **Discount Coupon** <strong>Prestashop v1.6.x</strong>
 <br/>
-![pictures_features](https://raw.github.com/mercadopago/cart-prestashop/master/README.img/Coupon.jpg)
+![pictures_features](https://raw.github.com/mercadopago/cart-prestashop/master/views/img/Coupon.jpg)
