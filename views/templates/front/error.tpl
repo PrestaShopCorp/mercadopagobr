@@ -50,12 +50,12 @@
 
 	{elseif $status_detail eq 'cc_rejected_call_for_authorize'}
 		{l s='You must authorize to ' mod='mercadopagobr'}
-		{$payment_method_id|escape:'htmlall'}
+		{$payment_method_id|escape:'htmlall':'UTF-8'}
 		{l s=' the payment to MercadoPago' mod='mercadopagobr'}
 
 	{elseif $status_detail eq 'cc_rejected_card_disabled'}
 		{l s='Call ' mod='mercadopagobr'}
-		{$payment_method_id|escape:'htmlall'}
+		{$payment_method_id|escape:'htmlall':'UTF-8'}
 		{l s=' to activate your card. The phone is on the back of your card.' mod='mercadopagobr'}
 
 	{elseif $status_detail eq 'cc_rejected_card_error'}
@@ -69,46 +69,46 @@
 
 	{elseif $status_detail eq 'cc_rejected_insufficient_amount'}
 		{l s='Your ' mod='mercadopagobr'}
-		{$payment_method_id|escape:'htmlall'}
+		{$payment_method_id|escape:'htmlall':'UTF-8'}
 		{l s=' do not have sufficient funds.' mod='mercadopagobr'} 
 
 	{elseif $status_detail eq 'cc_rejected_invalid_installments'}
-		{$payment_method_id|escape:'htmlall'}
+		{$payment_method_id|escape:'htmlall':'UTF-8'}
 		{l s=' does not process payments in ' mod='mercadopagobr'}
-		{$installments|escape:'htmlall'}
+		{$installments|escape:'htmlall':'UTF-8'}
 		{l s=' installments.' mod='mercadopagobr'}
 
 	{elseif $status_detail eq 'cc_rejected_max_attempts'}
 		{l s='You have got to the limit of allowed attempts. Choose another card or another payment method.' mod='mercadopagobr'}
 
 	{elseif $status_detail eq 'cc_rejected_other_reason'}
-		{$payment_method_id|escape:'htmlall'}
+		{$payment_method_id|escape:'htmlall':'UTF-8'}
 		{l s=' did not process the payment.' mod='mercadopagobr'}
 	{/if}
 	{if $valid_user}
 	</br>
 		{l s='Card holder name: ' mod='mercadopagobr'}
-		{$card_holder_name|escape:'htmlall'}</br>
+		{$card_holder_name|escape:'htmlall':'UTF-8'}</br>
 		{l s='Credit card: ' mod='mercadopagobr'}
-		**** **** **** {$four_digits|escape:'htmlall'}</br>
+		**** **** **** {$four_digits|escape:'htmlall':'UTF-8'}</br>
 		{l s='Payment method: ' mod='mercadopagobr'}
-		{$payment_method_id|escape:'htmlall'}</br>
+		{$payment_method_id|escape:'htmlall':'UTF-8'}</br>
 		{if $expiration_date != null}
 			{l s='Expiration date: ' mod='mercadopagobr'}
-			{$expiration_date|escape:'htmlall'}</br>
+			{$expiration_date|escape:'htmlall':'UTF-8'}</br>
 		{/if}
 		{l s='Amount: ' mod='mercadopagobr'}
-		{$amount|escape:'htmlall'}</br>
+		{$amount|escape:'htmlall':'UTF-8'}</br>
 		{if $installments != null}
 			{l s='Installments: ' mod='mercadopagobr'}
-			{$installments|escape:'htmlall'}</br>
+			{$installments|escape:'htmlall':'UTF-8'}</br>
 		{/if}
 		{l s='Payment id (MercadoPago): ' mod='mercadopagobr'}
-		{$payment_id|escape:'htmlall'}</br>
+		{$payment_id|escape:'htmlall':'UTF-8'}</br>
 
 		{if $message != null}
 			<span>{l s='Technical Error: ' mod='mercadopagobr'}</span>
-			{$message|escape:'htmlall'}</br>
+			{$message|escape:'htmlall':'UTF-8'}</br>
 		{/if}	
 
 		{if $version == 6}
@@ -133,14 +133,14 @@
 
 <script type="text/javascript">
 	$("#go-back").click(function () {
-		if ("{$one_step|escape:'htmlall'}" == 1)
+		if ("{$one_step|escape:'htmlall':'UTF-8'}" == 1)
 			window.location = document.referrer;
 		else
 			window.history.go(-1);
 	});
 
 	$(document).ready(function(){ 
-		if ("{$version|escape:'htmlall'}" == 5) {
+		if ("{$version|escape:'htmlall':'UTF-8'}" == 5) {
 			$(".error").css("width", "739px");
 			$("#center_column").css("width", "758px");
 		}

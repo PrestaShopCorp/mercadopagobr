@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2015 PrestaShop
+ * 2007-2015 PrestaShop.
  *
  * NOTICE OF LICENSE
  *
@@ -18,28 +18,42 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- *  @author    ricardobrito
+ *  @author    MERCADOPAGO.COM REPRESENTA&Ccedil;&Otilde;ES LTDA.
  *  @copyright Copyright (c) MercadoPago [http://www.mercadopago.com]
  *  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of MercadoPago
  */
-include_once (dirname ( __FILE__ ) . '/../../mercadopago.php');
-class MercadoPagoBrNotificationModuleFrontController extends ModuleFrontController {
-    public function initContent() {
-        parent::initContent ();
-        $this->displayAjax ();
+
+include_once dirname(__FILE__) . '/../../mercadopagobr.php';
+
+class MercadoPagoBrNotificationModuleFrontController extends ModuleFrontController
+{
+
+    public function initContent()
+    {
+        parent::initContent();
+        $this->displayAjax();
     }
-    public function displayAjax() {
-        if (Configuration::get ( 'MERCADOPAGO_LOG' ) == 'true') {
-            PrestaShopLogger::addLog ( 'Debug Mode :: displayAjax - topic = ' . Tools::getValue ( 'topic' ), MP_SDK::INFO, 0 );
-            PrestaShopLogger::addLog ( 'Debug Mode :: displayAjax - id = ' . Tools::getValue ( 'id' ), MP_SDK::INFO, 0 );
-            PrestaShopLogger::addLog ( 'Debug Mode :: displayAjax - checkout = ' . Tools::getValue ( 'checkout' ), MP_SDK::INFO, 0 );
+
+    public function displayAjax()
+    {
+        if (Configuration::get('MERCADOPAGO_LOG') == 'true') {
+             UtilMercadoPago::logMensagem('Debug Mode :: displayAjax - topic = ' . Tools::getValue('topic'), MP_SDK::INFO);
+             UtilMercadoPago::logMensagem('Debug Mode :: displayAjax - id = ' . Tools::getValue('id'), MP_SDK::INFO);
+             UtilMercadoPago::logMensagem('Debug Mode :: displayAjax - checkout = ' . Tools::getValue('checkout'), MP_SDK::INFO);
         }
         
-        if (Tools::getValue ( 'topic' ) && Tools::getValue ( 'id' )) {
-            $mercadopago = new MercadoPago ();
-            $mercadopago->listenIPN ( Tools::getValue ( 'checkout' ), Tools::getValue ( 'topic' ), Tools::getValue ( 'id' ) );
+        if (Tools::getValue('checkout') && Tools::getValue('data_id') || Tools::getValue('id')) {
+            $mercadopago = $this->module;
+            if (Tools::getValue('checkout') == "custom") {
+                $mercadopago->listenIPN(
+                    Tools::getValue('checkout'),
+                    Tools::getValue('type'),
+                    Tools::getValue('data_id')
+                );
+            } else {
+                $mercadopago->listenIPN(Tools::getValue('checkout'), Tools::getValue('topic'), Tools::getValue('id'));
+            }
         }
     }
 }
-?>
