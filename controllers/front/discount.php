@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2015 PrestaShop
+ * 2007-2015 PrestaShop.
  *
  * NOTICE OF LICENSE
  *
@@ -23,38 +23,43 @@
  *  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of MercadoPago
  */
-class MercadoPagoBrDiscountModuleFrontController extends ModuleFrontController {
-    public function initContent() {
-        parent::initContent ();
-        $this->displayAjax ();
+
+include_once dirname(__FILE__) . '/../../mercadopagobr.php';
+class MercadoPagoBrDiscountModuleFrontController extends ModuleFrontController
+{
+
+    public function initContent()
+    {
+        parent::initContent();
+        $this->displayAjax();
     }
-    public function displayAjax() {
-        if (isset ( $_REQUEST ['acao'] )) {
-            $cart = Context::getContext ()->cart;
-            $response = array (
-                    "status" => 200,
-                     "valor" => $cart->getOrderTotal ( true, Cart::BOTH )
+
+    public function displayAjax()
+    {
+        if (isset($_REQUEST['acao'])) {
+            $cart = Context::getContext()->cart;
+            $response = array(
+                'status' => 200,
+                'valor' => $cart->getOrderTotal(true, Cart::BOTH)
             );
         } else {
             
-            if (isset ( $_REQUEST ['$coupon_id'] ) && $_REQUEST ['$coupon_id'] != "") {
-                $coupon_id = $_REQUEST ['$coupon_id'];
+            if (isset($_REQUEST['coupon_id']) && $_REQUEST['coupon_id'] != '') {
+                $coupon_id = $_REQUEST['coupon_id'];
                 $mercadopago = $this->module;
-                $response = $mercadopago->validCoupon ( $coupon_id );
+                $response = $mercadopago->validCoupon($coupon_id);
             } else {
-                $response = array (
-                        "status" => 400,
-                        "response" => array (
-                                "error" => "invalid_id",
-                                "message" => "invalid id" 
-                        ) 
+                $response = array(
+                    'status' => 400,
+                    'response' => array(
+                        'error' => 'invalid_id',
+                        'message' => 'invalid id'
+                    )
                 );
             }
         }
-        header ( 'Content-Type: application/json' );
-        echo json_encode ( $response );
-        exit ();
+        header('Content-Type: application/json');
+        echo Tools::jsonEncode($response);
+        exit();
     }
 }
-
-?>

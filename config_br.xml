@@ -2,8 +2,8 @@
 <module>
 	<name>mercadopagobr</name>
 	<displayName><![CDATA[MercadoPago]]></displayName>
-	<version><![CDATA[3.2.0]]></version>
-	<description><![CDATA[Receba pagamentos via MercadoPago de cart&otilde;es de cr&eacute;ditos e boletos utlizando nosso checkout transparente ou standard.]]></description>
+	<version><![CDATA[3.2.2]]></version>
+	<description><![CDATA[Receba pagamentos de cart&atilde;o de cr&eacute;ditos e boletos atr&aacute;ves do checkout transparente e standard via o Mercado Pago.]]></description>
 	<author><![CDATA[MERCADOPAGO.COM REPRESENTA&Ccedil;&Otilde;ES LTDA.]]></author>
 	<tab><![CDATA[payments_gateways]]></tab>
 	<confirmUninstall><![CDATA[Você tem certeza que deseja desinstalar MercadoPago?]]></confirmUninstall>
