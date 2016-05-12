@@ -3,8 +3,8 @@
 	<name>mercadopagobr</name>
 	<displayName><![CDATA[MercadoPagoBr]]></displayName>
 	<version><![CDATA[3.2.2]]></version>
-	<description><![CDATA[Receba pagamentos com cartão de créditos e boletos atráves do Mercado Pago]]></description>
-	<author><![CDATA[MERCADOPAGO.COM REPRESENTA&Ccedil;&Otilde;ES LTDA.]]></author>
+	<description><![CDATA[Receba pagamentos de cartão de créditos e boletos atráves do checkout transparente e standard via o Mercado Pago.]]></description>
+	<author><![CDATA[MERCADOPAGO.COM REPRESENTAÇÕES LTDA.]]></author>
 	<tab><![CDATA[payments_gateways]]></tab>
 	<confirmUninstall>Certeza que deseja desinstalar?</confirmUninstall>
 	<is_configurable>1</is_configurable>

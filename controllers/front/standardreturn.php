@@ -18,14 +18,14 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- *  @author    ricardobrito
+ *  @author    MercadoPago
  *  @copyright Copyright (c) MercadoPago [http://www.mercadopago.com]
  *  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of MercadoPago
  */
 
 include_once dirname(__FILE__) . '/../../mercadopagobr.php';
-
+include_once dirname(__FILE__) . '/../../includes/MPApi.php';
 class MercadoPagoBrStandardReturnModuleFrontController extends ModuleFrontController
 {
 
@@ -109,7 +109,7 @@ class MercadoPagoBrStandardReturnModuleFrontController extends ModuleFrontContro
                             $cart->id_currency,
                             false,
                             $cart->secure_key
-                       );
+                        );
                     }
                     $order_id = ! $order_id ? Order::getOrderByCartId($cart->id) : $order_id;
                     $order = new Order($order_id);
@@ -139,8 +139,11 @@ class MercadoPagoBrStandardReturnModuleFrontController extends ModuleFrontContro
                 }
             }
         } else {
-            UtilMercadoPago::logMensagem('MercadoPagoStandardReturnModuleFrontController::initContent = ' .
-                'External reference is not set. Order placement has failed.', MP_SDK::ERROR);
+            UtilMercadoPago::logMensagem(
+                'MercadoPagoStandardReturnModuleFrontController::initContent = ' .
+                'External reference is not set. Order placement has failed.',
+                MPApi::ERROR
+            );
         }
     }
 }
